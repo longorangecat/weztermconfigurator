@@ -90,7 +90,7 @@ func Emit(s *state.State) (string, error) {
 		}
 	}
 
- 	out := b.String()
+	out := b.String()
 	if s.CustomLua != "" {
 		out += "\n-- Custom Lua\n" + s.CustomLua + "\n\n"
 	}

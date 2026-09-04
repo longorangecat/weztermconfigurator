@@ -89,14 +89,24 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	luaToggle := widget.NewButton("Lua", nil)
 	buttons := container.NewHBox(luaToggle, resetBtn)
 
+	bar := canvas.NewRectangle(mustHex(colBorder))
+	bar.SetMinSize(fyne.NewSize(4, 4))
+
 	refresh := func() {
 		if a.isSet(o) {
 			nameLabel.Importance = widget.HighImportance
 			resetBtn.Show()
+			bar.FillColor = mustHex(colPrimary)
+		} else if o.Deprecated != "" {
+			nameLabel.Importance = widget.MediumImportance
+			resetBtn.Hide()
+			bar.FillColor = mustHex(colDanger)
 		} else {
 			nameLabel.Importance = widget.MediumImportance
 			resetBtn.Hide()
+			bar.FillColor = mustHex(colBorder)
 		}
+		bar.Refresh()
 		nameLabel.Refresh()
 		a.refreshNav()
 	}
@@ -181,11 +191,9 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	}
 	refresh()
 
-	r.obj = container.NewVBox(
-		container.NewBorder(nil, nil, nameAndBadges, buttons),
-		helpLabel,
-		editorBox,
-		widget.NewSeparator(),
+	nameRow := container.NewBorder(nil, nil, nameAndBadges, buttons)
+	r.obj = container.NewBorder(nil, nil, bar, nil,
+		container.NewVBox(nameRow, helpLabel, editorBox),
 	)
 	return r
 }

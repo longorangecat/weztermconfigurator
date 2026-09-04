@@ -243,8 +243,8 @@ func TestEmitFeatures(t *testing.T) {
 	s := state.New("linux")
 	s.Values["font_size"] = 13.5
 	s.Features = map[string]map[string]string{
-		"opacity_toggle": {"__on": "1", "levels": "1.0,0.75,0.5", "key": "CTRL|SHIFT|O"},
-		"quick_select_pack": {"__on": "1", "git_sha": "1", "ipv4": "1"},
+		"opacity_toggle":     {"__on": "1", "levels": "1.0,0.75,0.5", "key": "CTRL|SHIFT|O"},
+		"quick_select_pack":  {"__on": "1", "git_sha": "1", "ipv4": "1"},
 		"gpu_adapter_select": {"__on": "1", "backend": "Vulkan"},
 	}
 	out, err := Emit(s)

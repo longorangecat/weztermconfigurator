@@ -10,8 +10,11 @@ import (
 	"strings"
 	"time"
 
+	"image/color"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/driver/desktop"
@@ -76,6 +79,7 @@ func targetToPlatform(t string) string {
 // Run creates the window and starts the app loop.
 func Run() {
 	a := app.NewWithID("io.github.wadhah.weztermconfigurator")
+	a.Settings().SetTheme(newAppTheme())
 	w := a.NewWindow("WezTerm Configurator")
 	w.Resize(fyne.NewSize(
 		float32(a.Preferences().FloatWithFallback("win.w", 1280)),
@@ -112,6 +116,7 @@ func Run() {
 	}
 
 	w.SetContent(a2.buildUI())
+	a2.currentCat = catalog.Categories[0]
 	a2.rebuildPage()
 	a2.refreshNav()
 
@@ -151,9 +156,11 @@ func (a *appState) persistWindowSize() {
 	a.app.Preferences().SetFloat("win.w", float64(a.win.Canvas().Size().Width))
 	a.app.Preferences().SetFloat("win.h", float64(a.win.Canvas().Size().Height))
 }
-
 func (a *appState) buildUI() fyne.CanvasObject {
-	// Toolbar
+	// ---- Top bar: brand + actions on a surface strip
+	brand := widget.NewLabelWithStyle("⌘ WezTerm Configurator", fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
+	brand.Importance = widget.HighImportance
+
 	toolbar := widget.NewToolbar(
 		widget.NewToolbarAction(theme.DocumentSaveIcon(), func() { a.save() }),
 		widget.NewToolbarAction(theme.DocumentIcon(), a.previewLua),
@@ -173,18 +180,21 @@ func (a *appState) buildUI() fyne.CanvasObject {
 		}
 		a.setTarget(platformToTarget(label))
 	})
+	platformSelect.PlaceHolder = "Target"
 	platformSelect.Selected = targetToPlatform(a.target)
-	showAllCheck := widget.NewCheck("Show all platforms", func(on bool) {
+	showAllCheck := widget.NewCheck("All platforms", func(on bool) {
 		a.showAll = on
 		a.rebuildPage()
 	})
-	rightControls := container.NewHBox(widget.NewLabel("Target platform"), platformSelect, showAllCheck)
+	rightControls := container.NewHBox(widget.NewLabelWithStyle("Target", fyne.TextAlignTrailing, fyne.TextStyle{}), platformSelect, showAllCheck)
 
-	topBar := container.NewBorder(nil, nil, toolbar, rightControls)
+	topBar := container.NewBorder(nil, nil,
+		container.NewHBox(brand, widget.NewLabel("")),
+		rightControls, toolbar)
 
-	// Nav: search + category list
+	// ---- Nav: search + grouped categories
 	searchEntry := widget.NewEntry()
-	searchEntry.PlaceHolder = "Search options…"
+	searchEntry.PlaceHolder = "🔍  Search options…"
 	searchEntry.OnChanged = func(q string) {
 		a.searchQuery = strings.ToLower(q)
 		a.rebuildPage()
@@ -193,7 +203,9 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	cats := append(append([]string{}, catalog.Categories...), catalog.PluginsCategory, catalog.FeaturesCategory, catalog.CustomLuaCategory)
 	a.nav = widget.NewList(
 		func() int { return len(cats) },
-		func() fyne.CanvasObject { return widget.NewLabel("") },
+		func() fyne.CanvasObject {
+			return container.NewHBox(widget.NewLabel(""), widget.NewLabel(""))
+		},
 		func(id widget.ListItemID, o fyne.CanvasObject) {
 			c := cats[id]
 			n := 0
@@ -216,7 +228,23 @@ func (a *appState) buildUI() fyne.CanvasObject {
 			case a.st.CustomLua != "":
 				n = 1
 			}
-			o.(*widget.Label).SetText(fmt.Sprintf("%s (%d)", c, n))
+			box := o.(*fyne.Container).Objects
+			name := box[0].(*widget.Label)
+			count := box[1].(*widget.Label)
+			name.SetText(c)
+			if c == catalog.PluginsCategory || c == catalog.FeaturesCategory || c == catalog.CustomLuaCategory {
+				name.TextStyle = fyne.TextStyle{Bold: true}
+			} else {
+				name.TextStyle = fyne.TextStyle{}
+			}
+			count.TextStyle = fyne.TextStyle{Monospace: true}
+			if n > 0 {
+				count.Importance = widget.HighImportance
+				count.SetText(" " + fmt.Sprintf("%d ●", n))
+			} else {
+				count.Importance = widget.LowImportance
+				count.SetText("")
+			}
 		},
 	)
 	a.nav.OnSelected = func(id widget.ListItemID) {
@@ -226,17 +254,19 @@ func (a *appState) buildUI() fyne.CanvasObject {
 
 	nav := container.NewBorder(searchEntry, nil, nil, nil, a.nav)
 
-	// Content scroll
+	// ---- Content
 	a.page = container.NewVBox()
 	a.pageScroll = container.NewVScroll(a.page)
 
-	// Status bar
-	a.pathLabel = widget.NewLabel("Config: " + a.paths.Config)
+	// ---- Status bar
+	a.pathLabel = widget.NewLabel("⚙  " + a.paths.Config)
+	a.pathLabel.TextStyle = fyne.TextStyle{Monospace: true}
+	a.pathLabel.Importance = widget.LowImportance
 	a.status = widget.NewLabel("")
 	statusBar := container.NewBorder(nil, nil, a.pathLabel, a.status)
 
 	split := container.NewHSplit(nav, a.pageScroll)
-	split.SetOffset(0.22)
+	split.SetOffset(0.24)
 
 	return container.NewBorder(topBar, statusBar, nil, nil, split)
 }
@@ -273,7 +303,8 @@ func (a *appState) refreshNav() {
 
 func (a *appState) markDirty() {
 	a.dirty = true
-	a.status.SetText("Unsaved changes")
+	a.status.Importance = widget.WarningImportance
+	a.status.SetText("●  Unsaved changes")
 	a.refreshNav()
 }
 
@@ -281,47 +312,41 @@ func (a *appState) rebuildPage() {
 	rows := []fyne.CanvasObject{}
 	a.rows = nil
 
+	pageHeader := func(title, sub string) {
+		rows = append(rows, heading(title))
+		if sub != "" {
+			h := widget.NewLabel(sub)
+			h.Wrapping = fyne.TextWrapWord
+			h.Importance = widget.LowImportance
+			rows = append(rows, h)
+		}
+		rows = append(rows, spacer(6))
+	}
+
 	switch {
 	case a.currentCat == catalog.PluginsCategory:
-		rows = append(rows, heading("Plugins"))
-		h := widget.NewLabel("Plugins are git repos loaded with wezterm.plugin.require (WezTerm 20230320 or newer). URLs must be https:// or file://. Updates: run wezterm.plugin.update_all() in the debug overlay, then reload the config. Clones live in ~/.local/share/wezterm/plugins.")
-		h.Wrapping = fyne.TextWrapWord
-		h.Importance = widget.LowImportance
-		rows = append(rows, h)
+		pageHeader("Plugins", "Plugins are git repos loaded with wezterm.plugin.require (WezTerm 20230320 or newer). URLs must be https:// or file://. Updates: run wezterm.plugin.update_all() in the debug overlay, then reload the config. Clones live in ~/.local/share/wezterm/plugins.")
 		rows = append(rows, a.pluginsEditor()...)
 	case a.currentCat == catalog.FeaturesCategory:
-		rows = append(rows, heading("Features"))
-		h := widget.NewLabel("One-click community Lua features. Tick a card, adjust its parameters, and the generated Lua is emitted before your Custom Lua. Sources are linked per feature.")
-		h.Wrapping = fyne.TextWrapWord
-		h.Importance = widget.LowImportance
-		rows = append(rows, h)
+		pageHeader("Features", "One-click community Lua features. Tick a card, adjust its parameters, and the generated Lua is emitted before your Custom Lua. Sources are linked per feature.")
 		rows = append(rows, a.featuresEditor()...)
 	case a.searchQuery != "":
-		rows = append(rows, heading("Search: "+a.searchQuery))
+		rows = append(rows, heading("Search results"))
+		found := 0
 		for i := range catalog.Options {
 			o := &catalog.Options[i]
 			if strings.Contains(strings.ToLower(o.Name), a.searchQuery) ||
 				strings.Contains(strings.ToLower(o.Doc), a.searchQuery) {
 				rows = append(rows, a.makeRow(o))
+				found++
 			}
 		}
-
-	case a.currentCat == catalog.CustomLuaCategory || a.currentCat == "":
-		rows = append(rows, heading(catalog.CustomLuaCategory))
-		help := widget.NewLabel("Lua appended verbatim before `return config`; use it for event handlers and anything the form cannot express.")
-		help.Wrapping = fyne.TextWrapWord
-		rows = append(rows, help)
-		e := widget.NewMultiLineEntry()
-		e.TextStyle = fyne.TextStyle{Monospace: true}
-		e.SetMinRowsVisible(20)
-		e.SetText(a.st.CustomLua)
-		e.OnChanged = func(s string) {
-			a.st.CustomLua = s
-			a.markDirty()
+		if found == 0 {
+			rows = append(rows, emptyHint("Nothing matches “"+a.searchQuery+"”. Try a shorter query."))
 		}
-		rows = append(rows, e)
 	default:
 		rows = append(rows, heading(a.currentCat))
+		shown := 0
 		for i := range catalog.Options {
 			o := &catalog.Options[i]
 			if o.Category != a.currentCat {
@@ -331,15 +356,39 @@ func (a *appState) rebuildPage() {
 				continue
 			}
 			rows = append(rows, a.makeRow(o))
+			shown++
+		}
+		if shown == 0 {
+			rows = append(rows, emptyHint("No options in this category for "+targetToPlatform(a.target)+". Enable “All platforms” to see them."))
 		}
 	}
 
+	rows = append(rows, spacer(24))
 	a.page.Objects = rows
 	a.page.Refresh()
 }
 
+// spacer returns a fixed-height transparent filler.
+func spacer(h int) fyne.CanvasObject {
+	r := canvas.NewRectangle(color.Transparent)
+	r.SetMinSize(fyne.NewSize(0, float32(h)))
+	return r
+}
+
+// emptyHint renders a friendly message when a page has no content.
+func emptyHint(msg string) fyne.CanvasObject {
+	l := widget.NewLabel("•  " + msg)
+	l.Wrapping = fyne.TextWrapWord
+	l.Importance = widget.WarningImportance
+	return l
+}
+
 func heading(text string) fyne.CanvasObject {
-	return widget.NewLabelWithStyle(text, fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
+	title := widget.NewLabelWithStyle(text, fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
+	title.Importance = widget.HighImportance
+	underline := canvas.NewRectangle(mustHex(colPrimary))
+	underline.SetMinSize(fyne.NewSize(48, 3))
+	return container.NewVBox(title, underline, spacer(4))
 }
 
 func (a *appState) makeRow(o *catalog.Option) fyne.CanvasObject {
@@ -414,8 +463,8 @@ func (a *appState) writeFiles() {
 		dialog.ShowError(fmt.Errorf("writing %s: %w", a.paths.Config, err), a.win)
 		return
 	}
-	a.dirty = false
-	a.status.SetText("Saved " + time.Now().Format("15:04:05"))
+	a.status.Importance = widget.LowImportance
+	a.status.SetText("✓  Saved " + time.Now().Format("15:04:05"))
 	a.refreshNav()
 	a.wroteOK = true
 }
