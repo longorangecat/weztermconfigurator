@@ -312,7 +312,6 @@ func (a *appState) rebuildPage() {
 
 	a.page.Objects = rows
 	a.page.Refresh()
-	a.pageScroll.Scrolled(nil)
 }
 
 func heading(text string) fyne.CanvasObject {
