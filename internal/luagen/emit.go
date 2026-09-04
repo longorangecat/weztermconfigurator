@@ -69,7 +69,28 @@ func Emit(s *state.State) (string, error) {
 		b.WriteString("\n")
 	}
 
-	out := b.String()
+	if len(s.Features) > 0 {
+		var feat strings.Builder
+		for i := range catalog.Features {
+			f := &catalog.Features[i]
+			params, ok := s.Features[f.ID]
+			if !ok || !f.IsOn(params) {
+				continue
+			}
+			code := f.Emit(params)
+			if strings.TrimSpace(code) != "" {
+				feat.WriteString("-- " + f.Name + " (" + f.Source + ")\n")
+				feat.WriteString(code)
+				feat.WriteString("\n")
+			}
+		}
+		if feat.Len() > 0 {
+			b.WriteString("\n-- Features\n")
+			b.WriteString(feat.String())
+		}
+	}
+
+ 	out := b.String()
 	if s.CustomLua != "" {
 		out += "\n-- Custom Lua\n" + s.CustomLua + "\n\n"
 	}

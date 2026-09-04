@@ -238,3 +238,48 @@ func TestEmitPlugins(t *testing.T) {
 		t.Fatalf("plugins must come after option assignments:\n%s", out)
 	}
 }
+
+func TestEmitFeatures(t *testing.T) {
+	s := state.New("linux")
+	s.Values["font_size"] = 13.5
+	s.Features = map[string]map[string]string{
+		"opacity_toggle": {"__on": "1", "levels": "1.0,0.75,0.5", "key": "CTRL|SHIFT|O"},
+		"quick_select_pack": {"__on": "1", "git_sha": "1", "ipv4": "1"},
+		"gpu_adapter_select": {"__on": "1", "backend": "Vulkan"},
+	}
+	out, err := Emit(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := []string{
+		"\n-- Features\n",
+		"-- Opacity runtime toggle (",
+		"local opacity_levels = { 1.0, 0.75, 0.5, }",
+		"wezterm.action.EmitEvent('toggle-opacity')",
+		"config.quick_select_patterns",
+		"'[0-9a-f]{7,40}'",
+		"config.front_end = 'WebGpu'",
+		"wezterm.gui.enumerate_gpus()",
+	}
+	for _, w := range want {
+		if !strings.Contains(out, w) {
+			t.Fatalf("missing %q in:\n%s", w, out)
+		}
+	}
+	// Features come after options; custom lua still last.
+	if strings.Index(out, "-- Features") < strings.Index(out, "font_size") {
+		t.Fatalf("features must come after options")
+	}
+	s.CustomLua = "wezterm.on('x', function() end)"
+	out2, _ := Emit(s)
+	if strings.Index(out2, "-- Features") > strings.Index(out2, "-- Custom Lua") {
+		t.Fatalf("features must precede custom lua")
+	}
+	// Disabled feature emits nothing.
+	s2 := state.New("linux")
+	s2.Features = map[string]map[string]string{"theme_rotator": {}}
+	out3, _ := Emit(s2)
+	if strings.Contains(out3, "Theme rotator") {
+		t.Fatalf("disabled feature leaked:\n%s", out3)
+	}
+}

@@ -190,7 +190,7 @@ func (a *appState) buildUI() fyne.CanvasObject {
 		a.rebuildPage()
 	}
 
-	cats := append(append([]string{}, catalog.Categories...), catalog.PluginsCategory, catalog.CustomLuaCategory)
+	cats := append(append([]string{}, catalog.Categories...), catalog.PluginsCategory, catalog.FeaturesCategory, catalog.CustomLuaCategory)
 	a.nav = widget.NewList(
 		func() int { return len(cats) },
 		func() fyne.CanvasObject { return widget.NewLabel("") },
@@ -200,6 +200,12 @@ func (a *appState) buildUI() fyne.CanvasObject {
 			switch {
 			case c == catalog.PluginsCategory:
 				n = len(a.st.Plugins)
+			case c == catalog.FeaturesCategory:
+				for i := range catalog.Features {
+					if catalog.Features[i].IsOn(a.st.Features[catalog.Features[i].ID]) {
+						n++
+					}
+				}
 			case c != catalog.CustomLuaCategory:
 				for i := range catalog.Options {
 					o := &catalog.Options[i]
@@ -283,6 +289,13 @@ func (a *appState) rebuildPage() {
 		h.Importance = widget.LowImportance
 		rows = append(rows, h)
 		rows = append(rows, a.pluginsEditor()...)
+	case a.currentCat == catalog.FeaturesCategory:
+		rows = append(rows, heading("Features"))
+		h := widget.NewLabel("One-click community Lua features. Tick a card, adjust its parameters, and the generated Lua is emitted before your Custom Lua. Sources are linked per feature.")
+		h.Wrapping = fyne.TextWrapWord
+		h.Importance = widget.LowImportance
+		rows = append(rows, h)
+		rows = append(rows, a.featuresEditor()...)
 	case a.searchQuery != "":
 		rows = append(rows, heading("Search: "+a.searchQuery))
 		for i := range catalog.Options {

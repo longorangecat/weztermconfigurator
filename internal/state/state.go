@@ -26,6 +26,25 @@ type State struct {
 	Raw       map[string]string `json:"raw"`       // option → verbatim Lua expression; wins over Values
 	CustomLua string            `json:"custom_lua"`
 	Plugins   []Plugin          `json:"plugins,omitempty"`
+	Features  map[string]map[string]string `json:"features,omitempty"` // feature id → param name → verbatim Lua value
+}
+
+// FeatureParams returns the parameter map for id, creating it if absent.
+func (s *State) FeatureParams(id string) map[string]string {
+	if s.Features == nil {
+		s.Features = map[string]map[string]string{}
+	}
+	m, ok := s.Features[id]
+	if !ok {
+		m = map[string]string{}
+		s.Features[id] = m
+	}
+	return m
+}
+
+// DeleteFeature removes the feature and all its params.
+func (s *State) DeleteFeature(id string) {
+	delete(s.Features, id)
 }
 
 // Plugin is one wezterm.plugin.require entry. Emit produces
