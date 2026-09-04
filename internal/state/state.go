@@ -25,6 +25,17 @@ type State struct {
 	Values    map[string]any    `json:"values"`    // option → JSON value in the Lua-mirroring shape
 	Raw       map[string]string `json:"raw"`       // option → verbatim Lua expression; wins over Values
 	CustomLua string            `json:"custom_lua"`
+	Plugins   []Plugin          `json:"plugins,omitempty"`
+}
+
+// Plugin is one wezterm.plugin.require entry. Emit produces
+// `local <Var> = wezterm.plugin.require '<URL>'` followed (when Apply) by
+// `<Var>.apply_to_config(config<, Opts>)`.
+type Plugin struct {
+	URL   string `json:"url"`             // git URL, http(s):// or file:// only
+	Var   string `json:"var"`             // local variable name (Lua identifier)
+	Apply bool   `json:"apply"`           // call apply_to_config(config) after require
+	Opts  string `json:"opts,omitempty"`  // verbatim Lua table passed as 2nd arg
 }
 
 // New returns an empty state for the given target OS.

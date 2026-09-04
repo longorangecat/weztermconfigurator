@@ -204,3 +204,37 @@ func TestRenderValuePrefill(t *testing.T) {
 		t.Fatalf("RenderValue = %q err=%v", got, err)
 	}
 }
+
+func TestEmitPlugins(t *testing.T) {
+	s := state.New("linux")
+	s.Values["font_size"] = 13.5
+	s.Plugins = []state.Plugin{
+		{URL: "https://github.com/mrjones2014/smart-splits.nvim", Var: "plugin_smartsplitsnvim", Apply: true,
+			Opts: "{ direction_keys = { 'h', 'j', 'k', 'l' } }"},
+		{URL: "https://github.com/adriankarlen/bar.wezterm", Var: "plugin_bar", Apply: false},
+		{URL: "bad url", Var: "has space"}, // invalid Var+URL → skipped silently
+	}
+	out, err := Emit(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := []string{
+		"\n-- Plugins\n",
+		"local plugin_smartsplitsnvim = wezterm.plugin.require 'https://github.com/mrjones2014/smart-splits.nvim'\n",
+		"plugin_smartsplitsnvim.apply_to_config(config, { direction_keys = { 'h', 'j', 'k', 'l' } })\n",
+		"local plugin_bar = wezterm.plugin.require 'https://github.com/adriankarlen/bar.wezterm'\n",
+		"return config\n",
+	}
+	for _, w := range want {
+		if !strings.Contains(out, w) {
+			t.Fatalf("emitted config missing %q:\n%s", w, out)
+		}
+	}
+	if strings.Contains(out, "has space") {
+		t.Fatalf("invalid plugin var leaked into output:\n%s", out)
+	}
+	// Plugins emitted after options, before custom lua.
+	if strings.Index(out, "plugin_smartsplitsnvim") < strings.Index(out, "font_size") {
+		t.Fatalf("plugins must come after option assignments:\n%s", out)
+	}
+}

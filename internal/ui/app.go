@@ -190,21 +190,24 @@ func (a *appState) buildUI() fyne.CanvasObject {
 		a.rebuildPage()
 	}
 
-	cats := append(append([]string{}, catalog.Categories...), catalog.CustomLuaCategory)
+	cats := append(append([]string{}, catalog.Categories...), catalog.PluginsCategory, catalog.CustomLuaCategory)
 	a.nav = widget.NewList(
 		func() int { return len(cats) },
 		func() fyne.CanvasObject { return widget.NewLabel("") },
 		func(id widget.ListItemID, o fyne.CanvasObject) {
 			c := cats[id]
 			n := 0
-			if c != catalog.CustomLuaCategory {
+			switch {
+			case c == catalog.PluginsCategory:
+				n = len(a.st.Plugins)
+			case c != catalog.CustomLuaCategory:
 				for i := range catalog.Options {
 					o := &catalog.Options[i]
 					if o.Category == c && (a.setByName(o.Name) || a.st.Raw[o.Name] != "") {
 						n++
 					}
 				}
-			} else if a.st.CustomLua != "" {
+			case a.st.CustomLua != "":
 				n = 1
 			}
 			o.(*widget.Label).SetText(fmt.Sprintf("%s (%d)", c, n))
@@ -273,6 +276,13 @@ func (a *appState) rebuildPage() {
 	a.rows = nil
 
 	switch {
+	case a.currentCat == catalog.PluginsCategory:
+		rows = append(rows, heading("Plugins"))
+		h := widget.NewLabel("Plugins are git repos loaded with wezterm.plugin.require (WezTerm 20230320 or newer). URLs must be https:// or file://. Updates: run wezterm.plugin.update_all() in the debug overlay, then reload the config. Clones live in ~/.local/share/wezterm/plugins.")
+		h.Wrapping = fyne.TextWrapWord
+		h.Importance = widget.LowImportance
+		rows = append(rows, h)
+		rows = append(rows, a.pluginsEditor()...)
 	case a.searchQuery != "":
 		rows = append(rows, heading("Search: "+a.searchQuery))
 		for i := range catalog.Options {
@@ -282,6 +292,7 @@ func (a *appState) rebuildPage() {
 				rows = append(rows, a.makeRow(o))
 			}
 		}
+
 	case a.currentCat == catalog.CustomLuaCategory || a.currentCat == "":
 		rows = append(rows, heading(catalog.CustomLuaCategory))
 		help := widget.NewLabel("Lua appended verbatim before `return config`; use it for event handlers and anything the form cannot express.")

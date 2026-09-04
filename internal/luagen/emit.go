@@ -51,6 +51,24 @@ func Emit(s *state.State) (string, error) {
 		b.WriteString(line)
 	}
 
+	if len(s.Plugins) > 0 {
+		b.WriteString("\n-- Plugins\n")
+		for _, p := range s.Plugins {
+			if p.URL == "" || !identRe.MatchString(p.Var) {
+				continue
+			}
+			b.WriteString("local " + p.Var + " = wezterm.plugin.require " + q(p.URL) + "\n")
+			if p.Apply {
+				if opts := strings.TrimSpace(p.Opts); opts != "" {
+					b.WriteString(p.Var + ".apply_to_config(config, " + opts + ")\n")
+				} else {
+					b.WriteString(p.Var + ".apply_to_config(config)\n")
+				}
+			}
+		}
+		b.WriteString("\n")
+	}
+
 	out := b.String()
 	if s.CustomLua != "" {
 		out += "\n-- Custom Lua\n" + s.CustomLua + "\n\n"

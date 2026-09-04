@@ -125,6 +125,9 @@ var Categories = []string{
 // CustomLuaCategory is a pseudo-category rendered by the UI, not an Option.
 const CustomLuaCategory = "Custom Lua"
 
+// PluginsCategory is a pseudo-category rendered by the UI, not an Option.
+const PluginsCategory = "Plugins"
+
 // ptr returns a pointer to f (for Min/Max literals).
 func ptr(f float64) *float64 { return &f }
 

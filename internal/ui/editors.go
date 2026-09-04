@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"errors"
 	"fmt"
 	"sort"
 	"strconv"
@@ -14,6 +15,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 
 	"weztermconfigurator/internal/catalog"
+	"weztermconfigurator/internal/state"
 )
 
 func (a *appState) structEditor(f *catalog.Field, get func() any, set func(any)) fyne.CanvasObject {
@@ -914,3 +916,130 @@ func (a *appState) actionEditor(get func() any, set func(any)) fyne.CanvasObject
 }
 
 var _ = strconv.Itoa // keep strconv if unused on some paths
+
+// pluginPresets are curated known-good plugin URLs.
+var pluginPresets = [][2]string{ // {url, purpose}
+	{"https://github.com/mrjones2014/smart-splits.nvim", "Smart pane navigation & resize shared with Neovim"},
+	{"https://github.com/MLFlexer/resurrect.wezterm", "Save/restore windows, tabs and panes"},
+	{"https://github.com/michaelbrusegard/tabline.wez", "Statusline/tabline with lualine-style config"},
+	{"https://github.com/adriankarlen/bar.wezterm", "Battery-included tab bar & status bar"},
+	{"https://github.com/MLFlexer/smart_workspace_switcher.wezterm", "Fuzzy workspace switching via zoxide"},
+	{"https://github.com/MLFlexer/modal.wezterm", "Vim-like modal keybindings"},
+	{"https://github.com/yriveiro/wezterm-status", "Configurable right status"},
+}
+
+func pluginVarFromURL(url string) string {
+	u := strings.TrimSuffix(url, "/")
+	u = strings.TrimPrefix(u, "https://github.com/")
+	u = strings.TrimPrefix(u, "http://github.com/")
+	parts := strings.Split(u, "/")
+	name := parts[len(parts)-1]
+	name = strings.TrimSuffix(name, ".wezterm")
+	name = strings.TrimSuffix(name, ".wez")
+	name = strings.TrimSuffix(name, ".nvim")
+	name = strings.Map(func(r rune) rune {
+		if r >= 'a' && r <= 'z' || r >= 'A' && r <= 'Z' || r >= '0' && r <= '9' || r == '_' {
+			return r
+		}
+		return -1
+	}, name)
+	if name == "" {
+		return ""
+	}
+	return "plugin_" + name
+}
+
+// pluginsEditor renders one card per configured plugin plus an add-form.
+func (a *appState) pluginsEditor() []fyne.CanvasObject {
+	var out []fyne.CanvasObject
+	rebuild := func() { a.rebuildPage() }
+
+	addCard := func(idx int) {
+		p := &a.st.Plugins[idx]
+		urlEntry := widget.NewEntry()
+		urlEntry.SetPlaceHolder("https://github.com/owner/repo")
+		urlEntry.Text = p.URL
+		urlEntry.OnChanged = func(s string) {
+			p.URL = strings.TrimSpace(s)
+			a.markDirty()
+		}
+		varEntry := widget.NewEntry()
+		varEntry.SetPlaceHolder("local variable name")
+		varEntry.Text = p.Var
+		varEntry.OnChanged = func(s string) {
+			p.Var = strings.TrimSpace(s)
+			a.markDirty()
+		}
+		applyCheck := widget.NewCheck("call apply_to_config(config)", func(on bool) {
+			p.Apply = on
+			a.markDirty()
+		})
+		applyCheck.Checked = p.Apply
+		optsEntry := widget.NewMultiLineEntry()
+		optsEntry.TextStyle = fyne.TextStyle{Monospace: true}
+		optsEntry.SetPlaceHolder("optional Lua opts table, e.g. { direction_keys = { 'h', 'j', 'k', 'l' } }")
+		optsEntry.SetMinRowsVisible(2)
+		optsEntry.Text = p.Opts
+		optsEntry.OnChanged = func(s string) { p.Opts = s; a.markDirty() }
+
+		rm := widget.NewButtonWithIcon("Remove", theme.DeleteIcon(), func() {
+			a.st.Plugins = append(a.st.Plugins[:idx], a.st.Plugins[idx+1:]...)
+			a.markDirty()
+			rebuild()
+		})
+		rm.Importance = widget.DangerImportance
+
+		card := widget.NewCard("", fmt.Sprintf("Plugin %d", idx+1),
+			container.NewVBox(
+				container.NewBorder(nil, nil, widget.NewLabel("URL"), rm, urlEntry),
+				container.NewBorder(nil, nil, widget.NewLabel("Variable"), nil, varEntry),
+				applyCheck,
+				optsEntry,
+			))
+		out = append(out, card)
+	}
+
+	for i := range a.st.Plugins {
+		addCard(i)
+	}
+
+	// Preset picker
+	names := make([]string, len(pluginPresets))
+	for i, p := range pluginPresets {
+		names[i] = p[1]
+	}
+	presetSelect := widget.NewSelect(names, func(name string) {
+		for _, p := range pluginPresets {
+			if p[1] == name {
+				v := pluginVarFromURL(p[0])
+				a.st.Plugins = append(a.st.Plugins, state.Plugin{URL: p[0], Var: v, Apply: true})
+				a.markDirty()
+				rebuild()
+				return
+			}
+		}
+	})
+	presetSelect.PlaceHolder = "Add a popular plugin…"
+	customURL := widget.NewEntry()
+	customURL.SetPlaceHolder("…or paste any https:// plugin URL")
+	addCustom := widget.NewButtonWithIcon("Add", theme.ContentAddIcon(), func() {
+		u := strings.TrimSpace(customURL.Text)
+		if !strings.HasPrefix(u, "https://") && !strings.HasPrefix(u, "http://") && !strings.HasPrefix(u, "file://") {
+			dialog.ShowError(errors.New("plugin URL must start with https://, http:// or file://"), a.win)
+			return
+		}
+		v := pluginVarFromURL(u)
+		if v == "" {
+			dialog.ShowError(errors.New("cannot derive a variable name from that URL; set it on the card after adding"), a.win)
+			return
+		}
+		a.st.Plugins = append(a.st.Plugins, state.Plugin{URL: u, Var: v, Apply: true})
+		customURL.SetText("")
+		a.markDirty()
+		rebuild()
+	})
+
+	out = append(out, widget.NewSeparator(),
+		container.NewVBox(presetSelect, container.NewBorder(nil, nil, nil, addCustom, customURL)))
+	return out
+}
