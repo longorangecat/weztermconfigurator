@@ -7,7 +7,6 @@ import (
 	"errors"
 	"io/fs"
 	"os"
-	"path/filepath"
 	"runtime"
 )
 
@@ -51,7 +50,7 @@ func (s *State) DeleteFeature(id string) {
 // `local <Var> = wezterm.plugin.require '<URL>'` followed (when Apply) by
 // `<Var>.apply_to_config(config<, Opts>)`.
 type Plugin struct {
-	URL   string `json:"url"`            // git URL, http(s):// or file:// only
+	URL   string `json:"url"`            // https:// or file:// only
 	Var   string `json:"var"`            // local variable name (Lua identifier)
 	Apply bool   `json:"apply"`          // call apply_to_config(config) after require
 	Opts  string `json:"opts,omitempty"` // verbatim Lua table passed as 2nd arg
@@ -64,6 +63,7 @@ func New(targetOS string) *State {
 		TargetOS: targetOS,
 		Values:   map[string]any{},
 		Raw:      map[string]string{},
+		Features: map[string]map[string]string{},
 	}
 }
 
@@ -99,6 +99,9 @@ func Load(path string) (*State, error) {
 	if s.Raw == nil {
 		s.Raw = map[string]string{}
 	}
+	if s.Features == nil {
+		s.Features = map[string]map[string]string{}
+	}
 	if s.Version == 0 {
 		s.Version = Version
 	}
@@ -110,18 +113,11 @@ func Load(path string) (*State, error) {
 
 // Save writes the state atomically (tmp file + rename).
 func (s *State) Save(path string) error {
-	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
-		return err
-	}
 	b, err := json.MarshalIndent(s, "", "  ")
 	if err != nil {
 		return err
 	}
-	tmp := path + ".tmp"
-	if err := os.WriteFile(tmp, b, 0o644); err != nil {
-		return err
-	}
-	return os.Rename(tmp, path)
+	return WriteAtomic(path, b)
 }
 
 // Owned reports whether path exists and starts with the generator Marker.
@@ -140,17 +136,4 @@ func Owned(path string) (exists, owned bool, err error) {
 		return true, false, nil // empty file: exists, not owned
 	}
 	return true, string(buf[:n]) == Marker, nil
-}
-
-// BackupUnowned copies path to path.bak-<timestamp> and returns the copy path.
-func BackupUnowned(path string) (string, error) {
-	b, err := os.ReadFile(path)
-	if err != nil {
-		return "", err
-	}
-	backup := path + ".bak-" + timeNow().Format("20060102-150405")
-	if err := os.WriteFile(backup, b, 0o644); err != nil {
-		return "", err
-	}
-	return backup, nil
 }

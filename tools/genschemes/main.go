@@ -1,5 +1,9 @@
 // Command genschemes converts wezterm's docs/colorschemes/data.json into the
 // embedded catalog scheme list.
+//
+// Regeneration command:
+//
+//	curl -sL https://raw.githubusercontent.com/wezterm/wezterm/b09b56c29c1e367e598b60ca266e2cc9038751e0/docs/colorschemes/data.json -o /tmp/wezterm-data.json && go run ./tools/genschemes /tmp/wezterm-data.json internal/catalog/schemes.json
 package main
 
 import (
@@ -26,15 +30,37 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	var in []scheme
+	var in []struct {
+		Colors   map[string]any `json:"colors"`
+		Metadata struct {
+			Name    string   `json:"name"`
+			Aliases []string `json:"aliases"`
+		} `json:"metadata"`
+	}
 	if err := json.Unmarshal(raw, &in); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	sort.Slice(in, func(i, j int) bool {
-		return strings.ToLower(in[i].Name) < strings.ToLower(in[j].Name)
+	schemes := make([]scheme, len(in))
+	for i, entry := range in {
+		if entry.Metadata.Name == "" {
+			fmt.Fprintf(os.Stderr, "entry %d has no metadata.name\n", i)
+			os.Exit(1)
+		}
+		schemes[i] = scheme{
+			Name:    entry.Metadata.Name,
+			Aliases: entry.Metadata.Aliases,
+			Colors:  entry.Colors,
+		}
+	}
+	sort.Slice(schemes, func(i, j int) bool {
+		li, lj := strings.ToLower(schemes[i].Name), strings.ToLower(schemes[j].Name)
+		if li == lj {
+			return schemes[i].Name < schemes[j].Name
+		}
+		return li < lj
 	})
-	out, err := json.MarshalIndent(in, "", " ")
+	out, err := json.MarshalIndent(schemes, "", " ")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

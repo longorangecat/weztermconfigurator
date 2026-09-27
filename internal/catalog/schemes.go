@@ -24,7 +24,7 @@ var (
 func loadSchemes() {
 	var raw []Scheme
 	if err := json.Unmarshal(schemesJSON, &raw); err != nil {
-		return
+		panic("catalog: embedded schemes.json is invalid: " + err.Error())
 	}
 	schemes = raw
 }

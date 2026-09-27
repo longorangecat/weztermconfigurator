@@ -27,9 +27,9 @@ var generalOptions = []Option{
 	opt(Field{Name: "enq_answerback", Kind: String, Default: ""}, "General & Startup", "", nil, nil, ""),
 	opt(Field{Name: "automatically_reload_config", Kind: Bool, Default: true}, "General & Startup", "20201031-154415-9614e117", nil, nil, ""),
 	opt(Field{Name: "check_for_updates", Kind: Bool, Default: true, DefaultNote: "false in distro builds"}, "General & Startup", "", nil, nil, ""),
-	opt(Field{Name: "check_for_updates_interval_seconds", Kind: Int, Min: ptr(1), Default: 86400}, "General & Startup", "", nil, nil, ""),
+	opt(Field{Name: "check_for_updates_interval_seconds", Kind: Int, Min: ptr(1), Default: 86400.0}, "General & Startup", "", nil, nil, ""),
 	opt(Field{Name: "show_update_window", Kind: Bool, Default: false}, "General & Startup", "", nil, nil, "this option no longer does anything and will be removed in a future release"),
-	opt(Field{Name: "periodic_stat_logging", Kind: Int, Min: ptr(0), Default: 0}, "General & Startup", "", nil, nil, ""),
-	opt(Field{Name: "ulimit_nofile", Kind: Int, Min: ptr(1), Default: 2048}, "General & Startup", "20230408-112425-69ae8472", []string{"Linux", "macOS"}, nil, ""),
-	opt(Field{Name: "ulimit_nproc", Kind: Int, Min: ptr(1), Default: 2048}, "General & Startup", "20230408-112425-69ae8472", []string{"Linux", "macOS"}, nil, ""),
+	opt(Field{Name: "periodic_stat_logging", Kind: Int, Min: ptr(0), Default: 0.0}, "General & Startup", "", nil, nil, ""),
+	opt(Field{Name: "ulimit_nofile", Kind: Int, Min: ptr(1), Default: 2048.0}, "General & Startup", "20230408-112425-69ae8472", []string{"Linux", "macOS"}, nil, ""),
+	opt(Field{Name: "ulimit_nproc", Kind: Int, Min: ptr(1), Default: 2048.0}, "General & Startup", "20230408-112425-69ae8472", []string{"Linux", "macOS"}, nil, ""),
 }

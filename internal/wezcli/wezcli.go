@@ -40,7 +40,9 @@ var fontLineRe = regexp.MustCompile(`wezterm\.font\("([^"]+)"`)
 func ListSystemFonts(bin string) ([]string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	out, err := exec.CommandContext(ctx, bin, "ls-fonts", "--list-system").Output()
+	cmd := exec.CommandContext(ctx, bin, "ls-fonts", "--list-system")
+	prepareCommand(cmd)
+	out, err := cmd.Output()
 	if err != nil {
 		return nil, err
 	}
@@ -63,10 +65,10 @@ func Check(bin, configPath string) (ok bool, output string, err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 	cmd := exec.CommandContext(ctx, bin, "--config-file", configPath, "ls-fonts")
+	prepareCommand(cmd)
 	var stderr strings.Builder
 	cmd.Stderr = &stderr
 	stdout, runErr := cmd.Output()
-
 	errLines := []string{}
 	for _, line := range strings.Split(stderr.String(), "\n") {
 		if strings.Contains(line, "ERROR") {

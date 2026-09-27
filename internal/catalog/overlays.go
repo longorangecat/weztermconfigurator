@@ -17,5 +17,5 @@ var overlayOptions = []Option{
 	opt(Field{Name: "pane_select_bg_color", Kind: Color, Default: "rgba(0,0,0,0.5)"}, "Overlays & Palettes", "", nil, nil, ""),
 	opt(Field{Name: "launcher_alphabet", Kind: String, Default: "1234567890abcdefghilmnopqrstuvwxyz"}, "Overlays & Palettes", "nightly", nil, nil, ""),
 	opt(Field{Name: "ui_key_cap_rendering", Kind: Enum, Enum: []string{"UnixLong", "Emacs", "AppleSymbols", "WindowsLong", "WindowsSymbols"}}, "Overlays & Palettes", "20240203-110809-5046fc22", nil, map[string]any{"linux": "UnixLong", "windows": "WindowsSymbols", "macos": "AppleSymbols"}, ""),
-	opt(Field{Name: "palette_max_key_assigments_for_action", Kind: Int, Min: ptr(0), Default: 1}, "Overlays & Palettes", "", nil, nil, ""),
+	opt(Field{Name: "palette_max_key_assigments_for_action", Kind: Int, Min: ptr(0), Default: 1.0}, "Overlays & Palettes", "", nil, nil, ""),
 }

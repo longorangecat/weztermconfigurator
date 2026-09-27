@@ -14,7 +14,7 @@ var muxOptions = []Option{
 	opt(Field{Name: "mux_enable_ssh_agent", Kind: Bool, Default: true}, "Multiplexing & Domains", "nightly", nil, nil, ""),
 	opt(Field{Name: "default_ssh_auth_sock", Kind: String, DefaultNote: "$SSH_AUTH_SOCK"}, "Multiplexing & Domains", "nightly", nil, nil, ""),
 	opt(Field{Name: "mux_env_remove", Kind: StringList, Default: []any{"SSH_AUTH_SOCK", "SSH_CLIENT", "SSH_CONNECTION"}}, "Multiplexing & Domains", "20211204-082213-a66c61ee9", nil, nil, ""),
-	opt(Field{Name: "mux_output_parser_buffer_size", Kind: Int, Min: ptr(1), Default: 131072}, "Multiplexing & Domains", "", nil, nil, ""),
-	opt(Field{Name: "mux_output_parser_coalesce_delay_ms", Kind: Int, Min: ptr(0), Default: 3}, "Multiplexing & Domains", "", nil, nil, ""),
-	opt(Field{Name: "ratelimit_mux_line_prefetches_per_second", Kind: Int, Min: ptr(1), Default: 50}, "Multiplexing & Domains", "", nil, nil, ""),
+	opt(Field{Name: "mux_output_parser_buffer_size", Kind: Int, Min: ptr(1), Default: 131072.0}, "Multiplexing & Domains", "", nil, nil, ""),
+	opt(Field{Name: "mux_output_parser_coalesce_delay_ms", Kind: Int, Min: ptr(0), Default: 3.0}, "Multiplexing & Domains", "", nil, nil, ""),
+	opt(Field{Name: "ratelimit_mux_line_prefetches_per_second", Kind: Int, Min: ptr(1), Default: 50.0}, "Multiplexing & Domains", "", nil, nil, ""),
 }

@@ -1,9 +1,11 @@
 package state
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 )
 
@@ -120,6 +122,90 @@ func TestBackupUnowned(t *testing.T) {
 	b, err := os.ReadFile(backup)
 	if err != nil || string(b) != "return {}" {
 		t.Fatalf("backup content: %q err=%v", b, err)
+	}
+}
+
+func TestWriteAtomic(t *testing.T) {
+	dir := t.TempDir()
+	dest := filepath.Join(dir, "sub", "target.lua")
+	data := []byte("-- safe write content\n")
+	if err := WriteAtomic(dest, data); err != nil {
+		t.Fatalf("WriteAtomic failed: %v", err)
+	}
+	got, err := os.ReadFile(dest)
+	if err != nil {
+		t.Fatalf("reading written file: %v", err)
+	}
+	if string(got) != string(data) {
+		t.Fatalf("content mismatch: got %q, want %q", got, data)
+	}
+}
+
+func TestEmbedAndExtract(t *testing.T) {
+	s := New("linux")
+	s.Values["font_size"] = 15.0
+	s.CustomLua = "-- custom test lua\n"
+	s.Features["tab_title_powerline"] = map[string]string{"__on": "1"}
+
+	line, err := s.EmbedLine()
+	if err != nil {
+		t.Fatalf("EmbedLine failed: %v", err)
+	}
+	if !strings.HasPrefix(line, EmbedPrefix) {
+		t.Fatalf("EmbedLine prefix missing: %q", line)
+	}
+
+	luaDoc := fmt.Sprintf("%s\n%s\nreturn config\n", Marker, line)
+	recovered, err := Extract(luaDoc)
+	if err != nil {
+		t.Fatalf("Extract failed: %v", err)
+	}
+	if recovered.TargetOS != "linux" || recovered.Values["font_size"] != 15.0 || recovered.CustomLua != s.CustomLua {
+		t.Fatalf("recovered state mismatch: %+v", recovered)
+	}
+	if recovered.Features["tab_title_powerline"]["__on"] != "1" {
+		t.Fatalf("feature param mismatch in recovered: %+v", recovered.Features)
+	}
+}
+
+func TestLoadOrRecover(t *testing.T) {
+	dir := t.TempDir()
+	jsonPath := filepath.Join(dir, "state.json")
+	luaPath := filepath.Join(dir, "wezterm.lua")
+
+	s := New("linux")
+	s.Values["line_height"] = 1.2
+	line, err := s.EmbedLine()
+	if err != nil {
+		t.Fatal(err)
+	}
+	luaContent := Marker + "\n" + line + "\nreturn config\n"
+	if err := os.WriteFile(luaPath, []byte(luaContent), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	// Case 1: json missing -> recovers from lua and writes json
+	got, err := LoadOrRecover(jsonPath, luaPath)
+	if err != nil {
+		t.Fatalf("LoadOrRecover failed: %v", err)
+	}
+	if got.Values["line_height"] != 1.2 {
+		t.Fatalf("recovered value mismatch: %v", got.Values["line_height"])
+	}
+	if _, err := os.Stat(jsonPath); err != nil {
+		t.Fatalf("jsonPath should have been created: %v", err)
+	}
+
+	// Case 2: json corrupt -> recovers from lua
+	if err := os.WriteFile(jsonPath, []byte("NOT JSON!"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	got2, err := LoadOrRecover(jsonPath, luaPath)
+	if err != nil {
+		t.Fatalf("LoadOrRecover from corrupt json failed: %v", err)
+	}
+	if got2.Values["line_height"] != 1.2 {
+		t.Fatalf("recovered value after corrupt json mismatch: %v", got2.Values["line_height"])
 	}
 }
 

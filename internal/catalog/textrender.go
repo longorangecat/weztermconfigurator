@@ -18,7 +18,7 @@ var textRenderOptions = []Option{
 	opt(Field{Name: "underline_thickness", Kind: Dimension, DefaultNote: "font metric"}, "Text Rendering", "20221119-145034-49b9839f", nil, nil, ""),
 	opt(Field{Name: "strikethrough_position", Kind: Dimension, DefaultNote: "font metric"}, "Text Rendering", "20221119-145034-49b9839f", nil, nil, ""),
 	opt(Field{Name: "cursor_thickness", Kind: Dimension, DefaultNote: "= underline thickness"}, "Text Rendering", "20221119-145034-49b9839f", nil, nil, ""),
-	opt(Field{Name: "unicode_version", Kind: Int, Min: ptr(0), Default: 9}, "Text Rendering", "20211204-082213-a66c61ee9", nil, nil, ""),
+	opt(Field{Name: "unicode_version", Kind: Int, Min: ptr(0), Default: 9.0}, "Text Rendering", "20211204-082213-a66c61ee9", nil, nil, ""),
 	opt(Field{Name: "treat_east_asian_ambiguous_width_as_wide", Kind: Bool, Default: false}, "Text Rendering", "20220624-141144-bd1b7c5d", nil, nil, ""),
 	opt(Field{Name: "cell_widths", Kind: List, Fields: CellWidthFields}, "Text Rendering", "nightly", nil, nil, ""),
 	opt(Field{Name: "normalize_output_to_unicode_nfc", Kind: Bool, Default: false}, "Text Rendering", "20221119-145034-49b9839f", nil, nil, ""),

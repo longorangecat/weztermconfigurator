@@ -21,6 +21,13 @@ var luaKeywords = map[string]bool{
 	"while": true,
 }
 
+var reservedLocals = map[string]bool{
+	"wezterm":         true,
+	"act":             true,
+	"config":          true,
+	"with_foreground": true,
+}
+
 var identRe = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
 var digitsRe = regexp.MustCompile(`^[0-9]+$`)
 
@@ -28,15 +35,17 @@ var digitsRe = regexp.MustCompile(`^[0-9]+$`)
 func Emit(s *state.State) (string, error) {
 	var b strings.Builder
 	b.WriteString(state.Marker + "\n")
+	if embed, err := s.EmbedLine(); err == nil {
+		b.WriteString(embed + "\n")
+	}
 	b.WriteString("-- Target platform: " + s.TargetOS + "\n")
 	b.WriteString("local wezterm = require 'wezterm'\n")
 	b.WriteString("local act = wezterm.action\n")
 	b.WriteString("local config = wezterm.config_builder()\n")
 	b.WriteString("local function with_foreground(style, color) style.foreground = color return style end\n")
-
 	for i := range catalog.Options {
 		o := &catalog.Options[i]
-		if raw := s.Raw[o.Name]; raw != "" {
+		if raw := strings.TrimSpace(s.Raw[o.Name]); raw != "" {
 			b.WriteString("config." + o.Name + " = " + raw + "\n")
 			continue
 		}
@@ -53,11 +62,15 @@ func Emit(s *state.State) (string, error) {
 
 	if len(s.Plugins) > 0 {
 		b.WriteString("\n-- Plugins\n")
-		for _, p := range s.Plugins {
-			if p.URL == "" || !identRe.MatchString(p.Var) {
-				continue
+		for i, p := range s.Plugins {
+			trimmedURL := strings.TrimSpace(p.URL)
+			if !strings.HasPrefix(trimmedURL, "https://") && !strings.HasPrefix(trimmedURL, "file://") {
+				return "", fmt.Errorf("plugin %d: URL must start with https:// or file://", i+1)
 			}
-			b.WriteString("local " + p.Var + " = wezterm.plugin.require " + q(p.URL) + "\n")
+			if !identRe.MatchString(p.Var) || luaKeywords[p.Var] || reservedLocals[p.Var] {
+				return "", fmt.Errorf("plugin %d: variable %q is not a usable Lua name", i+1, p.Var)
+			}
+			b.WriteString("local " + p.Var + " = wezterm.plugin.require " + q(trimmedURL) + "\n")
 			if p.Apply {
 				if opts := strings.TrimSpace(p.Opts); opts != "" {
 					b.WriteString(p.Var + ".apply_to_config(config, " + opts + ")\n")
@@ -71,11 +84,18 @@ func Emit(s *state.State) (string, error) {
 
 	if len(s.Features) > 0 {
 		var feat strings.Builder
+		seenGroup := make(map[string]string)
 		for i := range catalog.Features {
 			f := &catalog.Features[i]
 			params, ok := s.Features[f.ID]
 			if !ok || !f.IsOn(params) {
 				continue
+			}
+			if f.Group != "" {
+				if prior, exists := seenGroup[f.Group]; exists {
+					return "", fmt.Errorf("features %q and %q both set the %s; turn one off", prior, f.Name, f.Group)
+				}
+				seenGroup[f.Group] = f.Name
 			}
 			code := f.Emit(params)
 			if strings.TrimSpace(code) != "" {
@@ -92,7 +112,7 @@ func Emit(s *state.State) (string, error) {
 
 	out := b.String()
 	if s.CustomLua != "" {
-		out += "\n-- Custom Lua\n" + s.CustomLua + "\n\n"
+		out += "\n-- Custom Lua\ndo\n" + s.CustomLua + "\nend\n\n"
 	}
 	out += "return config\n"
 	return out, nil
@@ -131,7 +151,10 @@ func renderTop(v any, o *catalog.Option) (string, error) {
 	}
 	switch o.Kind {
 	case catalog.Palette:
-		m, _ := v.(map[string]any)
+		m, ok := v.(map[string]any)
+		if !ok {
+			return "", fmt.Errorf("%s: expected an object", path)
+		}
 		for _, mf := range catalog.PaletteFields {
 			mv, ok := m[mf.Name]
 			if !ok || mv == nil {
@@ -144,7 +167,10 @@ func renderTop(v any, o *catalog.Option) (string, error) {
 			b.WriteString("  " + keyExpr(mf.Name) + " = " + s + ",\n")
 		}
 	case catalog.NamedPalettes:
-		m, _ := v.(map[string]any)
+		m, ok := v.(map[string]any)
+		if !ok {
+			return "", fmt.Errorf("%s: expected an object", path)
+		}
 		for _, k := range sortedNames(m, true) {
 			s, err := renderValue(m[k], &catalog.Field{Kind: catalog.Palette, Fields: catalog.PaletteFields}, path+"."+k)
 			if fail(err) {
@@ -153,7 +179,10 @@ func renderTop(v any, o *catalog.Option) (string, error) {
 			b.WriteString("  " + keyExpr(k) + " = " + s + ",\n")
 		}
 	case catalog.KeyTables:
-		m, _ := v.(map[string]any)
+		m, ok := v.(map[string]any)
+		if !ok {
+			return "", fmt.Errorf("%s: expected an object", path)
+		}
 		for _, k := range sortedNames(m, false) {
 			itemF := catalog.Field{Kind: catalog.List, Fields: catalog.KeyBindingFields}
 			s, err := renderValue(m[k], &itemF, path+"."+k)
@@ -163,7 +192,10 @@ func renderTop(v any, o *catalog.Option) (string, error) {
 			b.WriteString("  " + keyExpr(k) + " = " + s + ",\n")
 		}
 	case catalog.Keys:
-		arr, _ := v.([]any)
+		arr, ok := v.([]any)
+		if !ok {
+			return "", fmt.Errorf("%s: expected an array", path)
+		}
 		for _, item := range arr {
 			s, err := renderValue(item, &catalog.Field{Kind: catalog.Struct, Fields: catalog.KeyBindingFields}, path)
 			if fail(err) {
@@ -172,7 +204,10 @@ func renderTop(v any, o *catalog.Option) (string, error) {
 			b.WriteString("  " + s + ",\n")
 		}
 	case catalog.Mouse:
-		arr, _ := v.([]any)
+		arr, ok := v.([]any)
+		if !ok {
+			return "", fmt.Errorf("%s: expected an array", path)
+		}
 		for _, item := range arr {
 			s, err := renderValue(item, &catalog.Field{Kind: catalog.Struct, Fields: catalog.MouseBindingFields}, path)
 			if fail(err) {
@@ -181,7 +216,10 @@ func renderTop(v any, o *catalog.Option) (string, error) {
 			b.WriteString("  " + s + ",\n")
 		}
 	case catalog.List:
-		arr, _ := v.([]any)
+		arr, ok := v.([]any)
+		if !ok {
+			return "", fmt.Errorf("%s: expected an array", path)
+		}
 		for _, item := range arr {
 			var s string
 			var err error
@@ -307,6 +345,12 @@ func renderScalar(v any, f *catalog.Field, path string) (string, error) {
 	case bool:
 		return strconv.FormatBool(x), nil
 	case float64:
+		if math.IsNaN(x) || math.IsInf(x, 0) {
+			return "", fmt.Errorf("%s: must be a finite number", path)
+		}
+		if f.Kind == catalog.Int && x != math.Trunc(x) {
+			return "", fmt.Errorf("%s: must be a whole number", path)
+		}
 		return num(x), nil
 	case string:
 		switch f.Kind {
@@ -367,6 +411,12 @@ func renderNumberList(v any, path string) (string, error) {
 		if !ok {
 			return "", fmt.Errorf("%s: expected number items", path)
 		}
+		if math.IsNaN(f) || math.IsInf(f, 0) {
+			return "", fmt.Errorf("%s: must be a finite number", path)
+		}
+		if f != math.Trunc(f) {
+			return "", fmt.Errorf("%s: must be a whole number", path)
+		}
 		parts = append(parts, num(f))
 	}
 	return "{ " + strings.Join(parts, ", ") + " }", nil
@@ -387,6 +437,9 @@ func renderMap(v any, f *catalog.Field, path string) (string, error) {
 			}
 			s = q(x)
 		case float64:
+			if math.IsNaN(x) || math.IsInf(x, 0) {
+				return "", fmt.Errorf("%s: must be a finite number", path)
+			}
 			s = num(x)
 		default:
 			return "", fmt.Errorf("%s: key %s: unsupported value", path, k)
@@ -645,7 +698,7 @@ func renderActionArg(arg any, f *catalog.Field, path string) (string, error) {
 func q(s string) string {
 	var b strings.Builder
 	b.WriteByte('\'')
-	for i := range s {
+	for i := 0; i < len(s); i++ {
 		c := s[i]
 		switch {
 		case c == '\\':
@@ -707,7 +760,11 @@ func sortedNames(m map[string]any, nameSort bool) []string {
 			return a < b
 		}
 		if nameSort {
-			return strings.ToLower(keys[i]) < strings.ToLower(keys[j])
+			li, lj := strings.ToLower(keys[i]), strings.ToLower(keys[j])
+			if li == lj {
+				return keys[i] < keys[j]
+			}
+			return li < lj
 		}
 		return keys[i] < keys[j]
 	})

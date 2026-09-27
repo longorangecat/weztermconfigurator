@@ -1,7 +1,9 @@
 [
  {
-  "name": "",
-  "aliases": null,
+  "name": "3024 (base16)",
+  "aliases": [
+   "3024 (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#090300",
@@ -41,8 +43,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "3024 (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#090300",
@@ -70,8 +72,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "3024 (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#090300",
@@ -99,8 +101,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "3024 Day",
+  "aliases": [
+   "3024 Day (Gogh)",
+   "3024Day (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#090300",
@@ -133,8 +138,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "3024 Day (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#090300",
@@ -165,8 +170,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "3024 Night",
+  "aliases": [
+   "3024 Night (Gogh)",
+   "3024Night (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#090300",
@@ -199,8 +207,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "3024 Night (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#090300",
@@ -231,8 +239,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Aardvark Blue",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191919",
@@ -265,8 +273,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Abernathy",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -299,8 +307,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Aci (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#363636",
@@ -331,8 +339,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Aco (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3f3f3f",
@@ -363,8 +371,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Adventure",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#040404",
@@ -397,8 +405,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Adventure Time (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#050404",
@@ -429,8 +437,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "AdventureTime",
+  "aliases": [
+   "Adventure Time (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#050404",
@@ -463,8 +473,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Afterglow",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -497,8 +507,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Afterglow (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -529,8 +539,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "aikofog (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#757475",
@@ -558,8 +568,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Alabaster",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -592,8 +602,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Alien Blood (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#112616",
@@ -624,8 +634,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "AlienBlood",
+  "aliases": [
+   "Alien Blood (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#112616",
@@ -658,8 +670,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Andromeda",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -692,8 +704,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Apathy (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#031a16",
@@ -733,8 +745,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Apple Classic",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -767,8 +779,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Apple System Colors",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1a1a1a",
@@ -801,8 +813,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Apprentice (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#262626",
@@ -842,8 +854,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Apprentice (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1c1c",
@@ -874,8 +886,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "arcoiris",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#333333",
@@ -908,8 +920,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Argonaut",
+  "aliases": [
+   "Argonaut (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#232323",
@@ -942,8 +956,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Argonaut (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#232323",
@@ -974,8 +988,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Arthur",
+  "aliases": [
+   "Arthur (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3d352a",
@@ -1008,8 +1024,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Arthur (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3d352a",
@@ -1040,8 +1056,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ashes (base16)",
+  "aliases": [
+   "Ashes (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#1c2023",
@@ -1081,8 +1099,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ashes (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c2023",
@@ -1110,8 +1128,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ashes (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c2023",
@@ -1139,8 +1157,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Astrodark (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#111317",
@@ -1171,8 +1189,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "astromouse (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1c1c",
@@ -1200,8 +1218,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Cave (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#19171c",
@@ -1241,8 +1259,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Cave Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#efecf4",
@@ -1282,8 +1300,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Dune (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#20201d",
@@ -1323,8 +1341,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Dune Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fefbec",
@@ -1364,8 +1382,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Estuary (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#22221b",
@@ -1405,8 +1423,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Estuary Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f4f3ec",
@@ -1446,8 +1464,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Forest (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1918",
@@ -1487,8 +1505,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Forest Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f1efee",
@@ -1528,8 +1546,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Heath (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b181b",
@@ -1569,8 +1587,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Heath Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f7f3f7",
@@ -1610,8 +1628,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Lakeside (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#161b1d",
@@ -1651,8 +1669,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Lakeside Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ebf8ff",
@@ -1692,8 +1710,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Plateau (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1818",
@@ -1733,8 +1751,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Plateau Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f4ecec",
@@ -1774,8 +1792,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Savanna (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#171c19",
@@ -1815,8 +1833,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Savanna Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ecf4ee",
@@ -1856,8 +1874,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Seaside (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#131513",
@@ -1897,8 +1915,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Seaside Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f4fbf4",
@@ -1938,8 +1956,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Sulphurpool (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202746",
@@ -1979,8 +1997,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelier Sulphurpool Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f5f7ff",
@@ -2020,8 +2038,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierdune (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#20201d",
@@ -2049,8 +2067,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierdune (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#20201d",
@@ -2078,8 +2096,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierforest (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1918",
@@ -2107,8 +2125,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierforest (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1918",
@@ -2136,8 +2154,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierheath (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b181b",
@@ -2165,8 +2183,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierheath (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b181b",
@@ -2194,8 +2212,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierlakeside (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#161b1d",
@@ -2223,8 +2241,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierlakeside (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#161b1d",
@@ -2252,8 +2270,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierseaside (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#131513",
@@ -2281,8 +2299,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atelierseaside (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#131513",
@@ -2310,8 +2328,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "AtelierSulphurpool",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202746",
@@ -2344,8 +2362,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atlas (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#002635",
@@ -2385,8 +2403,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atom",
+  "aliases": [
+   "Atom (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -2419,8 +2439,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Atom (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -2451,8 +2471,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "AtomOneLight",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -2485,8 +2505,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Aura (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#110f18",
@@ -2517,8 +2537,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Aurora",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#23262e",
@@ -2551,8 +2571,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "ayu",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -2585,8 +2605,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ayu Dark (Gogh)",
+  "aliases": [
+   "AyuDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#0a0e14",
@@ -2617,8 +2639,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ayu Light (Gogh)",
+  "aliases": [
+   "AyuLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#575f66",
@@ -2649,8 +2673,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ayu Mirage",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191e2a",
@@ -2683,8 +2707,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ayu Mirage (Gogh)",
+  "aliases": [
+   "AyuMirage (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1f2430",
@@ -2715,8 +2741,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "ayu_light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -2749,8 +2775,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Azu (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -2781,8 +2807,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bamboo",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1e1b",
@@ -2863,8 +2889,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bamboo Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#dadac2",
@@ -2945,8 +2971,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bamboo Multiplex",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#171f17",
@@ -3027,8 +3053,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Banana Blueberry",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#17141f",
@@ -3061,8 +3087,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Batman",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -3095,8 +3121,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Belafonte Day",
+  "aliases": [
+   "Belafonte Day (Gogh)",
+   "BelafonteDay (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#20111b",
@@ -3129,8 +3158,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Belafonte Day (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#20111b",
@@ -3161,8 +3190,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Belafonte Night",
+  "aliases": [
+   "Belafonte Night (Gogh)",
+   "BelafonteNight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#20111b",
@@ -3195,8 +3227,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Belafonte Night (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#20111b",
@@ -3227,8 +3259,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Belge (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#252525",
@@ -3256,8 +3288,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bespin (base16)",
+  "aliases": [
+   "Bespin (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#28211c",
@@ -3297,8 +3331,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bespin (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#28211c",
@@ -3326,8 +3360,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bespin (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#28211c",
@@ -3355,8 +3389,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bim (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2c2423",
@@ -3387,8 +3421,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Birds Of Paradise (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#573d26",
@@ -3419,8 +3453,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "BirdsOfParadise",
+  "aliases": [
+   "Birds Of Paradise (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#573d26",
@@ -3453,8 +3489,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bitmute (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282828",
@@ -3482,8 +3518,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3523,8 +3559,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Bathory) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3564,8 +3600,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Burzum) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3605,8 +3641,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Dark Funeral) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3646,8 +3682,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Gorgoroth) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3687,8 +3723,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Immortal) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3728,8 +3764,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Khold) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3769,8 +3805,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Marduk) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3810,8 +3846,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Mayhem) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3851,8 +3887,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Nile) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3892,8 +3928,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Black Metal (Venom) (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3933,8 +3969,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Blazer",
+  "aliases": [
+   "Blazer (Gogh)",
+   "Miu (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -3967,8 +4006,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Blazer (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -3999,8 +4038,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bleh-1 (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#666666",
@@ -4028,8 +4067,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Blue Dolphin (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#292d3e",
@@ -4060,8 +4099,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Blue Matrix",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#101116",
@@ -4094,8 +4133,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "BlueBerryPie",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0a4c62",
@@ -4128,8 +4167,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "BlueDolphin",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#292d3e",
@@ -4162,8 +4201,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bluloco Light (Gogh)",
+  "aliases": [
+   "BlulocoLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#d5d6dd",
@@ -4194,8 +4235,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bluloco Zsh Light (Gogh)",
+  "aliases": [
+   "BlulocoZshLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#e4e5f1",
@@ -4226,8 +4269,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "BlulocoDark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#41444d",
@@ -4260,8 +4303,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "BlulocoLight",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#373a41",
@@ -4294,8 +4337,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Borland",
+  "aliases": [
+   "Borland (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#4f4f4f",
@@ -4328,8 +4373,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Borland (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4f4f4f",
@@ -4360,8 +4405,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Breadog (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#362c24",
@@ -4392,8 +4437,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Breath (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e2229",
@@ -4424,8 +4469,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Breath Darker (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e2229",
@@ -4456,8 +4501,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Breath Light (Gogh)",
+  "aliases": [
+   "BreathLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#e8e8e8",
@@ -4488,8 +4535,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Breath Silverfox (Gogh)",
+  "aliases": [
+   "BreathSilverfox (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1e2229",
@@ -4520,8 +4569,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Breeze",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#31363b",
@@ -4554,8 +4603,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Breeze (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#232627",
@@ -4586,8 +4635,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Brewer (base16)",
+  "aliases": [
+   "Brewer (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#0c0d0e",
@@ -4627,8 +4678,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Brewer (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0c0d0e",
@@ -4656,8 +4707,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Brewer (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0c0d0e",
@@ -4685,8 +4736,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bright (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -4726,8 +4777,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Bright Lights",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191919",
@@ -4760,8 +4811,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Broadcast",
+  "aliases": [
+   "Broadcast (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -4794,8 +4847,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Broadcast (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -4826,8 +4879,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Brogrammer",
+  "aliases": [
+   "Brogrammer (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1f1f1f",
@@ -4860,8 +4915,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Brogrammer (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1f1f1f",
@@ -4901,8 +4956,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Brogrammer (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1f1f1f",
@@ -4933,8 +4988,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Brush Trees (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e3efef",
@@ -4974,8 +5029,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Brush Trees Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#485867",
@@ -5015,8 +5070,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Builtin Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -5049,8 +5104,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Builtin Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -5083,8 +5138,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Builtin Pastel Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4f4f4f",
@@ -5117,8 +5172,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Builtin Solarized Dark",
+  "aliases": [
+   "iTerm2 Solarized Dark"
+  ],
   "colors": {
    "ansi": [
     "#073642",
@@ -5151,8 +5208,12 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Builtin Solarized Light",
+  "aliases": [
+   "Solarized Light (Gogh)",
+   "SolarizedLight (Gogh)",
+   "iTerm2 Solarized Light"
+  ],
   "colors": {
    "ansi": [
     "#073642",
@@ -5185,8 +5246,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Builtin Tango Dark",
+  "aliases": [
+   "Gnometerm (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -5219,8 +5282,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Builtin Tango Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -5253,8 +5316,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Butrin (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#8c7e78",
@@ -5285,8 +5348,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "C64",
+  "aliases": [
+   "C64 (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#090300",
@@ -5319,8 +5384,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "C64 (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#090300",
@@ -5351,8 +5416,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Cai (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -5383,8 +5448,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Calamity",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2f2833",
@@ -5417,8 +5482,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Campbell (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0c0c0c",
@@ -5449,8 +5514,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Canvased Pastel (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#26251c",
@@ -5478,8 +5543,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "carbonfox",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282828",
@@ -5564,8 +5629,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Catch Me If You Can (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#130f0c",
@@ -5593,8 +5658,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Catppuccin Frappe",
+  "aliases": [
+   "Catppuccin Frappé (Gogh)",
+   "catppuccin-frappe"
+  ],
   "colors": {
    "ansi": [
     "#51576d",
@@ -5678,8 +5746,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Catppuccin Frappé (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#51576d",
@@ -5710,8 +5778,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Catppuccin Latte",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#bcc0cc",
@@ -5795,8 +5863,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Catppuccin Latte (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#5c5f77",
@@ -5827,8 +5895,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Catppuccin Macchiato",
+  "aliases": [
+   "Catppuccin Macchiato (Gogh)",
+   "catppuccin-macchiato"
+  ],
   "colors": {
    "ansi": [
     "#494d64",
@@ -5912,8 +5983,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Catppuccin Macchiato (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#494d64",
@@ -5944,8 +6015,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Catppuccin Mocha",
+  "aliases": [
+   "Catppuccin Mocha (Gogh)",
+   "catppuccin-mocha"
+  ],
   "colors": {
    "ansi": [
     "#45475a",
@@ -6029,8 +6103,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Catppuccin Mocha (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#45475a",
@@ -6061,8 +6135,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "catppuccin-frappe",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#51576d",
@@ -6095,8 +6169,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "catppuccin-latte",
+  "aliases": [
+   "Catppuccin Latte (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#5c5f77",
@@ -6129,8 +6205,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "catppuccin-macchiato",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#494d64",
@@ -6163,8 +6239,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "catppuccin-mocha",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#45475a",
@@ -6197,8 +6273,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "CGA",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -6231,8 +6307,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Chalk",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#7d8b8f",
@@ -6265,8 +6341,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Chalk (base16)",
+  "aliases": [
+   "Chalk (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#151515",
@@ -6306,8 +6384,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Chalk (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -6335,8 +6413,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Chalk (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#646464",
@@ -6367,8 +6445,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Chalk (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -6396,8 +6474,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Chalkboard",
+  "aliases": [
+   "Chalkboard (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -6430,8 +6510,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Chalkboard (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -6462,8 +6542,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "ChallengerDeep",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#141228",
@@ -6496,8 +6576,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Chameleon (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2c2c2c",
@@ -6528,8 +6608,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Chester",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#080200",
@@ -6562,8 +6642,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ciapre",
+  "aliases": [
+   "Ciapre (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#181818",
@@ -6596,8 +6678,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ciapre (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#181818",
@@ -6628,8 +6710,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Circus (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191919",
@@ -6669,8 +6751,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "City Lights (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#41505e",
@@ -6701,8 +6783,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "City Streets (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#201e24",
@@ -6730,8 +6812,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Classic Dark (base16)",
+  "aliases": [
+   "Default (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#151515",
@@ -6771,8 +6855,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Classic Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f5f5f5",
@@ -6812,8 +6896,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Clone Of Ubuntu (Gogh)",
+  "aliases": [
+   "CloneofUbuntu (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2e3436",
@@ -6844,8 +6930,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Cloud (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#222827",
@@ -6873,8 +6959,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "CLRS",
+  "aliases": [
+   "Clrs (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -6907,8 +6995,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Clrs (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -6939,8 +7027,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Cobalt 2 (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -6971,8 +7059,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Cobalt Neon",
+  "aliases": [
+   "Cobalt Neon (Gogh)",
+   "CobaltNeon (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#142631",
@@ -7005,8 +7096,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Cobalt Neon (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#142631",
@@ -7037,8 +7128,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Cobalt2",
+  "aliases": [
+   "Cobalt 2 (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -7071,8 +7164,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Codeschool (base16)",
+  "aliases": [
+   "Codeschool (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#232c31",
@@ -7112,8 +7207,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Codeschool (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#232c31",
@@ -7141,8 +7236,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Codeschool (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#232c31",
@@ -7170,8 +7265,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "coffee_theme",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -7204,8 +7299,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Color Star (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#03010f",
@@ -7233,8 +7328,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Colorcli (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -7265,8 +7360,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Colorful Colors (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -7294,8 +7389,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Colors (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#111111",
@@ -7335,8 +7430,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Count Von Count (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303030",
@@ -7364,8 +7459,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Crayon Pony Fish (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2b1b1d",
@@ -7396,8 +7491,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "CrayonPonyFish",
+  "aliases": [
+   "Crayon Pony Fish (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2b1b1d",
@@ -7430,8 +7527,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Cupcake (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fbf1f2",
@@ -7471,8 +7568,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Cupertino (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ffffff",
@@ -7512,8 +7609,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "CutiePro",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -7546,8 +7643,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Cyberdyne",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#080808",
@@ -7580,8 +7677,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "cyberpunk",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -7614,8 +7711,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "DanQing (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2d302f",
@@ -7655,8 +7752,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "DanQing Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fcfefd",
@@ -7696,8 +7793,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Darcula (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2b2b2b",
@@ -7737,8 +7834,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dark Ocean (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -7766,8 +7863,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dark Pastel",
+  "aliases": [
+   "Dark Pastel (Gogh)",
+   "DarkPastel (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -7800,8 +7900,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dark Pastel (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -7832,8 +7932,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dark Violet (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -7873,8 +7973,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dark+",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -7907,8 +8007,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "darkermatrix",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#091013",
@@ -7941,8 +8041,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "darkmatrix",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#091013",
@@ -7975,8 +8075,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "darkmoss (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#171e1f",
@@ -8016,8 +8116,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Darkside",
+  "aliases": [
+   "Darkside (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -8050,8 +8152,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Darkside (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -8082,8 +8184,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Darktooth (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d2021",
@@ -8123,8 +8225,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dawn (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#353535",
@@ -8152,8 +8254,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "dawnfox",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#575279",
@@ -8238,8 +8340,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "dayfox",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#352c24",
@@ -8272,8 +8374,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Deafened (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3d3e3d",
@@ -8301,8 +8403,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Decaf (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2d2d2d",
@@ -8342,8 +8444,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "deep",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -8376,8 +8478,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Default (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -8405,8 +8507,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Default (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -8434,8 +8536,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Default Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#181818",
@@ -8475,8 +8577,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Default Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f8f8f8",
@@ -8516,8 +8618,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dehydration (Gogh)",
+  "aliases": [
+   "DeHydration (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#333333",
@@ -8548,8 +8652,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Derp (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#111111",
@@ -8577,8 +8681,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Desert",
+  "aliases": [
+   "Desert (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#4d4d4d",
@@ -8611,8 +8717,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Desert (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4d4d4d",
@@ -8643,8 +8749,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Digerati (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303030",
@@ -8672,8 +8778,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dimmed Monokai (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3a3d43",
@@ -8704,8 +8810,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "DimmedMonokai",
+  "aliases": [
+   "Dimmed Monokai (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3a3d43",
@@ -8738,8 +8846,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "dirtysea (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e0e0e0",
@@ -8779,8 +8887,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dissonance (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -8811,8 +8919,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Django",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -8845,8 +8953,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "DjangoRebornAgain",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -8879,8 +8987,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "DjangoSmooth",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -8913,8 +9021,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Doom Peacock",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1f24",
@@ -8947,8 +9055,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "DoomOne",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -8981,8 +9089,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "DotGov",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191919",
@@ -9015,8 +9123,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dotshare (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#101010",
@@ -9044,8 +9152,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dracula",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -9078,8 +9186,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dracula (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282936",
@@ -9119,8 +9227,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dracula (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#44475a",
@@ -9151,8 +9259,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dracula (Official)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#21222c",
@@ -9231,8 +9339,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Dracula+",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#21222c",
@@ -9265,8 +9373,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "duckbones",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0e101a",
@@ -9299,8 +9407,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Duotone Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1f1d27",
@@ -9333,8 +9441,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "duskfox",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#393552",
@@ -9419,8 +9527,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "DWM rob (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -9448,8 +9556,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Earthsong",
+  "aliases": [
+   "Earthsong (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#121418",
@@ -9482,8 +9592,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Earthsong (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#121418",
@@ -9514,8 +9624,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Edge Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#262729",
@@ -9555,8 +9665,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Edge Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fafafa",
@@ -9596,8 +9706,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Arbutus",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f0d8cf",
@@ -9630,8 +9740,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Autumn",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#26211d",
@@ -9664,8 +9774,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Bio",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#222522",
@@ -9698,8 +9808,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Cherie",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#291f26",
@@ -9732,8 +9842,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Cyprus",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f0ece0",
@@ -9766,8 +9876,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1a1a1a",
@@ -9800,8 +9910,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Day",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f2e9db",
@@ -9834,8 +9944,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Deuteranopia-Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#121f34",
@@ -9868,8 +9978,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Deuteranopia-Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e8e8ea",
@@ -9902,8 +10012,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Dream",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#322f34",
@@ -9936,8 +10046,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Duo-Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1a26",
@@ -9970,8 +10080,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Duo-Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f6ece8",
@@ -10004,8 +10114,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Elea-Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303332",
@@ -10038,8 +10148,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Elea-Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e3e9d6",
@@ -10072,8 +10182,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Frost",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#eaefef",
@@ -10106,8 +10216,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Kassio",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#efe7e7",
@@ -10140,8 +10250,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#efefef",
@@ -10174,8 +10284,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Maris-Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d2c39",
@@ -10208,8 +10318,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Maris-Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e0e7ef",
@@ -10242,8 +10352,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Melissa-Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#483426",
@@ -10276,8 +10386,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Melissa-Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f5e9cb",
@@ -10310,8 +10420,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Night",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1a202b",
@@ -10344,8 +10454,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Reverie",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e5d6d4",
@@ -10378,8 +10488,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Rosa",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#432e32",
@@ -10412,8 +10522,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Spring",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e8f0f0",
@@ -10446,8 +10556,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Summer",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f2e4ea",
@@ -10480,8 +10590,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Symbiosis",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#221920",
@@ -10514,8 +10624,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Trio-Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2a2228",
@@ -10548,8 +10658,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Trio-Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ebe7f1",
@@ -10582,8 +10692,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Tritanopia-Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282026",
@@ -10616,8 +10726,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Tritanopia-Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#efecec",
@@ -10650,8 +10760,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ef-Winter",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d202f",
@@ -10684,8 +10794,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Eighties (base16)",
+  "aliases": [
+   "Eighties (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#2d2d2d",
@@ -10725,8 +10837,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Eighties (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2d2d2d",
@@ -10754,8 +10866,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Eighties (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2d2d2d",
@@ -10783,8 +10895,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Eldorado dark (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4e4e4e",
@@ -10812,8 +10924,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Eldritch",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#212337",
@@ -10892,8 +11004,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Elemental",
+  "aliases": [
+   "Elemental (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3c3c30",
@@ -10926,8 +11040,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Elemental (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3c3c30",
@@ -10958,8 +11072,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Elementary",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#242424",
@@ -10992,8 +11106,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Elementary (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303030",
@@ -11024,8 +11138,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Elic (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303030",
@@ -11056,8 +11170,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Elio (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303030",
@@ -11088,8 +11202,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Embers (base16)",
+  "aliases": [
+   "Embers (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#16130f",
@@ -11129,8 +11245,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Embers (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#16130f",
@@ -11158,8 +11274,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Embers (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#16130f",
@@ -11187,8 +11303,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "ENCOM",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -11221,8 +11337,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Epiphany (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#565656",
@@ -11250,8 +11366,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Eqie6 (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#222222",
@@ -11279,8 +11395,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Equilibrium Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0c1118",
@@ -11320,8 +11436,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Equilibrium Gray Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#111111",
@@ -11361,8 +11477,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Equilibrium Gray Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f1f1f1",
@@ -11402,8 +11518,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Equilibrium Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f5f0e7",
@@ -11443,8 +11559,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Erebus (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#757575",
@@ -11472,8 +11588,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Espresso",
+  "aliases": [
+   "Espresso (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#353535",
@@ -11506,8 +11624,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Espresso (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2d2d2d",
@@ -11547,8 +11665,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Espresso (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#353535",
@@ -11579,8 +11697,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Espresso Libre",
+  "aliases": [
+   "Espresso Libre (Gogh)",
+   "EspressoLibre (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -11613,8 +11734,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Espresso Libre (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -11645,8 +11766,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Euphrasia (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#192033",
@@ -11674,8 +11795,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Eva (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2a3b4d",
@@ -11715,8 +11836,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Eva Dim (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2a3b4d",
@@ -11756,8 +11877,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everblush",
+  "aliases": [
+   "Everblush (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#232a2d",
@@ -11790,8 +11913,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everblush (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#232a2d",
@@ -11822,8 +11945,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everforest Dark (Gogh)",
+  "aliases": [
+   "EverforestDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#4b565c",
@@ -11854,8 +11979,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everforest Dark Hard (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e383c",
@@ -11886,8 +12011,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everforest Dark Medium (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#343f44",
@@ -11918,8 +12043,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everforest Dark Soft (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3a464c",
@@ -11950,8 +12075,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everforest Light (Gogh)",
+  "aliases": [
+   "EverforestLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#5c6a72",
@@ -11982,8 +12109,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everforest Light Hard (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#5c6a72",
@@ -12014,8 +12141,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everforest Light Medium (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#5c6a72",
@@ -12046,8 +12173,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Everforest Light Soft (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#5c6a72",
@@ -12078,8 +12205,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Fahrenheit",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1d1d",
@@ -12112,8 +12239,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Fairy Floss (Gogh)",
+  "aliases": [
+   "FairyFloss (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#42395d",
@@ -12144,8 +12273,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Fairy Floss Dark (Gogh)",
+  "aliases": [
+   "FairyFlossDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#42395d",
@@ -12176,8 +12307,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Fairyfloss",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#040303",
@@ -12210,8 +12341,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "farmhouse-dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d2027",
@@ -12244,8 +12375,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "farmhouse-light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d2027",
@@ -12278,8 +12409,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "FarSide (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303030",
@@ -12307,8 +12438,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Fideloper",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#292f33",
@@ -12341,8 +12472,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Firefly Traditional",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -12375,8 +12506,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "FirefoxDev",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#002831",
@@ -12409,8 +12540,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Firewatch",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#585f6d",
@@ -12443,8 +12574,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Fishbone (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#293b3b",
@@ -12472,8 +12603,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "FishTank",
+  "aliases": [
+   "Fishtank (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#03073c",
@@ -12506,8 +12639,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Fishtank (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#03073c",
@@ -12538,8 +12671,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Flat",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#222d3f",
@@ -12572,8 +12705,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Flat (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2c3e50",
@@ -12613,8 +12746,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Flat (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2c3e50",
@@ -12645,8 +12778,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Flat Remix (Gogh)",
+  "aliases": [
+   "FlatRemix (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1f2229",
@@ -12677,8 +12812,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Flatland",
+  "aliases": [
+   "Flatland (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1d1d19",
@@ -12711,8 +12848,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Flatland (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1d19",
@@ -12743,8 +12880,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "flexoki-dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1b1a",
@@ -12777,8 +12914,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "flexoki-light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#100f0f",
@@ -12811,8 +12948,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Floraverse",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#08002e",
@@ -12845,8 +12982,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "ForestBlue",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#333333",
@@ -12879,8 +13016,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Foxnightly (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2a2a2e",
@@ -12911,8 +13048,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Framer",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#141414",
@@ -12945,8 +13082,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Framer (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#181818",
@@ -12986,8 +13123,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Freya (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#073642",
@@ -13018,8 +13155,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Frontend Delight (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#242526",
@@ -13050,8 +13187,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Frontend Fun Forrest (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -13082,8 +13219,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Frontend Galaxy (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -13114,8 +13251,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "FrontEndDelight",
+  "aliases": [
+   "Frontend Delight (Gogh)",
+   "FrontendDelight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#242526",
@@ -13148,8 +13288,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Fruit Soda (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f1ecf1",
@@ -13189,8 +13329,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "FunForrest",
+  "aliases": [
+   "Frontend Fun Forrest (Gogh)",
+   "FrontendFunForrest (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -13223,8 +13366,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Galaxy",
+  "aliases": [
+   "Frontend Galaxy (Gogh)",
+   "FrontendGalaxy (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -13257,8 +13403,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Galizur",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#223344",
@@ -13291,8 +13437,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Geohot (Gogh)",
+  "aliases": [
+   "GeoHot (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#f9f5f5",
@@ -13323,8 +13471,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gigavolt (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202126",
@@ -13364,8 +13512,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Github",
+  "aliases": [
+   "Github (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3e3e3e",
@@ -13398,8 +13548,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Github (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ffffff",
@@ -13439,8 +13589,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Github (Gogh)",
+  "aliases": [
+   "Github Light (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3e3e3e",
@@ -13471,8 +13623,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "GitHub Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -13505,8 +13657,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Github Dark (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -13537,8 +13689,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Github Light (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#24292f",
@@ -13569,8 +13721,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "GJM (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1c1c",
@@ -13598,8 +13750,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Glacier",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e343c",
@@ -13632,8 +13784,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gnometerm (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -13661,8 +13813,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gogh (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#292d3e",
@@ -13693,8 +13845,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gooey (Gogh)",
+  "aliases": [
+   "gooey (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000009",
@@ -13725,8 +13879,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Google (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1f21",
@@ -13754,8 +13908,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Google (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1f21",
@@ -13783,8 +13937,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Google Dark (base16)",
+  "aliases": [
+   "Google (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#1d1f21",
@@ -13824,8 +13980,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Google Dark (Gogh)",
+  "aliases": [
+   "GoogleDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#202124",
@@ -13856,8 +14014,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Google Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ffffff",
@@ -13897,8 +14055,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Google Light (Gogh)",
+  "aliases": [
+   "GoogleLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#202124",
@@ -13929,8 +14089,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gotham (Gogh)",
+  "aliases": [
+   "Gotham (terminal.sexy)",
+   "gotham (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#0a0f14",
@@ -13961,8 +14124,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gotham (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0a0f14",
@@ -13990,8 +14153,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grandshell (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -14019,8 +14182,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grape",
+  "aliases": [
+   "Grape (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2d283f",
@@ -14053,8 +14218,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grape (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2d283f",
@@ -14085,8 +14250,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grass",
+  "aliases": [
+   "Grass (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -14119,8 +14286,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grass (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -14151,8 +14318,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grayscale (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#101010",
@@ -14180,8 +14347,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grayscale (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#101010",
@@ -14209,8 +14376,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grayscale Dark (base16)",
+  "aliases": [
+   "Grayscale (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#101010",
@@ -14250,8 +14419,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grayscale Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f7f7f7",
@@ -14291,8 +14460,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Green Screen (base16)",
+  "aliases": [
+   "Greenscreen (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#001100",
@@ -14332,8 +14503,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Greenscreen (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#001100",
@@ -14361,8 +14532,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Greenscreen (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#001100",
@@ -14390,8 +14561,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Grey-green",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -14424,8 +14595,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruber (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#181818",
@@ -14465,8 +14636,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fbf1c7",
@@ -14497,8 +14668,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox Dark (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282828",
@@ -14529,8 +14700,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox dark, hard (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d2021",
@@ -14570,8 +14741,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox dark, medium (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282828",
@@ -14611,8 +14782,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox dark, pale (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#262626",
@@ -14652,8 +14823,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox dark, soft (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#32302f",
@@ -14693,8 +14864,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox light, hard (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f9f5d7",
@@ -14734,8 +14905,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox light, medium (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fbf1c7",
@@ -14775,8 +14946,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox light, soft (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f2e5bc",
@@ -14816,8 +14987,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Gruvbox Material (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3c3836",
@@ -14848,8 +15019,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "GruvboxDark",
+  "aliases": [
+   "Gruvbox Dark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#282828",
@@ -14882,8 +15055,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "GruvboxDarkHard",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1b1b",
@@ -14916,8 +15089,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "GruvboxLight",
+  "aliases": [
+   "Gruvbox Light"
+  ],
   "colors": {
    "ansi": [
     "#fbf1c7",
@@ -14950,8 +15125,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Guezwhoz",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#080808",
@@ -14984,8 +15159,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hacktober",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191918",
@@ -15018,8 +15193,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hardcore",
+  "aliases": [
+   "Hardcore (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -15052,8 +15229,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hardcore (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#212121",
@@ -15093,8 +15270,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hardcore (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -15125,8 +15302,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "hardhacker",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282433",
@@ -15205,8 +15382,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Harmonic16 Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0b1c2c",
@@ -15246,8 +15423,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Harmonic16 Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f7f9fb",
@@ -15287,8 +15464,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Harper",
+  "aliases": [
+   "Harper (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#010101",
@@ -15321,8 +15500,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Harper (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#010101",
@@ -15353,8 +15532,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "HaX0R_BLUE",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#010921",
@@ -15387,8 +15566,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "HaX0R_GR33N",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#001f0b",
@@ -15421,8 +15600,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "HaX0R_R3D",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1f0000",
@@ -15455,8 +15634,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Heetch Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#190134",
@@ -15496,8 +15675,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Heetch Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#feffff",
@@ -15537,8 +15716,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Helios (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d2021",
@@ -15578,8 +15757,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hemisu Dark (Gogh)",
+  "aliases": [
+   "HemisuDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#444444",
@@ -15610,8 +15791,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hemisu Light (Gogh)",
+  "aliases": [
+   "HemisuLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#777777",
@@ -15642,8 +15825,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Highway",
+  "aliases": [
+   "Highway (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -15676,8 +15861,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Highway (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -15708,8 +15893,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hipster Green",
+  "aliases": [
+   "Hipster Green (Gogh)",
+   "HipsterGreen (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -15742,8 +15930,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hipster Green (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -15774,8 +15962,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hivacruz",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202746",
@@ -15808,8 +15996,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Homebrew",
+  "aliases": [
+   "Homebrew (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -15842,8 +16032,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Homebrew (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -15874,8 +16064,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Homebrew Light (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -15906,8 +16096,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Homebrew Ocean (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -15938,8 +16128,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hopscotch",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#322931",
@@ -15972,8 +16162,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hopscotch (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#322931",
@@ -16013,8 +16203,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hopscotch.256",
+  "aliases": [
+   "Hopscotch (base16)"
+  ],
   "colors": {
    "ansi": [
     "#322931",
@@ -16047,8 +16239,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Horizon Bright (Gogh)",
+  "aliases": [
+   "HorizonBright (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#16161c",
@@ -16079,8 +16273,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Horizon Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1e26",
@@ -16120,8 +16314,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Horizon Dark (Gogh)",
+  "aliases": [
+   "HorizonDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#16161c",
@@ -16152,8 +16348,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Horizon Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fdf0ed",
@@ -16193,8 +16389,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Humanoid dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#232629",
@@ -16234,8 +16430,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Humanoid light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f8f8f2",
@@ -16275,8 +16471,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "hund (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#222222",
@@ -16304,8 +16500,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hurtado",
+  "aliases": [
+   "Hurtado (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#575757",
@@ -16338,8 +16536,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hurtado (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#575757",
@@ -16370,8 +16568,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hybrid",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2a2e33",
@@ -16404,8 +16602,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hybrid (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282a2e",
@@ -16436,8 +16634,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Hybrid (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#393939",
@@ -16465,8 +16663,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ibm 3270 (High Contrast) (Gogh)",
+  "aliases": [
+   "IBM3270(HighContrast) (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -16497,8 +16697,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ibm3270 (Gogh)",
+  "aliases": [
+   "ibm3270 (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#222222",
@@ -16529,8 +16731,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ic Green Ppl (Gogh)",
+  "aliases": [
+   "ICGreenPPL (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1f1f1f",
@@ -16561,8 +16765,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ic Orange Ppl (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -16593,8 +16797,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "IC_Green_PPL",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#014401",
@@ -16627,8 +16831,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "IC_Orange_PPL",
+  "aliases": [
+   "ICOrangePPL (Gogh)",
+   "Ic Orange Ppl (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -16661,8 +16868,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Iceberg (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#161821",
@@ -16693,8 +16900,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "iceberg-dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e2132",
@@ -16727,8 +16934,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "iceberg-light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#dcdfe7",
@@ -16761,8 +16968,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Icy Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#021012",
@@ -16802,8 +17009,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "idea",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#adadad",
@@ -16836,8 +17043,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Idle Toes (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#323232",
@@ -16868,8 +17075,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "idleToes",
+  "aliases": [
+   "Idle Toes (Gogh)",
+   "IdleToes (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#323232",
@@ -16902,8 +17112,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Iiamblack (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#393939",
@@ -16931,8 +17141,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Insignificato (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3d3e3d",
@@ -16960,8 +17170,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Invisibone (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303030",
@@ -16989,8 +17199,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "IR Black (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17030,8 +17240,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ir Black (Gogh)",
+  "aliases": [
+   "IrBlack (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#4e4e4e",
@@ -17062,8 +17274,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "IR_Black",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4f4f4f",
@@ -17096,8 +17308,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Isotope (base16)",
+  "aliases": [
+   "Isotope (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -17137,8 +17351,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Isotope (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17166,8 +17380,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Isotope (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17195,8 +17409,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "iTerm2 Dark Background",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17229,8 +17443,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "iTerm2 Default",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17263,8 +17477,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "iTerm2 Light Background",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17297,8 +17511,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "iTerm2 Pastel Dark Background",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#626262",
@@ -17331,8 +17545,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "iTerm2 Smoooooth",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#14191e",
@@ -17365,8 +17579,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "iTerm2 Tango Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17399,8 +17613,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "iTerm2 Tango Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17433,8 +17647,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ivory Dark (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#5b5955",
@@ -17462,8 +17676,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ivory Light (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#c5c1b4",
@@ -17491,8 +17705,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Jackie Brown",
+  "aliases": [
+   "Jackie Brown (Gogh)",
+   "JackieBrown (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2c1d16",
@@ -17525,8 +17742,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Jackie Brown (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2c1d16",
@@ -17557,8 +17774,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Japanesque",
+  "aliases": [
+   "Japanesque (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#343935",
@@ -17591,8 +17810,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Japanesque (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#343935",
@@ -17623,8 +17842,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Jason Wryan (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#222222",
@@ -17652,8 +17871,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Jellybeans",
+  "aliases": [
+   "Jellybeans (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#929292",
@@ -17686,8 +17907,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Jellybeans (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#929292",
@@ -17718,8 +17939,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "JetBrains Darcula",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17752,8 +17973,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "jmbi (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#5a7260",
@@ -17781,8 +18002,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "jubi",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3b3750",
@@ -17815,8 +18036,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Jup (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -17847,8 +18068,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "JWR dark (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#333333",
@@ -17876,8 +18097,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Kanagawa (Gogh)",
+  "aliases": [
+   "kanagawa (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#090618",
@@ -17908,8 +18131,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Kanagawa Dragon (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0d0c0c",
@@ -17940,8 +18163,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "kanagawabones",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1f1f28",
@@ -17974,8 +18197,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Kasugano (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3d3d3d",
@@ -18003,8 +18226,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Kibble",
+  "aliases": [
+   "Kibble (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#4d4d4d",
@@ -18037,8 +18262,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Kibble (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4d4d4d",
@@ -18069,8 +18294,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Kimber (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#222222",
@@ -18110,8 +18335,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Kokuban (Gogh)",
+  "aliases": [
+   "kokuban (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2e8744",
@@ -18142,8 +18369,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Kolorit",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1a1e",
@@ -18176,8 +18403,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Konsolas",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -18210,8 +18437,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "kurokula",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#333333",
@@ -18244,8 +18471,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Lab Fox",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e2e2e",
@@ -18278,8 +18505,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Laser",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#626262",
@@ -18312,8 +18539,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Laserwave (Gogh)",
+  "aliases": [
+   "laserwave (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#39243a",
@@ -18344,8 +18573,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Later This Evening",
+  "aliases": [
+   "Later This Evening (Gogh)",
+   "LaterThisEvening (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2b2b2b",
@@ -18378,8 +18610,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Later This Evening (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2b2b2b",
@@ -18410,8 +18642,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Lavandula",
+  "aliases": [
+   "Lavandula (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#230046",
@@ -18444,8 +18678,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Lavandula (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#230046",
@@ -18476,8 +18710,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Light White (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#808080",
@@ -18505,8 +18739,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Liquid Carbon (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -18537,8 +18771,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Liquid Carbon Transparent (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -18569,8 +18803,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "LiquidCarbon",
+  "aliases": [
+   "Liquid Carbon (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -18603,8 +18839,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "LiquidCarbonTransparent",
+  "aliases": [
+   "Liquid Carbon Transparent (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -18637,8 +18875,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "LiquidCarbonTransparentInverse",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#bccccd",
@@ -18671,8 +18909,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "London Tube (base16)",
+  "aliases": [
+   "Londontube (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#231f20",
@@ -18712,8 +18952,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Londontube (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#231f20",
@@ -18741,8 +18981,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Londontube (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#231f20",
@@ -18770,8 +19010,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Lost Woods (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303030",
@@ -18799,8 +19039,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "lovelace",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282a36",
@@ -18833,8 +19073,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Low Contrast (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#5f5f5f",
@@ -18862,8 +19102,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Lumifoo (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#515151",
@@ -18891,8 +19131,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Lunaria Dark (Gogh)",
+  "aliases": [
+   "LunariaDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#36464e",
@@ -18923,8 +19165,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Lunaria Eclipse (Gogh)",
+  "aliases": [
+   "LunariaEclipse (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#323f46",
@@ -18955,8 +19199,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Lunaria Light (Gogh)",
+  "aliases": [
+   "LunariaLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3e3c3d",
@@ -18987,8 +19233,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Macintosh (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -19028,8 +19274,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Maia (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#232423",
@@ -19060,8 +19306,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Man Page",
+  "aliases": [
+   "Man Page (Gogh)",
+   "ManPage (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -19094,8 +19343,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Man Page (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -19126,8 +19375,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mar (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -19158,8 +19407,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mariana",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -19192,8 +19441,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Marrakesh (base16)",
+  "aliases": [
+   "Marrakesh (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#201602",
@@ -19233,8 +19484,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Marrakesh (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#201602",
@@ -19262,8 +19513,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Marrakesh (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#201602",
@@ -19291,8 +19542,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mashup Colors (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202020",
@@ -19320,8 +19571,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Materia (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#263238",
@@ -19361,8 +19612,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Material",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#212121",
@@ -19395,8 +19646,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Material (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#263238",
@@ -19436,8 +19687,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Material (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#073641",
@@ -19468,8 +19719,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Material (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#263238",
@@ -19497,8 +19748,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Material Darker (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#212121",
@@ -19538,8 +19789,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Material Lighter (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fafafa",
@@ -19579,8 +19830,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Material Palenight (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#292d3e",
@@ -19620,8 +19871,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Material Vivid (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202124",
@@ -19661,8 +19912,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "MaterialDark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#212121",
@@ -19695,8 +19946,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "MaterialDarker",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -19729,8 +19980,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "MaterialDesignColors",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#435b67",
@@ -19763,8 +20014,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "MaterialOcean",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#546e7a",
@@ -19797,8 +20048,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mathias",
+  "aliases": [
+   "Mathias (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -19831,8 +20084,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mathias (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -19863,8 +20116,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "matrix",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0f191c",
@@ -19897,8 +20150,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Matrix (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -19926,8 +20179,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Medallion",
+  "aliases": [
+   "Medallion (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -19960,8 +20215,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Medallion (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -19992,8 +20247,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mellifluous",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1a1a1a",
@@ -20026,8 +20281,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mellow Purple (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e0528",
@@ -20067,8 +20322,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mexico Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f8f8f8",
@@ -20108,8 +20363,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "midnight-in-mojave",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e1e1e",
@@ -20142,8 +20397,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mikado (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#322a2c",
@@ -20171,8 +20426,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mikazuki (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2a1d17",
@@ -20200,8 +20455,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mirage",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#011627",
@@ -20234,8 +20489,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Miramare (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#242021",
@@ -20266,8 +20521,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Misterioso",
+  "aliases": [
+   "Misterioso (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -20300,8 +20557,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Misterioso (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -20332,8 +20589,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mocha (base16)",
+  "aliases": [
+   "Mocha (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#3b3228",
@@ -20373,8 +20632,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mocha (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3b3228",
@@ -20402,8 +20661,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mocha (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3b3228",
@@ -20431,8 +20690,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus Operandi (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ffffff",
@@ -20463,8 +20722,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus Operandi Tinted (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fbf7f0",
@@ -20495,8 +20754,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus Vivendi (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -20527,8 +20786,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus Vivendi Tinted (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0d0e1c",
@@ -20559,8 +20818,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus-Operandi",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f2f2f2",
@@ -20593,8 +20852,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus-Operandi-Deuteranopia",
+  "aliases": [
+   "Modus-Operandi-Tritanopia"
+  ],
   "colors": {
    "ansi": [
     "#f2f2f2",
@@ -20627,8 +20888,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus-Operandi-Tinted",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#efe9dd",
@@ -20661,8 +20922,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus-Vivendi",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e1e1e",
@@ -20695,8 +20956,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus-Vivendi-Deuteranopia",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e1e1e",
@@ -20729,8 +20990,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus-Vivendi-Tinted",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d2235",
@@ -20763,8 +21024,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Modus-Vivendi-Tritanopia",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e1e1e",
@@ -20797,8 +21058,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Molokai",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#121212",
@@ -20831,8 +21092,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Molokai (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -20863,8 +21124,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mona Lisa (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#351b0e",
@@ -20895,8 +21156,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "MonaLisa",
+  "aliases": [
+   "Mona Lisa (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#351b0e",
@@ -20929,8 +21192,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mono (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -20958,8 +21221,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mono Amber (Gogh)",
+  "aliases": [
+   "mono-amber (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#402500",
@@ -20990,8 +21255,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mono Cyan (Gogh)",
+  "aliases": [
+   "mono-cyan (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#003340",
@@ -21022,8 +21289,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mono Green (Gogh)",
+  "aliases": [
+   "mono-green (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#034000",
@@ -21054,8 +21323,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mono Red (Gogh)",
+  "aliases": [
+   "mono-red (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#401200",
@@ -21086,8 +21357,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mono Theme (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -21115,8 +21386,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mono White (Gogh)",
+  "aliases": [
+   "mono-white (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3b3b3b",
@@ -21147,8 +21420,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mono Yellow (Gogh)",
+  "aliases": [
+   "mono-yellow (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#403500",
@@ -21179,8 +21454,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai (base16)",
+  "aliases": [
+   "Monokai (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#272822",
@@ -21220,8 +21497,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#272822",
@@ -21249,8 +21526,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#272822",
@@ -21278,8 +21555,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#48483e",
@@ -21307,8 +21584,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai Dark (Gogh)",
+  "aliases": [
+   "MonokaiDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#75715e",
@@ -21339,8 +21618,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai Pro (Gogh)",
+  "aliases": [
+   "MonokaiPro (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#363537",
@@ -21371,8 +21652,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai Pro Ristretto (Gogh)",
+  "aliases": [
+   "MonokaiProRistretto (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3e3838",
@@ -21403,8 +21686,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai Remastered",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1a1a1a",
@@ -21437,8 +21720,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai Soda",
+  "aliases": [
+   "Monokai Soda (Gogh)",
+   "MonokaiSoda (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1a1a1a",
@@ -21471,8 +21757,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai Soda (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1a1a1a",
@@ -21503,8 +21789,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Monokai Vivid",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#121212",
@@ -21537,8 +21823,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Moonfly (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#323437",
@@ -21569,8 +21855,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Morada (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#040404",
@@ -21601,8 +21887,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Mostly Bright (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#d3d3d3",
@@ -21630,8 +21916,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Muse (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e3436",
@@ -21659,8 +21945,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "N0tch2k",
+  "aliases": [
+   "N0Tch2K (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#383838",
@@ -21693,8 +21981,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "N0Tch2K (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#383838",
@@ -21725,8 +22013,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nancy (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -21754,8 +22042,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nature Suede (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#392925",
@@ -21783,8 +22071,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Navy and Ivory (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#032c36",
@@ -21812,8 +22100,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nebula (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#22273b",
@@ -21853,8 +22141,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "neobones_dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0f191f",
@@ -21887,8 +22175,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "neobones_light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e5ede6",
@@ -21921,8 +22209,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Neon",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -21955,8 +22243,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Neon (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#171717",
@@ -21984,8 +22272,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Neon Night (Gogh)",
+  "aliases": [
+   "neon-night (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#20242d",
@@ -22016,8 +22306,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Neopolitan",
+  "aliases": [
+   "Neopolitan (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -22050,8 +22342,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Neopolitan (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -22082,8 +22374,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nep (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -22114,8 +22406,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Neutron",
+  "aliases": [
+   "Neutron (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#23252b",
@@ -22148,8 +22442,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Neutron (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#23252b",
@@ -22180,8 +22474,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Night Owl (Gogh)",
+  "aliases": [
+   "NightOwl (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#011627",
@@ -22212,8 +22508,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Night Owlish Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#011627",
@@ -22246,8 +22542,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nightfly (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d3b53",
@@ -22278,8 +22574,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "nightfox",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#393b44",
@@ -22312,8 +22608,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "NightLion v1",
+  "aliases": [
+   "Nightlion V1 (Gogh)",
+   "NightlionV1 (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#4c4c4c",
@@ -22346,8 +22645,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nightlion V1 (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4c4c4c",
@@ -22378,8 +22677,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "NightLion v2",
+  "aliases": [
+   "Nightlion V2 (Gogh)",
+   "NightlionV2 (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#4c4c4c",
@@ -22412,8 +22714,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nightlion V2 (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4c4c4c",
@@ -22444,8 +22746,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nighty (Gogh)",
+  "aliases": [
+   "nighty (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#373d48",
@@ -22476,8 +22780,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "niji",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#333333",
@@ -22510,8 +22814,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nocturnal Winter",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4d4d4d",
@@ -22544,8 +22848,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "nord",
+  "aliases": [
+   "Nord (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3b4252",
@@ -22578,8 +22884,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nord (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e3440",
@@ -22619,8 +22925,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nord (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3b4252",
@@ -22651,8 +22957,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nord Light (Gogh)",
+  "aliases": [
+   "NordLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#003b4e",
@@ -22683,8 +22991,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "nord-light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3b4252",
@@ -22717,8 +23025,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "nordfox",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3b4252",
@@ -22803,8 +23111,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nova (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#3c4c55",
@@ -22844,8 +23152,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Novel",
+  "aliases": [
+   "Novel (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -22878,8 +23188,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Novel (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -22910,8 +23220,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nucolors (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#393939",
@@ -22939,8 +23249,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Nudge (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#658280",
@@ -22968,8 +23278,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Numix Darkest (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#555555",
@@ -22997,8 +23307,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "NvimDark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#07080d",
@@ -23031,8 +23341,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "NvimLight",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#07080d",
@@ -23065,8 +23375,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Obsidian",
+  "aliases": [
+   "Obsidian (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -23099,8 +23411,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Obsidian (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -23131,8 +23443,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ocean",
+  "aliases": [
+   "Homebrew Ocean (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -23165,8 +23479,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ocean (base16)",
+  "aliases": [
+   "Ocean (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#2b303b",
@@ -23206,8 +23522,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ocean (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2b303b",
@@ -23235,8 +23551,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ocean (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2b303b",
@@ -23264,8 +23580,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ocean Dark (Gogh)",
+  "aliases": [
+   "OceanDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#4f4f4f",
@@ -23296,8 +23614,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Oceanic Next (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#121c21",
@@ -23328,8 +23646,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Oceanic-Next",
+  "aliases": [
+   "Oceanic Next (Gogh)",
+   "OceanicNext (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#121c21",
@@ -23362,8 +23683,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "OceanicMaterial",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -23396,8 +23717,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "OceanicNext (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b2b34",
@@ -23437,8 +23758,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ollie",
+  "aliases": [
+   "Ollie (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -23471,8 +23794,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ollie (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -23503,8 +23826,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Omni (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191622",
@@ -23535,8 +23858,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "One Dark (Gogh)",
+  "aliases": [
+   "OneDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -23567,8 +23892,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "One Half Black (Gogh)",
+  "aliases": [
+   "OneHalfBlack (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#282c34",
@@ -23599,8 +23926,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "One Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fafafa",
@@ -23640,8 +23967,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "One Light (Gogh)",
+  "aliases": [
+   "OneLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -23672,8 +24001,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "OneDark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282c34",
@@ -23713,8 +24042,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "OneHalfDark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282c34",
@@ -23747,8 +24076,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "OneHalfLight",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#383a42",
@@ -23781,8 +24110,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Operator Mono Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#5a5a5a",
@@ -23815,8 +24144,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Orangish (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#251f1f",
@@ -23844,8 +24173,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Outrun Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#00002a",
@@ -23885,8 +24214,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Overnight Slumber",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0a1222",
@@ -23919,8 +24248,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Oxocarbon Dark (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#262626",
@@ -23951,8 +24280,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Palenight (Gogh)",
+  "aliases": [
+   "palenight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#292d3e",
@@ -23983,8 +24314,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "PaleNightHC",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -24017,8 +24348,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pali (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0a0a0a",
@@ -24049,8 +24380,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Panda (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1f1f20",
@@ -24081,8 +24412,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pandora",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -24115,8 +24446,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Panels (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191927",
@@ -24144,8 +24475,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Paper (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -24176,8 +24507,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "PaperColor Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1c1c",
@@ -24217,8 +24548,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Papercolor Dark (Gogh)",
+  "aliases": [
+   "PaperColorDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1c1c1c",
@@ -24249,8 +24582,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "PaperColor Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#eeeeee",
@@ -24290,8 +24623,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Papercolor Light (Gogh)",
+  "aliases": [
+   "PaperColorLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#eeeeee",
@@ -24322,8 +24657,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Paraiso (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2f1e2e",
@@ -24363,8 +24698,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Paraiso (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2f1e2e",
@@ -24392,8 +24727,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Paraiso (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2f1e2e",
@@ -24421,8 +24756,13 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Paraiso Dark",
+  "aliases": [
+   "Paraiso (base16)",
+   "Paraiso (dark) (terminal.sexy)",
+   "Paraiso Dark (Gogh)",
+   "ParaisoDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2f1e2e",
@@ -24455,8 +24795,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Paraiso Dark (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2f1e2e",
@@ -24487,8 +24827,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Parker Brothers (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#322a2c",
@@ -24516,8 +24856,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pasque (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#271c3a",
@@ -24557,8 +24897,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pastel White (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#646e5b",
@@ -24586,8 +24926,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Paul Millr (Gogh)",
+  "aliases": [
+   "PaulMillr (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2a2a2a",
@@ -24618,8 +24960,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "PaulMillr",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2a2a2a",
@@ -24652,8 +24994,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pencil Dark (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#212121",
@@ -24684,8 +25026,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pencil Light (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#212121",
@@ -24716,8 +25058,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "PencilDark",
+  "aliases": [
+   "Pencil Dark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#212121",
@@ -24750,8 +25094,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "PencilLight",
+  "aliases": [
+   "Pencil Light (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#212121",
@@ -24784,8 +25130,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Peppermint",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#353535",
@@ -24818,8 +25164,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Peppermint (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#353535",
@@ -24850,8 +25196,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "PhD (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#061229",
@@ -24891,8 +25237,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Phrak1 (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -24920,8 +25266,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Piatto Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#414141",
@@ -24954,8 +25300,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pico (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -24995,8 +25341,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "pinky (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#171517",
@@ -25036,8 +25382,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pixiefloss (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2f2942",
@@ -25068,8 +25414,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pnevma",
+  "aliases": [
+   "Pnevma (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2f2e2d",
@@ -25102,8 +25450,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pnevma (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2f2e2d",
@@ -25134,8 +25482,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Poimandres",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#171922",
@@ -25218,8 +25566,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Poimandres Storm",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1e28",
@@ -25302,8 +25650,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pop (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -25343,8 +25691,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Popping and Locking",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d2021",
@@ -25377,8 +25725,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Porple (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#292c36",
@@ -25418,8 +25766,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Powershell (Gogh)",
+  "aliases": [
+   "PowerShell (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -25450,8 +25800,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Predawn (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f18260",
@@ -25482,8 +25832,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pretty and Pastel (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#292929",
@@ -25511,8 +25861,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "primary",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -25545,8 +25895,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pro",
+  "aliases": [
+   "Pro (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -25579,8 +25931,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pro (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -25611,8 +25963,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pro Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -25645,8 +25997,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Pulp (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#86817e",
@@ -25674,8 +26026,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Purple People Eater (Gogh)",
+  "aliases": [
+   "PurplePeopleEater (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#0d1117",
@@ -25706,8 +26060,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Purple Rain",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -25740,8 +26094,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Purpledream (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#100510",
@@ -25781,8 +26135,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "purplepeter",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0a0520",
@@ -25815,8 +26169,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Qualia (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#101010",
@@ -25856,8 +26210,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Quiet (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#141414",
@@ -25888,8 +26242,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Railscasts (base16)",
+  "aliases": [
+   "Railscasts (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#2b2b2b",
@@ -25929,8 +26285,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Railscasts (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2b2b2b",
@@ -25958,8 +26314,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Railscasts (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2b2b2b",
@@ -25987,8 +26343,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rapture",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -26021,8 +26377,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rasi (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -26050,8 +26406,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Raycast_Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -26084,8 +26440,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Raycast_Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -26118,8 +26474,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "rebecca",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#12131e",
@@ -26152,8 +26508,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rebecca (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#292a44",
@@ -26193,8 +26549,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Red Alert",
+  "aliases": [
+   "Red Alert (Gogh)",
+   "RedAlert (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -26227,8 +26586,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Red Alert (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -26259,8 +26618,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Red Phoenix (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#131313",
@@ -26288,8 +26647,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Red Planet",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202020",
@@ -26322,8 +26681,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Red Sands",
+  "aliases": [
+   "Red Sands (Gogh)",
+   "RedSands (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -26356,8 +26718,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Red Sands (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -26388,8 +26750,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Relaxed",
+  "aliases": [
+   "Relaxed (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#151515",
@@ -26422,8 +26786,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Relaxed (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -26454,8 +26818,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Retro",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#13a10e",
@@ -26488,8 +26852,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rezza (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191919",
@@ -26517,8 +26881,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rippedcasts",
+  "aliases": [
+   "Rippedcasts (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -26551,8 +26917,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rippedcasts (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -26583,8 +26949,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "rose-pine",
+  "aliases": [
+   "Rosé Pine (Gogh)",
+   "RoséPine (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#26233a",
@@ -26617,8 +26986,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "rose-pine-dawn",
+  "aliases": [
+   "Rosé Pine Dawn (Gogh)",
+   "RoséPineDawn (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#f2e9e1",
@@ -26651,8 +27023,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "rose-pine-moon",
+  "aliases": [
+   "Rosé Pine Moon (Gogh)",
+   "RoséPineMoon (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#393552",
@@ -26685,8 +27060,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rosé Pine (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191724",
@@ -26726,8 +27101,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rosé Pine (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#26233a",
@@ -26758,8 +27133,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rosé Pine Dawn (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#faf4ed",
@@ -26799,8 +27174,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rosé Pine Dawn (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f2e9e1",
@@ -26831,8 +27206,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rosé Pine Moon (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#232136",
@@ -26872,8 +27247,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rosé Pine Moon (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#393552",
@@ -26904,8 +27279,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rouge 2",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#5d5d6b",
@@ -26938,8 +27313,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Royal",
+  "aliases": [
+   "Royal (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#241f2b",
@@ -26972,8 +27349,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Royal (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#241f2b",
@@ -27004,8 +27381,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Rydgel (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303430",
@@ -27033,8 +27410,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ryuuko",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2c3941",
@@ -27067,8 +27444,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "s3r0 modified (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4a3637",
@@ -27096,8 +27473,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sagelight (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f8f8f8",
@@ -27137,8 +27514,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sakura",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -27171,8 +27548,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sakura (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#feedf3",
@@ -27212,8 +27589,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sandcastle (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282c34",
@@ -27253,8 +27630,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sat (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -27285,8 +27662,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Scarlet Protocol",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#101116",
@@ -27319,8 +27696,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sea Shells (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#17384c",
@@ -27351,8 +27728,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Seafoam Pastel",
+  "aliases": [
+   "Seafoam Pastel (Gogh)",
+   "SeafoamPastel (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#757575",
@@ -27385,8 +27765,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Seafoam Pastel (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#757575",
@@ -27417,8 +27797,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "SeaShells",
+  "aliases": [
+   "Sea Shells (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#17384c",
@@ -27451,8 +27833,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Selenized Black (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#252525",
@@ -27483,8 +27865,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Selenized Dark (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#184956",
@@ -27515,8 +27897,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Selenized Light (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ece3cc",
@@ -27547,8 +27929,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Selenized White (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ebebeb",
@@ -27579,8 +27961,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Seoul256 (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4e4e4e",
@@ -27611,8 +27993,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Seoul256 Light (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4e4e4e",
@@ -27643,8 +28025,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "seoulbones_dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4b4b4b",
@@ -27677,8 +28059,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "seoulbones_light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e2e2e2",
@@ -27711,8 +28093,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sequoia Monochrome",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#131317",
@@ -27745,8 +28127,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sequoia Moonlight",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#131317",
@@ -27779,8 +28161,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Seti",
+  "aliases": [
+   "Seti (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#323232",
@@ -27813,8 +28197,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Seti (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#323232",
@@ -27845,8 +28229,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Seti UI (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151718",
@@ -27886,8 +28270,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sex Colors (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#252525",
@@ -27915,8 +28299,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Shades of Purple (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e1e3f",
@@ -27956,8 +28340,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "shades-of-purple",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -27990,8 +28374,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Shaman",
+  "aliases": [
+   "Shaman (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#012026",
@@ -28024,8 +28410,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Shaman (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#012026",
@@ -28056,8 +28442,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Shapeshifter (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f9f9f9",
@@ -28097,8 +28483,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Shapeshifter (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -28126,8 +28512,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Shapeshifter (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -28155,8 +28541,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Shel (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2c2423",
@@ -28187,8 +28573,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Shic (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#494949",
@@ -28216,8 +28602,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Silk Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0e3c46",
@@ -28257,8 +28643,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Silk Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e9f1ef",
@@ -28298,8 +28684,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Simple Rainbow (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#666666",
@@ -28327,8 +28713,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Slate",
+  "aliases": [
+   "Slate (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#222222",
@@ -28361,8 +28749,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Slate (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#222222",
@@ -28393,8 +28781,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "SleepyHollow",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#572100",
@@ -28427,8 +28815,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Smyck",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -28461,8 +28849,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Smyck (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -28493,8 +28881,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Snazzy",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -28527,8 +28915,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Snazzy (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282a36",
@@ -28568,8 +28956,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Snazzy (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282a36",
@@ -28600,8 +28988,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Soft Server (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -28632,8 +29020,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "SoftServer",
+  "aliases": [
+   "Soft Server (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -28666,8 +29056,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solar Flare (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#18262f",
@@ -28707,8 +29097,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solar Flare Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f5f7fa",
@@ -28748,8 +29138,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solarized (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#002b36",
@@ -28777,8 +29167,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solarized (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#002b36",
@@ -28806,8 +29196,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solarized Darcula",
+  "aliases": [
+   "Solarized Darcula (Gogh)",
+   "SolarizedDarcula (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#25292a",
@@ -28840,8 +29233,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solarized Darcula (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#25292a",
@@ -28872,8 +29265,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solarized Dark (Gogh)",
+  "aliases": [
+   "SolarizedDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#073642",
@@ -28904,8 +29299,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solarized Dark - Patched",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#002831",
@@ -28938,8 +29333,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solarized Dark Higher Contrast",
+  "aliases": [
+   "Solarized Dark Higher Contrast (Gogh)",
+   "SolarizedDarkHigherContrast (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#002831",
@@ -28972,8 +29370,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solarized Dark Higher Contrast (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#002831",
@@ -29004,8 +29402,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Solarized Light (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#eee8d5",
@@ -29036,8 +29434,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sonokai (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2c2e34",
@@ -29068,8 +29466,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "SOS (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#373b43",
@@ -29097,8 +29495,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Spacedust",
+  "aliases": [
+   "Spacedust (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#6e5346",
@@ -29131,8 +29531,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Spacedust (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#6e5346",
@@ -29163,8 +29563,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "SpaceGray",
+  "aliases": [
+   "Spacegray (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -29197,8 +29599,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Spacegray (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -29229,8 +29631,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "SpaceGray Eighties",
+  "aliases": [
+   "SpaceGrayEighties (Gogh)",
+   "Spacegray Eighties (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#15171c",
@@ -29263,8 +29668,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Spacegray Eighties (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#15171c",
@@ -29295,8 +29700,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "SpaceGray Eighties Dull",
+  "aliases": [
+   "SpaceGrayEightiesDull (Gogh)",
+   "Spacegray Eighties Dull (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#15171c",
@@ -29329,8 +29737,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Spacegray Eighties Dull (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#15171c",
@@ -29361,8 +29769,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Spacemacs (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1f2022",
@@ -29402,8 +29810,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sparky (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#212322",
@@ -29434,8 +29842,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Spiderman",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -29468,8 +29876,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Splurge (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4a4b4a",
@@ -29497,8 +29905,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Spring",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -29531,8 +29939,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Spring (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -29563,8 +29971,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Square",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#050505",
@@ -29597,8 +30005,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Square (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#050505",
@@ -29629,8 +30037,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Srcery (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1b19",
@@ -29661,8 +30069,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sublette",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#253045",
@@ -29695,8 +30103,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Subliminal",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#7f7f7f",
@@ -29729,8 +30137,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sugarplum",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#111147",
@@ -29763,8 +30171,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Summer Pop (Gogh)",
+  "aliases": [
+   "summer-pop (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#666666",
@@ -29795,8 +30205,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "summercamp (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1810",
@@ -29836,8 +30246,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Summerfruit Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#151515",
@@ -29877,8 +30287,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Summerfruit Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ffffff",
@@ -29918,8 +30328,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sundried",
+  "aliases": [
+   "Sundried (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#302b2a",
@@ -29952,8 +30364,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sundried (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#302b2a",
@@ -29984,8 +30396,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Swayr (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1709",
@@ -30013,8 +30425,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sweet Eliverlara (Gogh)",
+  "aliases": [
+   "sweet-eliverlara (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#282c34",
@@ -30045,8 +30459,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sweet Love (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#4a3637",
@@ -30074,8 +30488,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Sweet Terminal (Gogh)",
+  "aliases": [
+   "SweetTerminal (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#3f3f54",
@@ -30106,8 +30522,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Symfonic",
+  "aliases": [
+   "Symphonic (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -30140,8 +30558,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Symphonic (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -30172,8 +30590,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Synth Midnight Terminal Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#050608",
@@ -30213,8 +30631,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Synth Midnight Terminal Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#dddfe0",
@@ -30254,8 +30672,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "synthwave",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -30288,8 +30706,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Synthwave (Gogh)",
+  "aliases": [
+   "SynthWave (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#011627",
@@ -30320,8 +30740,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Synthwave Alpha (Gogh)",
+  "aliases": [
+   "SynthwaveAlpha (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#241b30",
@@ -30352,8 +30774,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "synthwave-everything",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fefefe",
@@ -30386,8 +30808,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "SynthwaveAlpha",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#241b30",
@@ -30420,8 +30842,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tango (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e3436",
@@ -30461,8 +30883,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tango (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e3436",
@@ -30490,8 +30912,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tango Adapted",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -30524,8 +30946,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tango Half Adapted",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -30558,8 +30980,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tangoesque (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202020",
@@ -30587,8 +31009,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tartan (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e3436",
@@ -30616,8 +31038,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Teerb",
+  "aliases": [
+   "Teerb (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1c1c1c",
@@ -30650,8 +31074,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Teerb (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1c1c",
@@ -30682,8 +31106,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "tender (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282828",
@@ -30723,8 +31147,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tender (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1d1d",
@@ -30755,8 +31179,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "terafox",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2f3239",
@@ -30789,8 +31213,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Terminal Basic",
+  "aliases": [
+   "Homebrew Light (Gogh)",
+   "TerminalBasic (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -30823,8 +31250,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Terminal Basic (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -30855,8 +31282,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Terminix Dark (Gogh)",
+  "aliases": [
+   "TerminixDark (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#282a2e",
@@ -30887,8 +31316,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Teva (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191f31",
@@ -30916,8 +31345,11 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Thayer Bright",
+  "aliases": [
+   "Thayer Bright (Gogh)",
+   "ThayerBright (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -30950,8 +31382,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Thayer Bright (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -30982,8 +31414,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "The Hulk",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d1e",
@@ -31016,8 +31448,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "theme2 (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191919",
@@ -31045,8 +31477,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "thwump (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202020",
@@ -31074,8 +31506,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tin (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -31106,8 +31538,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tinacious Design (Dark)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1d26",
@@ -31140,8 +31572,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tinacious Design (Light)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1d26",
@@ -31174,8 +31606,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "tlh (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1c1c",
@@ -31203,8 +31635,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tokyo Night",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#15161e",
@@ -31281,8 +31713,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tokyo Night (Gogh)",
+  "aliases": [
+   "TokyoNight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#414868",
@@ -31313,8 +31747,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tokyo Night Day",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e9e9ed",
@@ -31391,8 +31825,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tokyo Night Light (Gogh)",
+  "aliases": [
+   "TokyoNightLight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#0f0f14",
@@ -31423,8 +31859,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tokyo Night Moon",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d2b",
@@ -31501,8 +31937,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tokyo Night Storm",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d202f",
@@ -31579,8 +32015,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tokyo Night Storm (Gogh)",
+  "aliases": [
+   "TokyoNightStorm (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#414868",
@@ -31611,8 +32049,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "tokyonight",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#15161e",
@@ -31645,8 +32083,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "tokyonight-day",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#e9e9ed",
@@ -31679,8 +32117,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "tokyonight-storm",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d202f",
@@ -31713,8 +32151,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "tokyonight_day",
+  "aliases": [
+   "tokyonight-day"
+  ],
   "colors": {
    "ansi": [
     "#b4b5b9",
@@ -31794,8 +32234,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "tokyonight_moon",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1b1d2b",
@@ -31875,8 +32315,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "tokyonight_night",
+  "aliases": [
+   "tokyonight"
+  ],
   "colors": {
    "ansi": [
     "#15161e",
@@ -31956,8 +32398,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "tokyonight_storm",
+  "aliases": [
+   "tokyonight-storm"
+  ],
   "colors": {
    "ansi": [
     "#1d202f",
@@ -32037,8 +32481,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -32071,8 +32515,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1f21",
@@ -32100,8 +32544,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -32132,8 +32576,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1d1f21",
@@ -32161,8 +32605,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow Night",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -32195,8 +32639,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow Night (Gogh)",
+  "aliases": [
+   "TomorrowNight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -32227,8 +32673,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow Night Blue",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -32261,8 +32707,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow Night Blue (Gogh)",
+  "aliases": [
+   "TomorrowNightBlue (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -32293,8 +32741,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow Night Bright",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -32327,8 +32775,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow Night Bright (Gogh)",
+  "aliases": [
+   "TomorrowNightBright (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -32359,8 +32809,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow Night Burns",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#252525",
@@ -32393,8 +32843,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow Night Eighties",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -32427,8 +32877,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Tomorrow Night Eighties (Gogh)",
+  "aliases": [
+   "TomorrowNightEighties (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -32459,8 +32911,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Toy Chest (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2c3f58",
@@ -32491,8 +32943,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "ToyChest",
+  "aliases": [
+   "Toy Chest (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#2c3f58",
@@ -32525,8 +32979,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Treehouse",
+  "aliases": [
+   "Treehouse (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#321300",
@@ -32559,8 +33015,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Treehouse (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#321300",
@@ -32591,8 +33047,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Trim Yer Beard (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0f0e0d",
@@ -32620,8 +33076,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Twilight",
+  "aliases": [
+   "Twilight (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#141414",
@@ -32654,8 +33112,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Twilight (base16)",
+  "aliases": [
+   "Twilight (dark) (terminal.sexy)"
+  ],
   "colors": {
    "ansi": [
     "#1e1e1e",
@@ -32695,8 +33155,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Twilight (dark) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e1e1e",
@@ -32724,8 +33184,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Twilight (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#141414",
@@ -32756,8 +33216,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Twilight (light) (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e1e1e",
@@ -32785,8 +33245,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ubuntu",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e3436",
@@ -32819,8 +33279,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "UltraDark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -32853,8 +33313,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "UltraViolent",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#242728",
@@ -32887,8 +33347,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "UnderTheSea",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#022026",
@@ -32921,8 +33381,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Unikitty",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0c0c0c",
@@ -32955,8 +33415,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Unikitty Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e2a31",
@@ -32996,8 +33456,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Unikitty Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ffffff",
@@ -33037,8 +33497,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Unikitty Reversible (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e2a31",
@@ -33078,8 +33538,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Unsifted Wheat (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#382c2f",
@@ -33107,8 +33567,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Ura (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -33139,8 +33599,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Urple",
+  "aliases": [
+   "Urple (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -33173,8 +33635,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Urple (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -33205,8 +33667,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vacuous 2 (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#202020",
@@ -33234,8 +33696,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vag (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#303030",
@@ -33266,8 +33728,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vaughn",
+  "aliases": [
+   "Vaughn (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#25234f",
@@ -33300,8 +33764,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vaughn (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#25234f",
@@ -33332,8 +33796,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vesper",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#101010",
@@ -33366,8 +33830,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vibrant Ink (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#878787",
@@ -33398,8 +33862,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "VibrantInk",
+  "aliases": [
+   "Vibrant Ink (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#878787",
@@ -33432,8 +33898,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vice Alt (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1c1c",
@@ -33473,8 +33939,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vice Dark (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#181818",
@@ -33514,8 +33980,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "vimbones",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f0f0ca",
@@ -33548,8 +34014,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Violet Dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#56595c",
@@ -33582,8 +34048,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Violet Light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#56595c",
@@ -33616,8 +34082,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "VisiBlue (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#333366",
@@ -33645,8 +34111,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "VisiBone (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#666666",
@@ -33674,8 +34140,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Visibone Alt. 2 (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#666666",
@@ -33703,8 +34169,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vs Code Dark+ (Gogh)",
+  "aliases": [
+   "VSCodeDark+ (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#6a787a",
@@ -33735,8 +34203,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Vs Code Light+ (Gogh)",
+  "aliases": [
+   "VSCodeLight+ (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#020202",
@@ -33767,8 +34237,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "vulcan (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#041523",
@@ -33808,8 +34278,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "VWbug (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#261e26",
@@ -33837,8 +34307,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Warm Neon (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -33869,8 +34339,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "WarmNeon",
+  "aliases": [
+   "Warm Neon (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -33903,8 +34375,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Website (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#183c44",
@@ -33935,8 +34407,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Wez",
+  "aliases": [
+   "Wez (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -33969,8 +34443,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Wez (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -34001,8 +34475,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Whimsy",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#535178",
@@ -34035,8 +34509,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Wild Cherry (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000507",
@@ -34067,8 +34541,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "WildCherry",
+  "aliases": [
+   "Wild Cherry (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000507",
@@ -34101,8 +34577,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "wilmersdorf",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#34373e",
@@ -34135,8 +34611,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Windows 10 (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#0c0c0c",
@@ -34176,8 +34652,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Windows 10 Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#f2f2f2",
@@ -34217,8 +34693,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Windows 95 (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -34258,8 +34734,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Windows 95 Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fcfcfc",
@@ -34299,8 +34775,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Windows High Contrast (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -34340,8 +34816,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Windows High Contrast Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#fcfcfc",
@@ -34381,8 +34857,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Windows NT (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -34422,8 +34898,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Windows NT Light (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#ffffff",
@@ -34463,8 +34939,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Wombat",
+  "aliases": [
+   "Wombat (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#000000",
@@ -34497,8 +34975,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Wombat (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#000000",
@@ -34529,8 +35007,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Woodland (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#231e18",
@@ -34570,8 +35048,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Wryan",
+  "aliases": [
+   "Wryan (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#333333",
@@ -34604,8 +35084,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Wryan (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#333333",
@@ -34636,8 +35116,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Wzoreck (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#2e3436",
@@ -34668,8 +35148,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "X::DotShare (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#101010",
@@ -34697,8 +35177,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "X::Erosion (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#332d29",
@@ -34726,8 +35206,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "XCode Dusk (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#282b35",
@@ -34767,8 +35247,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Yousai (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#666661",
@@ -34796,8 +35276,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "zenbones",
+  "aliases": [
+   "zenbones_light"
+  ],
   "colors": {
    "ansi": [
     "#f0edec",
@@ -34830,8 +35312,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "zenbones_dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1c1917",
@@ -34864,8 +35346,10 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Zenburn",
+  "aliases": [
+   "Zenburn (Gogh)"
+  ],
   "colors": {
    "ansi": [
     "#4d4d4d",
@@ -34898,8 +35382,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Zenburn (base16)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#383838",
@@ -34939,8 +35423,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "Zenburn (Gogh)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#333333",
@@ -34971,8 +35455,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "zenburn (terminal.sexy)",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#1e2320",
@@ -35000,8 +35484,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "zenburned",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#404040",
@@ -35034,8 +35518,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "zenwritten_dark",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#191919",
@@ -35068,8 +35552,8 @@
   }
  },
  {
-  "name": "",
-  "aliases": null,
+  "name": "zenwritten_light",
+  "aliases": [],
   "colors": {
    "ansi": [
     "#eeeeee",

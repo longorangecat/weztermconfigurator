@@ -1,6 +1,7 @@
 package luagen
 
 import (
+	"math"
 	"os"
 	"strings"
 	"testing"
@@ -212,7 +213,6 @@ func TestEmitPlugins(t *testing.T) {
 		{URL: "https://github.com/mrjones2014/smart-splits.nvim", Var: "plugin_smartsplitsnvim", Apply: true,
 			Opts: "{ direction_keys = { 'h', 'j', 'k', 'l' } }"},
 		{URL: "https://github.com/adriankarlen/bar.wezterm", Var: "plugin_bar", Apply: false},
-		{URL: "bad url", Var: "has space"}, // invalid Var+URL → skipped silently
 	}
 	out, err := Emit(s)
 	if err != nil {
@@ -230,12 +230,90 @@ func TestEmitPlugins(t *testing.T) {
 			t.Fatalf("emitted config missing %q:\n%s", w, out)
 		}
 	}
-	if strings.Contains(out, "has space") {
-		t.Fatalf("invalid plugin var leaked into output:\n%s", out)
-	}
 	// Plugins emitted after options, before custom lua.
 	if strings.Index(out, "plugin_smartsplitsnvim") < strings.Index(out, "font_size") {
 		t.Fatalf("plugins must come after option assignments:\n%s", out)
+	}
+}
+
+func TestEmitRejectsInvalidPlugins(t *testing.T) {
+	cases := []struct {
+		url string
+		v   string
+	}{
+		{"http://x/y", "ok"},
+		{"https://x/y", "end"},
+		{"https://x/y", "config"},
+		{"https://x/y", "has space"},
+		{"", "ok"},
+	}
+	for _, tc := range cases {
+		s := state.New("linux")
+		s.Plugins = []state.Plugin{{URL: tc.url, Var: tc.v}}
+		if _, err := Emit(s); err == nil {
+			t.Errorf("Emit accepted invalid plugin URL=%q Var=%q", tc.url, tc.v)
+		}
+	}
+}
+
+func TestQuoteUTF8(t *testing.T) {
+	s := "José ▶ C:\\Users\\Müller"
+	L := lua.NewState()
+	defer L.Close()
+	if err := L.DoString("result = " + q(s)); err != nil {
+		t.Fatal(err)
+	}
+	if got := L.GetGlobal("result").String(); got != s {
+		t.Fatalf("q(%q) in Lua evaluated to %q", s, got)
+	}
+}
+
+func TestEmitRejectsBadNumbers(t *testing.T) {
+	s1 := state.New("linux")
+	s1.Values["scrollback_lines"] = 1.5
+	if _, err := Emit(s1); err == nil {
+		t.Error("expected error for non-whole scrollback_lines")
+	}
+
+	s2 := state.New("linux")
+	s2.Values["dpi"] = math.Inf(1)
+	if _, err := Emit(s2); err == nil {
+		t.Error("expected error for Inf dpi")
+	}
+
+	s3 := state.New("linux")
+	s3.Values["clean_exit_codes"] = []any{1.5}
+	if _, err := Emit(s3); err == nil {
+		t.Error("expected error for non-whole clean_exit_codes item")
+	}
+}
+
+func TestEmitTypeMismatch(t *testing.T) {
+	s := state.New("linux")
+	s.Values["keys"] = "x"
+	if _, err := Emit(s); err == nil {
+		t.Error("expected error for keys string value instead of array")
+	}
+}
+
+func TestCustomLuaMayReturnConfig(t *testing.T) {
+	s := goldenState()
+	s.CustomLua = "return config"
+	out, err := Emit(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	L := lua.NewState()
+	defer L.Close()
+	L.PreloadModule("wezterm", weztermStub)
+	script := `
+local config = (function()
+` + out + `
+end)()
+assert(config ~= nil, "config returned")
+`
+	if err := L.DoString(script); err != nil {
+		t.Fatalf("wrapped script with CustomLua 'return config' failed: %v", err)
 	}
 }
 

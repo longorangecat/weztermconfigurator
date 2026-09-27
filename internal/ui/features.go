@@ -28,12 +28,25 @@ func (a *appState) featuresEditor() []fyne.CanvasObject {
 		src := widget.NewLabelWithStyle("source: "+f.Source, fyne.TextAlignLeading, fyne.TextStyle{Italic: true})
 		src.Importance = widget.LowImportance
 		cardBody.Add(src)
+		if f.Group != "" {
+			grpNote := widget.NewLabelWithStyle("Group: "+f.Group+" (enabling this disables others in the same group)", fyne.TextAlignLeading, fyne.TextStyle{Italic: true})
+			grpNote.Importance = widget.LowImportance
+			cardBody.Add(grpNote)
+		}
 
 		// Param widgets are rebuilt on toggle so the form reflects the value map.
 		rebuildPage := func() { a.rebuildPage() }
 
 		enable := widget.NewCheck("Enabled", func(on bool) {
 			if on {
+				if f.Group != "" {
+					for j := range catalog.Features {
+						other := &catalog.Features[j]
+						if other.ID != f.ID && other.Group == f.Group {
+							a.st.DeleteFeature(other.ID)
+						}
+					}
+				}
 				// Materialize defaults so IsOn() sees the feature as enabled.
 				for _, prm := range f.Params {
 					if prm.Default != "" && params[prm.Name] == "" {
@@ -48,7 +61,6 @@ func (a *appState) featuresEditor() []fyne.CanvasObject {
 			rebuildPage()
 		})
 		enable.Checked = on
-
 		if on {
 			for _, prm := range f.Params {
 				p := prm

@@ -621,8 +621,8 @@ func (a *appState) bindingListEditor(f *catalog.Field, get func() any, set func(
 		arr, _ := get().([]any)
 		for i, item := range arr {
 			i, item := i, item
-			card := widget.NewCard("", fmt.Sprintf("Binding %d", i+1), nil)
-			content := card.Content.(*fyne.Container)
+			content := container.NewVBox()
+			card := widget.NewCard("", fmt.Sprintf("Binding %d", i+1), content)
 			itemGet := func() any { return item }
 			itemSet := func(v any) {
 				cur, _ := get().([]any)
@@ -696,8 +696,8 @@ func (a *appState) namedItemListEditor(f *catalog.Field, get func() any, set fun
 		arr, _ := get().([]any)
 		for i, item := range arr {
 			i := i
-			card := widget.NewCard("", fmt.Sprintf("Item %d", i+1), nil)
-			content := card.Content.(*fyne.Container)
+			content := container.NewVBox()
+			card := widget.NewCard("", fmt.Sprintf("Item %d", i+1), content)
 			itemGet := func() any { return item }
 			itemSet := func(v any) {
 				cur, _ := get().([]any)
@@ -895,9 +895,11 @@ func (a *appState) actionEditor(get func() any, set func(any)) fyne.CanvasObject
 		}
 		if name != "Custom Lua…" {
 			def := catalog.FindAction(name)
-			if def != nil && def.Arg != nil && def.Arg.Kind == catalog.Struct && !def.Arg.Tuple {
-				if _, ok := get().(map[string]any); !ok {
+			if def != nil {
+				if def.Arg != nil && def.Arg.Kind == catalog.Struct && !def.Arg.Tuple {
 					set(map[string]any{name: map[string]any{}})
+				} else if def.Arg == nil {
+					set(name)
 				}
 			}
 		}
@@ -931,7 +933,6 @@ var pluginPresets = [][2]string{ // {url, purpose}
 func pluginVarFromURL(url string) string {
 	u := strings.TrimSuffix(url, "/")
 	u = strings.TrimPrefix(u, "https://github.com/")
-	u = strings.TrimPrefix(u, "http://github.com/")
 	parts := strings.Split(u, "/")
 	name := parts[len(parts)-1]
 	name = strings.TrimSuffix(name, ".wezterm")
@@ -1024,8 +1025,8 @@ func (a *appState) pluginsEditor() []fyne.CanvasObject {
 	customURL.SetPlaceHolder("…or paste any https:// plugin URL")
 	addCustom := widget.NewButtonWithIcon("Add", theme.ContentAddIcon(), func() {
 		u := strings.TrimSpace(customURL.Text)
-		if !strings.HasPrefix(u, "https://") && !strings.HasPrefix(u, "http://") && !strings.HasPrefix(u, "file://") {
-			dialog.ShowError(errors.New("plugin URL must start with https://, http:// or file://"), a.win)
+		if !strings.HasPrefix(u, "https://") && !strings.HasPrefix(u, "file://") {
+			dialog.ShowError(errors.New("plugin URL must start with https:// or file://"), a.win)
 			return
 		}
 		v := pluginVarFromURL(u)

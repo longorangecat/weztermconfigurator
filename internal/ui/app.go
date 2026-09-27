@@ -3,14 +3,17 @@
 package ui
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"image/color"
+	"io"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"time"
-
-	"image/color"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -90,7 +93,7 @@ func Run() {
 	if err != nil {
 		dialog.ShowError(fmt.Errorf("resolving WezTerm paths: %w", err), w)
 	}
-	st, err := state.Load(paths.State)
+	st, err := state.LoadOrRecover(paths.State, paths.Config)
 	if err != nil {
 		dialog.ShowError(fmt.Errorf("loading state: %w", err), w)
 		st = state.New(state.RuntimeTarget())
@@ -120,9 +123,31 @@ func Run() {
 	a2.rebuildPage()
 	a2.refreshNav()
 
-	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.KeyS, Modifier: fyne.KeyModifierControl},
-		func(fyne.Shortcut) { a2.save() })
+	saveShortcut := &desktop.CustomShortcut{KeyName: fyne.KeyS, Modifier: fyne.KeyModifierControl}
+	saveShortcutSuper := &desktop.CustomShortcut{KeyName: fyne.KeyS, Modifier: fyne.KeyModifierSuper}
+	w.Canvas().AddShortcut(saveShortcut, func(fyne.Shortcut) { a2.save() })
+	w.Canvas().AddShortcut(saveShortcutSuper, func(fyne.Shortcut) { a2.save() })
 
+	openShortcut := &desktop.CustomShortcut{KeyName: fyne.KeyO, Modifier: fyne.KeyModifierControl}
+	openShortcutSuper := &desktop.CustomShortcut{KeyName: fyne.KeyO, Modifier: fyne.KeyModifierSuper}
+	w.Canvas().AddShortcut(openShortcut, func(fyne.Shortcut) { a2.openFile() })
+	w.Canvas().AddShortcut(openShortcutSuper, func(fyne.Shortcut) { a2.openFile() })
+
+	fileMenu := fyne.NewMenu("File",
+		fyne.NewMenuItem("Save", func() { a2.save() }),
+		fyne.NewMenuItem("Open…", a2.openFile),
+		fyne.NewMenuItem("Export Lua…", a2.exportLua),
+		fyne.NewMenuItemSeparator(),
+		fyne.NewMenuItem("Quit", func() {
+			a2.persistWindowSize()
+			w.Close()
+		}),
+	)
+	fileMenu.Items[0].Shortcut = saveShortcut
+	fileMenu.Items[1].Shortcut = openShortcut
+	fileMenu.Items[4].Shortcut = &desktop.CustomShortcut{KeyName: fyne.KeyQ, Modifier: fyne.KeyModifierControl}
+	mainMenu := fyne.NewMainMenu(fileMenu)
+	w.SetMainMenu(mainMenu)
 	w.SetCloseIntercept(func() {
 		if !a2.dirty {
 			a2.persistWindowSize()
@@ -196,7 +221,10 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	searchEntry := widget.NewEntry()
 	searchEntry.PlaceHolder = "🔍  Search options…"
 	searchEntry.OnChanged = func(q string) {
-		a.searchQuery = strings.ToLower(q)
+		a.searchQuery = strings.ToLower(strings.TrimSpace(q))
+		if a.searchQuery != "" && a.nav != nil {
+			a.nav.UnselectAll()
+		}
 		a.rebuildPage()
 	}
 
@@ -249,9 +277,12 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	)
 	a.nav.OnSelected = func(id widget.ListItemID) {
 		a.currentCat = cats[id]
+		if a.searchQuery != "" {
+			a.searchQuery = ""
+			searchEntry.SetText("")
+		}
 		a.rebuildPage()
 	}
-
 	nav := container.NewBorder(searchEntry, nil, nil, nil, a.nav)
 
 	// ---- Content
@@ -328,8 +359,19 @@ func (a *appState) rebuildPage() {
 		pageHeader("Plugins", "Plugins are git repos loaded with wezterm.plugin.require (WezTerm 20230320 or newer). URLs must be https:// or file://. Updates: run wezterm.plugin.update_all() in the debug overlay, then reload the config. Clones live in ~/.local/share/wezterm/plugins.")
 		rows = append(rows, a.pluginsEditor()...)
 	case a.currentCat == catalog.FeaturesCategory:
-		pageHeader("Features", "One-click community Lua features. Tick a card, adjust its parameters, and the generated Lua is emitted before your Custom Lua. Sources are linked per feature.")
 		rows = append(rows, a.featuresEditor()...)
+	case a.currentCat == catalog.CustomLuaCategory:
+		pageHeader("Custom Lua", "Arbitrary Lua code appended at the end of wezterm.lua. Runs inside an isolated 'do ... end' block. Return statement is added automatically by the emitter.")
+		luaEntry := widget.NewMultiLineEntry()
+		luaEntry.TextStyle = fyne.TextStyle{Monospace: true}
+		luaEntry.SetMinRowsVisible(16)
+		luaEntry.PlaceHolder = "-- Write your custom Lua here, e.g.:\n-- wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)\n--   return tab.active_pane.title\n-- end)"
+		luaEntry.SetText(a.st.CustomLua)
+		luaEntry.OnChanged = func(s string) {
+			a.st.CustomLua = s
+			a.markDirty()
+		}
+		rows = append(rows, luaEntry)
 	case a.searchQuery != "":
 		rows = append(rows, heading("Search results"))
 		found := 0
@@ -411,7 +453,7 @@ func (a *appState) validateAll() error {
 	return errors.Join(errs...)
 }
 
-// save validates, backs up an unowned config once, writes state + Lua.
+// save validates, backs up an unowned config once, runs WezTerm pre-save check, writes state + Lua.
 // Returns true when saved.
 func (a *appState) save() bool {
 	if err := a.validateAll(); err != nil {
@@ -420,7 +462,13 @@ func (a *appState) save() bool {
 	}
 	a.wroteOK = false
 
-	doWrite := func() {
+	out, err := luagen.Emit(a.st)
+	if err != nil {
+		dialog.ShowError(err, a.win)
+		return false
+	}
+
+	proceedWithBackupAndWrite := func() {
 		exists, owned, err := state.Owned(a.paths.Config)
 		if err != nil {
 			dialog.ShowError(err, a.win)
@@ -438,25 +486,43 @@ func (a *appState) save() bool {
 						return
 					}
 					a.savedFirst = true
-					a.writeFiles()
+					a.writeFiles(out)
 				}, a.win)
 			return
 		}
-		a.writeFiles()
+		a.writeFiles(out)
 	}
-	doWrite()
+
+	// F1: Pre-save check with WezTerm if binary is available
+	if a.wezterm != "" {
+		tmpFile, err := os.CreateTemp("", "wezterm-check-*.lua")
+		if err == nil {
+			tmpPath := tmpFile.Name()
+			_, _ = tmpFile.WriteString(out)
+			_ = tmpFile.Close()
+			defer os.Remove(tmpPath)
+
+			ok, checkOut, _ := wezcli.Check(a.wezterm, tmpPath)
+			if !ok {
+				msg := fmt.Sprintf("WezTerm reported configuration errors:\n\n%s\nSave anyway?", strings.TrimSpace(checkOut))
+				dialog.ShowConfirm("Configuration Check Failed", msg, func(proceed bool) {
+					if proceed {
+						proceedWithBackupAndWrite()
+					}
+				}, a.win)
+				return false
+			}
+		}
+	}
+
+	proceedWithBackupAndWrite()
 	return a.wroteOK
 }
 
-func (a *appState) writeFiles() {
+func (a *appState) writeFiles(out string) {
 	a.wroteOK = false
 	if err := a.st.Save(a.paths.State); err != nil {
 		dialog.ShowError(fmt.Errorf("saving state: %w", err), a.win)
-		return
-	}
-	out, err := luagen.Emit(a.st)
-	if err != nil {
-		dialog.ShowError(err, a.win)
 		return
 	}
 	if err := writeAtomic(a.paths.Config, out); err != nil {
@@ -466,9 +532,9 @@ func (a *appState) writeFiles() {
 	a.status.Importance = widget.LowImportance
 	a.status.SetText("✓  Saved " + time.Now().Format("15:04:05"))
 	a.refreshNav()
+	a.dirty = false
 	a.wroteOK = true
 }
-
 func (a *appState) previewLua() {
 	out, err := luagen.Emit(a.st)
 	text := out
@@ -549,6 +615,62 @@ func (a *appState) resetAll() {
 	}, a.win)
 }
 
+func (a *appState) exportLua() {
+	out, err := luagen.Emit(a.st)
+	if err != nil {
+		dialog.ShowError(fmt.Errorf("generating lua: %w", err), a.win)
+		return
+	}
+	d := dialog.NewFileSave(func(uc fyne.URIWriteCloser, err error) {
+		if err != nil || uc == nil {
+			return
+		}
+		defer uc.Close()
+		if _, werr := uc.Write([]byte(out)); werr != nil {
+			dialog.ShowError(fmt.Errorf("exporting lua: %w", werr), a.win)
+		}
+	}, a.win)
+	d.SetFileName("wezterm.lua")
+	d.Show()
+}
+
+func (a *appState) openFile() {
+	d := dialog.NewFileOpen(func(rc fyne.URIReadCloser, err error) {
+		if err != nil || rc == nil {
+			return
+		}
+		defer rc.Close()
+		content, err := io.ReadAll(rc)
+		if err != nil {
+			dialog.ShowError(fmt.Errorf("reading file: %w", err), a.win)
+			return
+		}
+		uriPath := rc.URI().Path()
+		var newSt *state.State
+		// Try JSON unmarshal first
+		var st state.State
+		if jerr := json.Unmarshal(content, &st); jerr == nil && st.Version > 0 {
+			newSt = &st
+		} else {
+			// Try extracting embedded state from Lua
+			extracted, xerr := state.Extract(string(content))
+			if xerr != nil {
+				dialog.ShowError(fmt.Errorf("could not load state from %s (neither valid state JSON nor embedded state Lua: %w)", filepath.Base(uriPath), xerr), a.win)
+				return
+			}
+			newSt = extracted
+		}
+
+		a.st = newSt
+		if a.st.TargetOS != "" {
+			a.target = a.st.TargetOS
+		}
+		a.dirty = false
+		a.rebuildPage()
+		a.refreshNav()
+	}, a.win)
+	d.Show()
+}
 func writeAtomic(path, content string) error {
 	return osWriteFileAtomic(path, content)
 }

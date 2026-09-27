@@ -1,8 +1,8 @@
 package catalog
 
 var windowOptions = []Option{
-	opt(Field{Name: "initial_cols", Kind: Int, Min: ptr(1), Max: ptr(65535), Default: 80}, "Window", "", nil, nil, ""),
-	opt(Field{Name: "initial_rows", Kind: Int, Min: ptr(1), Max: ptr(65535), Default: 24}, "Window", "", nil, nil, ""),
+	opt(Field{Name: "initial_cols", Kind: Int, Min: ptr(1), Max: ptr(65535), Default: 80.0}, "Window", "", nil, nil, ""),
+	opt(Field{Name: "initial_rows", Kind: Int, Min: ptr(1), Max: ptr(65535), Default: 24.0}, "Window", "", nil, nil, ""),
 	opt(Field{Name: "window_decorations", Kind: Flags, Enum: []string{"TITLE", "RESIZE", "INTEGRATED_BUTTONS", "MACOS_FORCE_DISABLE_SHADOW", "MACOS_FORCE_ENABLE_SHADOW", "MACOS_FORCE_SQUARE_CORNERS", "MACOS_USE_BACKGROUND_COLOR_AS_TITLEBAR_COLOR"}, EmptyToken: "NONE", Default: "TITLE|RESIZE"}, "Window", "20210314-114017-04b7cedd", nil, nil, ""),
 	opt(Field{Name: "integrated_title_buttons", Kind: StringList, Enum: []string{"Hide", "Maximize", "Close"}, Default: []any{"Hide", "Maximize", "Close"}}, "Window", "20230408-112425-69ae8472", nil, nil, ""),
 	opt(Field{Name: "integrated_title_button_alignment", Kind: Enum, Enum: []string{"Right", "Left"}, Default: "Right"}, "Window", "20230408-112425-69ae8472", nil, nil, ""),

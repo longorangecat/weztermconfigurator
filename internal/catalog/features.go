@@ -2,6 +2,8 @@ package catalog
 
 import (
 	"fmt"
+	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -12,6 +14,8 @@ type Feature struct {
 	Name   string
 	Doc    string
 	Source string
+	// Features sharing a Group write the same WezTerm output; at most one may be on.
+	Group  string
 	Params []FeatureParam
 	Emit   func(p map[string]string) string
 }
@@ -48,6 +52,29 @@ func fq(s string) string {
 	s = strings.ReplaceAll(s, `'`, `\'`)
 	s = strings.ReplaceAll(s, "\n", `\n`)
 	return `'` + s + `'`
+}
+
+var unicodeEscapeRe = regexp.MustCompile(`\\u\{([0-9a-fA-F]{1,6})\}`)
+
+func fint(p map[string]string, k string, def int) string {
+	v, err := strconv.Atoi(strings.TrimSpace(p[k]))
+	if err != nil || v < 1 {
+		return strconv.Itoa(def)
+	}
+	return strconv.Itoa(v)
+}
+
+func ftext(s string) string {
+	s = unicodeEscapeRe.ReplaceAllStringFunc(s, func(m string) string {
+		sub := unicodeEscapeRe.FindStringSubmatch(m)
+		if len(sub) == 2 {
+			if n, err := strconv.ParseUint(sub[1], 16, 32); err == nil {
+				return string(rune(n))
+			}
+		}
+		return m
+	})
+	return fq(s)
 }
 
 // fs returns the param value or def when blank.
@@ -116,6 +143,7 @@ var Features = []Feature{
 		Name:   "Powerline tab titles",
 		Doc:    "Powerline separators, per-process nerd-font icons, tab index, truncation, hover/active colors.",
 		Source: "https://github.com/KevinSilvester/wezterm-config/blob/master/events/tab-title.lua",
+		Group:  "tab title",
 		Params: []FeatureParam{
 			{Name: "max_width", Label: "Max width (cells)", Kind: "string", Default: "40"},
 			{Name: "icons", Label: "Process icons", Kind: "bool", Default: "1"},
@@ -124,7 +152,7 @@ var Features = []Feature{
 		Emit: func(p map[string]string) string {
 			useIcons := fb(p, "icons")
 			useIndex := fb(p, "index")
-			maxw := fs(p, "max_width", "40")
+			maxw := fint(p, "max_width", 40)
 			var b strings.Builder
 			b.WriteString("local function cfg_tab_title(tab)\n")
 			b.WriteString("  local title = tab.tab_title\n")
@@ -132,9 +160,10 @@ var Features = []Feature{
 			b.WriteString("  local pane = tab.active_pane\n")
 			b.WriteString("  local proc = pane.foreground_process_name or ''\n")
 			b.WriteString("  proc = proc:gsub('^.*/', '')\n")
+			b.WriteString("  local icon = ''\n")
 			if useIcons {
 				b.WriteString("  local icons = { bash = '\\u{f489} ', zsh = '\\u{f489} ', fish = '\\u{f489} ', nvim = '\\u{e62b} ', vim = '\\u{e62b} ', ssh = '\\u{f489} ', top = '\\u{f13d} ', htop = '\\u{f13d} ', btm = '\\u{f13d} ', python = '\\u{e606} ', node = '\\u{e718} ' }\n")
-				b.WriteString("  local icon = icons[proc] or ''\n")
+				b.WriteString("  icon = icons[proc] or ''\n")
 			}
 			b.WriteString("  local idx = ''\n")
 			if useIndex {
@@ -150,9 +179,9 @@ var Features = []Feature{
 			b.WriteString("  if tab.is_active and #title > 0 then title = '\\u{25b6} ' .. title end\n")
 			b.WriteString("  title = ' ' .. title .. ' '\n")
 			b.WriteString("  if wezterm.column_width(title) > max_width then title = wezterm.truncate_right(title, max_width - 1) .. '\\u{2026}' end\n")
-			b.WriteString("  return {{ { Background = { Color = edge } }, { Text = '\\u{e0b6}' },\n")
+			b.WriteString("  return { { Background = { Color = edge } }, { Text = '\\u{e0b6}' },\n")
 			b.WriteString("    { Background = { Color = bg } }, { Foreground = { Color = fg } }, { Text = title },\n")
-			b.WriteString("    { Background = { Color = edge } }, { Foreground = { Color = bg } }, { Text = '\\u{e0b4}' } }}\n")
+			b.WriteString("    { Background = { Color = edge } }, { Foreground = { Color = bg } }, { Text = '\\u{e0b4}' } }\n")
 			b.WriteString("end)\n")
 			return b.String()
 		},
@@ -162,18 +191,20 @@ var Features = []Feature{
 		Name:   "Unseen-output tab badge",
 		Doc:    "Colored dot badge on background tabs that produced output since last view.",
 		Source: "https://github.com/KevinSilvester/wezterm-config/blob/master/events/tab-title.lua",
+		Group:  "tab title",
 		Params: []FeatureParam{
 			{Name: "color", Label: "Badge color", Kind: "string", Default: "#d08770"},
 		},
 		Emit: func(p map[string]string) string {
 			c := fs(p, "color", "#d08770")
 			return fmt.Sprintf(`wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
-  local dot = ''
-  if tab.has_unseen_output and not tab.is_active then
-    dot = { { Foreground = { Color = %s } }, { Text = ' \\u{25cf}' } }
-  end
   local title = ' ' .. (tab.tab_title ~= '' and tab.tab_title or tab.active_pane.title) .. ' '
-  return {{ { Text = title }, dot }}
+  local items = { { Text = title } }
+  if tab.has_unseen_output and not tab.is_active then
+    table.insert(items, { Foreground = { Color = %s } })
+    table.insert(items, { Text = '\u{25cf} ' })
+  end
+  return items
 end)`, fq(c))
 		},
 	},
@@ -182,6 +213,7 @@ end)`, fq(c))
 		Name:   "Cwd + hostname tab titles",
 		Doc:    "tmux-style tab titles showing the working directory (and optionally hostname).",
 		Source: "https://github.com/yutkat/dotfiles/blob/main/.config/wezterm/on.lua",
+		Group:  "tab title",
 		Params: []FeatureParam{
 			{Name: "depth", Label: "Path depth (components)", Kind: "string", Default: "1"},
 			{Name: "hostname", Label: "Show hostname", Kind: "bool", Default: "1"},
@@ -190,26 +222,21 @@ end)`, fq(c))
 			host := fb(p, "hostname")
 			h := ""
 			if host {
-				h = "    host = uri.host or ''\n    if host ~= '' then parts[#parts+1] = host end\n"
+				h = "  local host = cwd and cwd.host or ''\n  if host ~= '' then title = host .. ':' .. title end\n"
 			}
-			return fmt.Sprintf(`local function basename(s)
-  return string.gsub(s or '', '(.*[/\\])(.*)', '%%2')
-end
-
-wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
+			return fmt.Sprintf(`wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
   local pane = tab.active_pane
-  local uri = pane.current_working_dir and pane.current_working_dir.file_path or ''
-  local parts = {}
-  local depth = %s
+  local cwd = pane.current_working_dir
+  local path = cwd and cwd.file_path or ''
   local comps = {}
-  for comp in string.gmatch(uri, '[^/\\]+') do comps[#comps+1] = comp end
-  local start = math.max(1, #comps - depth + 1)
-  for i = start, #comps do parts[#parts+1] = comps[i] end
-%s  local title = table.concat(parts, '/')
-  if title == '' then title = pane.title end
-  title = ' ' .. tostring(tab.tab_index + 1) .. ': ' .. title .. ' '
-  return {{ { Text = title } }}
-end)`, fs(p, "depth", "1"), h)
+  for comp in string.gmatch(path, '[^/\\]+') do comps[#comps+1] = comp end
+  local depth = %s
+  local parts = {}
+  for i = math.max(1, #comps - depth + 1), #comps do parts[#parts+1] = comps[i] end
+  local title = table.concat(parts, '/')
+%s  if title == '' then title = pane.title end
+  return ' ' .. tostring(tab.tab_index + 1) .. ': ' .. title .. ' '
+end)`, fint(p, "depth", 1), h)
 		},
 	},
 	{
@@ -217,6 +244,7 @@ end)`, fs(p, "depth", "1"), h)
 		Name:   "Powerline right-status bar",
 		Doc:    "Right status with powerline segments: clock, battery, and current working directory.",
 		Source: "https://github.com/KevinSilvester/wezterm-config/blob/master/events/right-status.lua",
+		Group:  "right status",
 		Params: []FeatureParam{
 			{Name: "date_format", Label: "Date format (strftime)", Kind: "string", Default: "%a %H:%M"},
 			{Name: "battery", Label: "Show battery", Kind: "bool", Default: "1"},
@@ -224,16 +252,16 @@ end)`, fs(p, "depth", "1"), h)
 		},
 		Emit: func(p map[string]string) string {
 			var segs strings.Builder
-			segs.WriteString("  table.insert(cells, { Text = wezterm.strftime('" + fs(p, "date_format", "%a %H:%M") + "') })\n")
+			segs.WriteString("  table.insert(cells, { Text = wezterm.strftime(" + fq(fs(p, "date_format", "%a %H:%M")) + ") })\n")
 			if fb(p, "battery") {
 				segs.WriteString("  for _, b in ipairs(wezterm.battery_info()) do\n")
 				segs.WriteString("    local icon = b.state == 'Charging' and '\\u{f0e7}' or '\\u{f240}'\n")
-				segs.WriteString("    table.insert(cells, { Text = string.format('%%s %%%%d%%%%', icon, math.floor(b.state_of_charge * 100)) })\n")
+				segs.WriteString("    table.insert(cells, { Text = string.format('%s %d%%', icon, math.floor(b.state_of_charge * 100)) })\n")
 				segs.WriteString("  end\n")
 			}
 			cwd := ""
 			if fb(p, "cwd") {
-				cwd = "  local cwd = pane.current_working_dir and pane.current_working_dir.file_path or ''\n  if cwd ~= '' then table.insert(cells, { Text = cwd:gsub('^.*/', '') }) end\n"
+				cwd = "  local cwd_url = pane:get_current_working_dir()\n  local cwd = cwd_url and cwd_url.file_path or ''\n  if cwd ~= '' then table.insert(cells, { Text = cwd:gsub('^.*/', '') }) end\n"
 			}
 			return fmt.Sprintf(`wezterm.on('update-status', function(window, pane)
   local cells = {}
@@ -268,11 +296,11 @@ end)`, segs.String(), cwd)
   local mode = window:active_key_table()
   local left = ''
   if not (%s and ws == 'default') then
-    left = ' \\u{f2d0} ' .. ws
+    left = ' \u{f2d0} ' .. ws
   end
-  if mode then left = left .. ' \\u{f12c6} ' .. mode end
+  if mode then left = left .. ' \u{f12c6} ' .. mode end
   window:set_left_status(wezterm.format({
-    { Foreground = { Color = '#2b2042' }, Text = left },
+    { Foreground = { Color = '#2b2042' } }, { Text = left },
   }))
 end)`, hide)
 		},
@@ -282,12 +310,20 @@ end)`, hide)
 		Name:   "SSH / remote-domain badge",
 		Doc:    "Shows the multiplexing domain name in the right status when the pane is remote.",
 		Source: "https://github.com/yutkat/dotfiles/blob/main/.config/wezterm/on.lua",
+		Group:  "right status",
 		Params: []FeatureParam{
 			{Name: "hide", Label: "Hide for domains (comma-sep)", Kind: "string", Default: "local"},
 			{Name: "icon", Label: "Icon", Kind: "string", Default: "\\u{f489}"},
 		},
 		Emit: func(p map[string]string) string {
-			hide := fs(p, "hide", "local")
+			hideRaw := fs(p, "hide", "local")
+			var hiddenQuoted []string
+			for _, h := range strings.Split(hideRaw, ",") {
+				if t := strings.TrimSpace(h); t != "" {
+					hiddenQuoted = append(hiddenQuoted, fq(t))
+				}
+			}
+			hidden := strings.Join(hiddenQuoted, ", ")
 			icon := fs(p, "icon", "\\u{f489}")
 			return fmt.Sprintf(`wezterm.on('update-right-status', function(window, pane)
   local dom = pane:get_domain_name()
@@ -296,9 +332,9 @@ end)`, hide)
     if dom == h then return end
   end
   window:set_right_status(wezterm.format({
-    { Foreground = { Color = '#d08770' }, Text = ' %s ' .. dom .. ' ' },
+    { Foreground = { Color = '#d08770' } }, { Text = ' ' .. %s .. ' ' .. dom .. ' ' },
   }))
-end)`, hide, icon)
+end)`, hidden, ftext(icon))
 		},
 	},
 	{
@@ -306,6 +342,7 @@ end)`, hide, icon)
 		Name:   "Zoomed-pane indicator",
 		Doc:    "Shows a label in the right status when the active pane is zoomed.",
 		Source: "https://github.com/yutkat/dotfiles/blob/main/.config/wezterm/on.lua",
+		Group:  "right status",
 		Params: []FeatureParam{
 			{Name: "label", Label: "Label", Kind: "string", Default: "ZOOM"},
 		},
@@ -314,7 +351,7 @@ end)`, hide, icon)
 			return fmt.Sprintf(`wezterm.on('update-right-status', function(window, pane)
   for _, info in ipairs(window:active_tab():panes_with_info()) do
     if info.is_zoomed and info.pane_id == pane:pane_id() then
-      window:set_right_status(' %s ')
+      window:set_right_status(' ' .. %s .. ' ')
       return
     end
   end
@@ -327,6 +364,7 @@ end)`, fq(l))
 		Name:   "Active key-table indicator",
 		Doc:    "Shows which named key table is active (e.g. resize mode) in the right status.",
 		Source: "https://wezterm.org/config/key-tables.html",
+		Group:  "right status",
 		Params: []FeatureParam{
 			{Name: "prefix", Label: "Prefix", Kind: "string", Default: "TABLE:"},
 		},
@@ -336,12 +374,12 @@ end)`, fq(l))
   local kt = window:active_key_table()
   if kt then
     window:set_right_status(wezterm.format({
-      { Foreground = { Color = '#a3be8c' }, Text = ' %s %s ' },
+      { Foreground = { Color = '#a3be8c' } }, { Text = ' ' .. %s .. ' ' .. kt .. ' ' },
     }))
   else
     window:set_right_status('')
   end
-end)`, fq(pre), "' .. kt .. '")
+end)`, fq(pre))
 		},
 	},
 	{
@@ -355,10 +393,20 @@ end)`, fq(pre), "' .. kt .. '")
 		},
 		Emit: func(p map[string]string) string {
 			lv := fs(p, "levels", "1.0,0.75,0.5")
+			var valid []string
+			for _, part := range strings.Split(lv, ",") {
+				trimmed := strings.TrimSpace(part)
+				if _, err := strconv.ParseFloat(trimmed, 64); err == nil {
+					valid = append(valid, trimmed)
+				}
+			}
+			if len(valid) == 0 {
+				valid = []string{"1.0", "0.75", "0.5"}
+			}
 			var lua strings.Builder
 			lua.WriteString("local opacity_levels = { ")
-			for _, part := range strings.Split(lv, ",") {
-				lua.WriteString(strings.TrimSpace(part) + ", ")
+			for _, v := range valid {
+				lua.WriteString(v + ", ")
 			}
 			lua.WriteString("}\nlocal opacity_idx = 1\n")
 			lua.WriteString("wezterm.on('toggle-opacity', function(window, pane)\n")
@@ -377,8 +425,8 @@ end)`, fq(pre), "' .. kt .. '")
 		Source: "https://github.com/KevinSilvester/wezterm-config/blob/master/utils/backdrops.lua",
 		Params: []FeatureParam{
 			{Name: "dir", Label: "Images directory", Kind: "string", Default: ""},
-			{Name: "next_key", Label: "Next image (MODS|KEY)", Kind: "string", Default: "CTRL|SHIFT|N"},
-			{Name: "random_key", Label: "Random image (MODS|KEY)", Kind: "string", Default: "CTRL|SHIFT|R"},
+			{Name: "next_key", Label: "Next image (MODS|KEY)", Kind: "string", Default: "CTRL|SHIFT|ALT|N"},
+			{Name: "random_key", Label: "Random image (MODS|KEY)", Kind: "string", Default: "CTRL|SHIFT|ALT|R"},
 		},
 		Emit: func(p map[string]string) string {
 			dir := fs(p, "dir", "")
@@ -386,13 +434,13 @@ end)`, fq(pre), "' .. kt .. '")
 				return "-- backdrop cycler: set an images directory to enable"
 			}
 			var b strings.Builder
-			b.WriteString("local backdrop_dir = " + fq(dir) + "\n")
+			b.WriteString("local backdrop_dir = " + fq(strings.TrimRight(dir, "/\\")+"/") + "\n")
 			b.WriteString("local backdrops = wezterm.glob(backdrop_dir .. '*.jpg')\n")
 			b.WriteString("for _, f in ipairs(wezterm.glob(backdrop_dir .. '*.png')) do table.insert(backdrops, f) end\n")
 			b.WriteString("table.sort(backdrops)\n")
 			b.WriteString("local backdrop_idx = 1\n")
 			b.WriteString("local function set_backdrop(window, path)\n")
-			b.WriteString("  window:set_config_overrides({ background = { { source = { File = path }, horizontal_align = 'Center', vertical_align = 'Middle' }, { source = { Color = '#101010' }, opacity = 0.85, width = '100%%', height = '100%%' } } })\n")
+			b.WriteString("  window:set_config_overrides({ background = { { source = { File = path }, horizontal_align = 'Center', vertical_align = 'Middle' }, { source = { Color = '#101010' }, opacity = 0.85, width = '100%', height = '100%' } } })\n")
 			b.WriteString("end\n")
 			b.WriteString("wezterm.on('backdrop-next', function(window, pane)\n")
 			b.WriteString("  if #backdrops == 0 then return end\n")
@@ -446,8 +494,8 @@ config.window_background_gradient = {
 		Doc:    "Keybindings to cycle/randomize all built-in color schemes, with a toast notification.",
 		Source: "https://github.com/koh-sh/wezterm-theme-rotator",
 		Params: []FeatureParam{
-			{Name: "next_key", Label: "Next scheme (MODS|KEY)", Kind: "string", Default: "CTRL|SHIFT|T"},
-			{Name: "random_key", Label: "Random scheme (MODS|KEY)", Kind: "string", Default: "CTRL|SHIFT|Y"},
+			{Name: "next_key", Label: "Next scheme (MODS|KEY)", Kind: "string", Default: "CTRL|SHIFT|ALT|T"},
+			{Name: "random_key", Label: "Random scheme (MODS|KEY)", Kind: "string", Default: "CTRL|SHIFT|ALT|Y"},
 		},
 		Emit: func(p map[string]string) string {
 			var b strings.Builder
@@ -534,7 +582,7 @@ end)()`, fq(mux), fq(sh))
 			return fmt.Sprintf(`wezterm.on('gui-startup', function(cmd)
   local tab, pane, win
   local mux = wezterm.mux
-%s  mux.set_default_workspace(%s)
+%s  mux.set_active_workspace(%s)
 end)`, tabs.String(), fq(ws))
 		},
 	},
@@ -658,7 +706,7 @@ end)`
 			return fmt.Sprintf(`config.front_end = 'WebGpu'
 config.webgpu_preferred_adapter = (function()
   local best, best_score = nil, -1
-  for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
+  for _, gpu in ipairs(wezterm.gui and wezterm.gui.enumerate_gpus() or {}) do
     local score = 0
     if gpu.device_type == 'DiscreteGpu' then score = score + 10 end
     if gpu.backend == %s then score = score + 5 end
