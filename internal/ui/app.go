@@ -330,10 +330,9 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	// ---- Content with readable max-width centering
 	a.page = container.NewVBox()
 	pageContent := container.NewPadded(a.page)
-	maxContent := &readableWidthContainer{content: pageContent, maxWidth: 960}
+	maxContent := &readableWidthContainer{content: pageContent, maxWidth: 840}
 	maxContent.ExtendBaseWidget(maxContent)
-	a.pageScroll = container.NewVScroll(maxContent)
-
+	a.pageScroll = newFastScroll(maxContent)
 	// ---- Status bar
 	a.pathLabel = widget.NewLabel("⚙  " + a.paths.Config)
 	a.pathLabel.TextStyle = fyne.TextStyle{Monospace: true}
@@ -387,6 +386,27 @@ func (r *readableWidthRenderer) Objects() []fyne.CanvasObject {
 }
 
 func (r *readableWidthRenderer) Destroy() {}
+type fastScrollContainer struct {
+	container.Scroll
+}
+
+func newFastScroll(content fyne.CanvasObject) *container.Scroll {
+	s := container.NewVScroll(content)
+	fs := &fastScrollContainer{Scroll: *s}
+	fs.ExtendBaseWidget(fs)
+	return &fs.Scroll
+}
+
+func (s *fastScrollContainer) Scrolled(ev *fyne.ScrollEvent) {
+	boosted := &fyne.ScrollEvent{
+		PointEvent: ev.PointEvent,
+		Scrolled: fyne.Delta{
+			DX: ev.Scrolled.DX * 3.5,
+			DY: ev.Scrolled.DY * 3.5,
+		},
+	}
+	s.Scroll.Scrolled(boosted)
+}
 
 func (a *appState) setByName(name string) bool {
 	_, ok := a.st.Values[name]

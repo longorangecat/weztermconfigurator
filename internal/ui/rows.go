@@ -370,66 +370,14 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	refresh()
 
 	nameRow := container.NewBorder(nil, nil, nameAndBadges, buttons)
-	if o.Kind == catalog.Bool {
-		helpLabel.Wrapping = fyne.TextWrapOff
-		singleLine := container.NewHBox(nameAndBadges, helpLabel, editorBox, buttons)
-		multiLine := container.NewVBox(nameRow, helpLabel, editorBox)
-		autoRow := &responsiveBoolRow{
-			singleLine: singleLine,
-			multiLine:  multiLine,
-		}
-		autoRow.ExtendBaseWidget(autoRow)
-		r.obj = container.NewBorder(nil, nil, bar, nil, autoRow)
-	} else {
-		r.obj = container.NewBorder(nil, nil, bar, nil,
-			container.NewVBox(nameRow, helpLabel, editorBox),
-		)
-	}
+	contentVBox := container.NewVBox(nameRow, helpLabel, editorBox)
+	card := container.NewPadded(contentVBox)
+	bg := canvas.NewRectangle(mustHex(colSurface))
+	bg.CornerRadius = 6
+	rowWithBg := container.NewStack(bg, card)
+	r.obj = container.NewBorder(nil, nil, bar, nil, rowWithBg)
 	return r
 }
-type responsiveBoolRow struct {
-	widget.BaseWidget
-	singleLine *fyne.Container
-	multiLine  *fyne.Container
-}
-
-func (r *responsiveBoolRow) CreateRenderer() fyne.WidgetRenderer {
-	return &responsiveBoolRowRenderer{row: r}
-}
-
-type responsiveBoolRowRenderer struct {
-	row *responsiveBoolRow
-}
-
-func (ren *responsiveBoolRowRenderer) Layout(size fyne.Size) {
-	singleMin := ren.row.singleLine.MinSize()
-	if size.Width >= singleMin.Width {
-		ren.row.singleLine.Show()
-		ren.row.multiLine.Hide()
-		ren.row.singleLine.Resize(size)
-		ren.row.singleLine.Move(fyne.NewPos(0, 0))
-	} else {
-		ren.row.singleLine.Hide()
-		ren.row.multiLine.Show()
-		ren.row.multiLine.Resize(size)
-		ren.row.multiLine.Move(fyne.NewPos(0, 0))
-	}
-}
-
-func (ren *responsiveBoolRowRenderer) MinSize() fyne.Size {
-	return ren.row.multiLine.MinSize()
-}
-
-func (ren *responsiveBoolRowRenderer) Refresh() {
-	ren.row.singleLine.Refresh()
-	ren.row.multiLine.Refresh()
-}
-
-func (ren *responsiveBoolRowRenderer) Objects() []fyne.CanvasObject {
-	return []fyne.CanvasObject{ren.row.singleLine, ren.row.multiLine}
-}
-
-func (ren *responsiveBoolRowRenderer) Destroy() {}
 
 // literal renders a JSON-shaped default for help text.
 func literal(v any) string {
