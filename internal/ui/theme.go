@@ -39,15 +39,18 @@ func mustHex(s string) color.Color {
 	}
 }
 
-// appTheme implements fyne.Theme with the app's palette.
+// appTheme implements fyne.Theme with the app's palette and scale support.
 type appTheme struct {
 	fyne.Theme
+	scale float32
 }
 
-func newAppTheme() fyne.Theme {
-	return &appTheme{Theme: theme.DarkTheme()}
+func newAppTheme(scale float32) *appTheme {
+	if scale <= 0 {
+		scale = 1.0
+	}
+	return &appTheme{Theme: theme.DarkTheme(), scale: scale}
 }
-
 func (t *appTheme) Color(name fyne.ThemeColorName, _ fyne.ThemeVariant) color.Color {
 	switch name {
 	case theme.ColorNameBackground:
@@ -85,19 +88,20 @@ func (t *appTheme) Color(name fyne.ThemeColorName, _ fyne.ThemeVariant) color.Co
 }
 
 func (t *appTheme) Size(name fyne.ThemeSizeName) float32 {
+	var base float32
 	switch name {
 	case theme.SizeNamePadding:
-		return 6
+		base = 6
 	case theme.SizeNameSeparatorThickness:
 		return 1
 	case theme.SizeNameInnerPadding:
-		return 10
+		base = 10
 	case theme.SizeNameLineSpacing:
-		return 4
+		base = 4
 	case theme.SizeNameScrollBar:
-		return 10
+		base = 10
 	case theme.SizeNameScrollBarSmall:
-		return 4
+		base = 4
 	case theme.SizeNameInputRadius:
 		return 6
 	case theme.SizeNameButtonRadius:
@@ -106,6 +110,19 @@ func (t *appTheme) Size(name fyne.ThemeSizeName) float32 {
 		return 8
 	case theme.SizeNameCardRadius:
 		return 10
+	case theme.SizeNameText:
+		base = t.Theme.Size(name)
+	case theme.SizeNameHeadingText:
+		base = t.Theme.Size(name)
+	case theme.SizeNameSubHeadingText:
+		base = t.Theme.Size(name)
+	case theme.SizeNameCaptionText:
+		base = t.Theme.Size(name)
+	default:
+		return t.Theme.Size(name)
 	}
-	return t.Theme.Size(name)
+	if t.scale > 0 && t.scale != 1.0 {
+		return base * t.scale
+	}
+	return base
 }

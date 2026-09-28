@@ -59,3 +59,65 @@ func TestExportAndOpenRoundTrip(t *testing.T) {
 		t.Fatalf("extracted state mismatch: %+v", extracted)
 	}
 }
+
+func TestQuickCategoryAndOptionChanges(t *testing.T) {
+	if len(catalog.QuickOptionNames) == 0 {
+		t.Fatal("expected QuickOptionNames to have entries")
+	}
+	for _, name := range catalog.QuickOptionNames {
+		if catalog.Find(name) == nil {
+			t.Fatalf("quick option %s not found in catalog", name)
+		}
+	}
+
+	a := &appState{
+		st:     state.New("linux"),
+		target: "linux",
+	}
+
+	tabOpt := catalog.Find("enable_tab_bar")
+	if tabOpt == nil {
+		t.Fatal("enable_tab_bar not found")
+	}
+	// Default is true, not set in state => not changed
+	if a.isOptionChangedFromDefault(tabOpt) {
+		t.Fatal("expected unchanged when not set")
+	}
+
+	// Set to false (different from default true) => changed
+	a.st.Values["enable_tab_bar"] = false
+	if !a.isOptionChangedFromDefault(tabOpt) {
+		t.Fatal("expected changed when set to false")
+	}
+
+	// Set to true (same as default true) => not changed
+	a.st.Values["enable_tab_bar"] = true
+	if a.isOptionChangedFromDefault(tabOpt) {
+		t.Fatal("expected unchanged when explicitly set to default true")
+	}
+}
+
+func TestOptionTooltipFormatting(t *testing.T) {
+	opt := catalog.Find("color_scheme")
+	if opt == nil {
+		t.Fatal("color_scheme not found")
+	}
+	tip := formatOptionTooltip(opt, "linux")
+	if !strings.Contains(tip, "color_scheme") {
+		t.Fatalf("expected tooltip to contain option name: %s", tip)
+	}
+	if !strings.Contains(tip, opt.Doc) {
+		t.Fatalf("expected tooltip to contain doc: %s", tip)
+	}
+
+	enumOpt := catalog.Find("window_decorations")
+	if enumOpt != nil && len(enumOpt.Enum) > 0 {
+		enumTip := formatOptionTooltip(enumOpt, "linux")
+		if !strings.Contains(enumTip, "Available options / values:") {
+			t.Fatalf("expected enum options in tooltip: %s", enumTip)
+		}
+		if !strings.Contains(enumTip, enumOpt.Enum[0]) {
+			t.Fatalf("expected enum value %s in tooltip: %s", enumOpt.Enum[0], enumTip)
+		}
+	}
+}

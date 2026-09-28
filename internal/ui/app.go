@@ -41,7 +41,7 @@ type appState struct {
 	systemFonts []string
 	target      string
 	showAll     bool
-
+	uiScale     float32
 	page       *fyne.Container
 	pageScroll *container.Scroll
 	nav        *widget.List
@@ -82,13 +82,16 @@ func targetToPlatform(t string) string {
 // Run creates the window and starts the app loop.
 func Run() {
 	a := app.NewWithID("io.github.wadhah.weztermconfigurator")
-	a.Settings().SetTheme(newAppTheme())
+	savedScale := float32(a.Preferences().FloatWithFallback("ui.scale", 1.0))
+	if savedScale < 0.7 || savedScale > 2.0 {
+		savedScale = 1.0
+	}
+	a.Settings().SetTheme(newAppTheme(savedScale))
 	w := a.NewWindow("WezTerm Configurator")
-	w.Resize(fyne.NewSize(
-		float32(a.Preferences().FloatWithFallback("win.w", 1280)),
-		float32(a.Preferences().FloatWithFallback("win.h", 820)),
-	))
-
+	initW := float32(a.Preferences().FloatWithFallback("win.w", 640))
+	initH := float32(a.Preferences().FloatWithFallback("win.h", 480))
+	w.Resize(fyne.NewSize(initW, initH))
+	w.CenterOnScreen()
 	paths, err := state.Resolve()
 	if err != nil {
 		dialog.ShowError(fmt.Errorf("resolving WezTerm paths: %w", err), w)
@@ -100,13 +103,13 @@ func Run() {
 	}
 
 	a2 := &appState{
-		app:    a,
-		win:    w,
-		paths:  paths,
-		st:     st,
-		target: st.TargetOS,
+		app:     a,
+		win:     w,
+		paths:   paths,
+		st:      st,
+		target:  st.TargetOS,
+		uiScale: savedScale,
 	}
-	a2.target = st.TargetOS
 
 	if bin, ok := wezcli.Find(); ok {
 		a2.wezterm = bin
@@ -119,7 +122,7 @@ func Run() {
 	}
 
 	w.SetContent(a2.buildUI())
-	a2.currentCat = catalog.Categories[0]
+	a2.currentCat = catalog.QuickCategory
 	a2.rebuildPage()
 	a2.refreshNav()
 
@@ -132,6 +135,18 @@ func Run() {
 	openShortcutSuper := &desktop.CustomShortcut{KeyName: fyne.KeyO, Modifier: fyne.KeyModifierSuper}
 	w.Canvas().AddShortcut(openShortcut, func(fyne.Shortcut) { a2.openFile() })
 	w.Canvas().AddShortcut(openShortcutSuper, func(fyne.Shortcut) { a2.openFile() })
+	zoomIn := func() { a2.adjustScale(0.1) }
+	zoomOut := func() { a2.adjustScale(-0.1) }
+	zoomReset := func() { a2.setScale(1.0) }
+
+	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.KeyEqual, Modifier: fyne.KeyModifierControl}, func(fyne.Shortcut) { zoomIn() })
+	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.KeyEqual, Modifier: fyne.KeyModifierSuper}, func(fyne.Shortcut) { zoomIn() })
+	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.KeyPlus, Modifier: fyne.KeyModifierControl}, func(fyne.Shortcut) { zoomIn() })
+	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.KeyPlus, Modifier: fyne.KeyModifierSuper}, func(fyne.Shortcut) { zoomIn() })
+	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.KeyMinus, Modifier: fyne.KeyModifierControl}, func(fyne.Shortcut) { zoomOut() })
+	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.KeyMinus, Modifier: fyne.KeyModifierSuper}, func(fyne.Shortcut) { zoomOut() })
+	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.Key0, Modifier: fyne.KeyModifierControl}, func(fyne.Shortcut) { zoomReset() })
+	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.Key0, Modifier: fyne.KeyModifierSuper}, func(fyne.Shortcut) { zoomReset() })
 
 	fileMenu := fyne.NewMenu("File",
 		fyne.NewMenuItem("Save", func() { a2.save() }),
@@ -181,6 +196,21 @@ func (a *appState) persistWindowSize() {
 	a.app.Preferences().SetFloat("win.w", float64(a.win.Canvas().Size().Width))
 	a.app.Preferences().SetFloat("win.h", float64(a.win.Canvas().Size().Height))
 }
+func (a *appState) setScale(s float32) {
+	if s < 0.7 {
+		s = 0.7
+	}
+	if s > 2.0 {
+		s = 2.0
+	}
+	a.uiScale = s
+	a.app.Preferences().SetFloat("ui.scale", float64(s))
+	a.app.Settings().SetTheme(newAppTheme(s))
+}
+
+func (a *appState) adjustScale(delta float32) {
+	a.setScale(a.uiScale + delta)
+}
 func (a *appState) buildUI() fyne.CanvasObject {
 	// ---- Top bar: brand + actions on a surface strip
 	brand := widget.NewLabelWithStyle("⌘ WezTerm Configurator", fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
@@ -195,6 +225,9 @@ func (a *appState) buildUI() fyne.CanvasObject {
 		toolbar.Items = append(toolbar.Items, widget.NewToolbarAction(theme.ConfirmIcon(), a.checkWithWezterm))
 	}
 	toolbar.Items = append(toolbar.Items,
+		widget.NewToolbarSeparator(),
+		widget.NewToolbarAction(theme.ZoomInIcon(), func() { a.adjustScale(0.1) }),
+		widget.NewToolbarAction(theme.ZoomOutIcon(), func() { a.adjustScale(-0.1) }),
 		widget.NewToolbarSeparator(),
 		widget.NewToolbarAction(theme.DeleteIcon(), a.resetAll),
 	)
@@ -228,7 +261,8 @@ func (a *appState) buildUI() fyne.CanvasObject {
 		a.rebuildPage()
 	}
 
-	cats := append(append([]string{}, catalog.Categories...), catalog.PluginsCategory, catalog.FeaturesCategory, catalog.CustomLuaCategory)
+	cats := append([]string{catalog.QuickCategory}, catalog.Categories...)
+	cats = append(cats, catalog.PluginsCategory, catalog.FeaturesCategory, catalog.CustomLuaCategory)
 	a.nav = widget.NewList(
 		func() int { return len(cats) },
 		func() fyne.CanvasObject {
@@ -238,6 +272,12 @@ func (a *appState) buildUI() fyne.CanvasObject {
 			c := cats[id]
 			n := 0
 			switch {
+			case c == catalog.QuickCategory:
+				for _, name := range catalog.QuickOptionNames {
+					if a.setByName(name) || a.st.Raw[name] != "" {
+						n++
+					}
+				}
 			case c == catalog.PluginsCategory:
 				n = len(a.st.Plugins)
 			case c == catalog.FeaturesCategory:
@@ -260,7 +300,7 @@ func (a *appState) buildUI() fyne.CanvasObject {
 			name := box[0].(*widget.Label)
 			count := box[1].(*widget.Label)
 			name.SetText(c)
-			if c == catalog.PluginsCategory || c == catalog.FeaturesCategory || c == catalog.CustomLuaCategory {
+			if c == catalog.QuickCategory || c == catalog.PluginsCategory || c == catalog.FeaturesCategory || c == catalog.CustomLuaCategory {
 				name.TextStyle = fyne.TextStyle{Bold: true}
 			} else {
 				name.TextStyle = fyne.TextStyle{}
@@ -283,11 +323,16 @@ func (a *appState) buildUI() fyne.CanvasObject {
 		}
 		a.rebuildPage()
 	}
-	nav := container.NewBorder(searchEntry, nil, nil, nil, a.nav)
+	navMin := canvas.NewRectangle(color.Transparent)
+	navMin.SetMinSize(fyne.NewSize(220, 0))
+	nav := container.NewStack(navMin, container.NewBorder(searchEntry, nil, nil, nil, a.nav))
 
-	// ---- Content
+	// ---- Content with readable max-width centering
 	a.page = container.NewVBox()
-	a.pageScroll = container.NewVScroll(a.page)
+	pageContent := container.NewPadded(a.page)
+	maxContent := &readableWidthContainer{content: pageContent, maxWidth: 960}
+	maxContent.ExtendBaseWidget(maxContent)
+	a.pageScroll = container.NewVScroll(maxContent)
 
 	// ---- Status bar
 	a.pathLabel = widget.NewLabel("⚙  " + a.paths.Config)
@@ -297,10 +342,51 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	statusBar := container.NewBorder(nil, nil, a.pathLabel, a.status)
 
 	split := container.NewHSplit(nav, a.pageScroll)
-	split.SetOffset(0.24)
-
+	split.SetOffset(0.20)
 	return container.NewBorder(topBar, statusBar, nil, nil, split)
 }
+type readableWidthContainer struct {
+	widget.BaseWidget
+	content  fyne.CanvasObject
+	maxWidth float32
+}
+
+func (c *readableWidthContainer) CreateRenderer() fyne.WidgetRenderer {
+	return &readableWidthRenderer{container: c}
+}
+
+type readableWidthRenderer struct {
+	container *readableWidthContainer
+}
+
+func (r *readableWidthRenderer) Layout(size fyne.Size) {
+	w := size.Width
+	if r.container.maxWidth > 0 && w > r.container.maxWidth {
+		w = r.container.maxWidth
+	}
+	x := float32(0) // left-aligned with readable max width
+	r.container.content.Move(fyne.NewPos(x, 0))
+	r.container.content.Resize(fyne.NewSize(w, r.container.content.MinSize().Height))
+}
+
+func (r *readableWidthRenderer) MinSize() fyne.Size {
+	contentMin := r.container.content.MinSize()
+	w := contentMin.Width
+	if r.container.maxWidth > 0 && w > r.container.maxWidth {
+		w = r.container.maxWidth
+	}
+	return fyne.NewSize(w, contentMin.Height)
+}
+
+func (r *readableWidthRenderer) Refresh() {
+	r.container.content.Refresh()
+}
+
+func (r *readableWidthRenderer) Objects() []fyne.CanvasObject {
+	return []fyne.CanvasObject{r.container.content}
+}
+
+func (r *readableWidthRenderer) Destroy() {}
 
 func (a *appState) setByName(name string) bool {
 	_, ok := a.st.Values[name]
@@ -372,6 +458,23 @@ func (a *appState) rebuildPage() {
 			a.markDirty()
 		}
 		rows = append(rows, luaEntry)
+	case a.currentCat == catalog.QuickCategory:
+		pageHeader("Quick Settings", "Frequently used and recommended settings. These options remain available in their respective category pages as well.")
+		shown := 0
+		for _, name := range catalog.QuickOptionNames {
+			o := catalog.Find(name)
+			if o == nil {
+				continue
+			}
+			if !catalog.RelevantTo(o.Tags, a.target) && !a.showAll {
+				continue
+			}
+			rows = append(rows, a.makeRow(o))
+			shown++
+		}
+		if shown == 0 {
+			rows = append(rows, emptyHint("No quick settings available for "+targetToPlatform(a.target)+". Enable “All platforms” to see them."))
+		}
 	case a.searchQuery != "":
 		rows = append(rows, heading("Search results"))
 		found := 0

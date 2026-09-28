@@ -11,9 +11,9 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
-
 	"weztermconfigurator/internal/catalog"
 	"weztermconfigurator/internal/luagen"
 )
@@ -37,6 +37,96 @@ var (
 )
 
 // isSet reports whether the option currently has a value.
+func formatOptionTooltip(o *catalog.Option, target string) string {
+	var b strings.Builder
+	b.WriteString(o.Name)
+	if o.Since != "" {
+		b.WriteString(" (since " + o.Since + ")")
+	}
+	b.WriteString("\n\n")
+	if o.Doc != "" {
+		b.WriteString(o.Doc)
+		b.WriteString("\n")
+	}
+	if o.Deprecated != "" {
+		b.WriteString("\n⚠️ DEPRECATED: " + o.Deprecated + "\n")
+	}
+	def := catalog.DefaultFor(o, target)
+	if def == nil && o.DefaultNote != "" {
+		b.WriteString("\nDefault: " + o.DefaultNote)
+	} else if def != nil {
+		b.WriteString("\nDefault: " + literal(def))
+	}
+	if len(o.Enum) > 0 {
+		b.WriteString("\n\nAvailable options / values:\n")
+		for _, optVal := range o.Enum {
+			b.WriteString(" • " + optVal + "\n")
+		}
+	}
+	return strings.TrimSpace(b.String())
+}
+
+type hoverHelpButton struct {
+	widget.Button
+	infoText string
+	win      fyne.Window
+	pop      *widget.PopUp
+}
+
+func newHoverHelpButton(infoText string, win fyne.Window) *hoverHelpButton {
+	b := &hoverHelpButton{
+		infoText: infoText,
+		win:      win,
+	}
+	b.Text = "?"
+	b.Importance = widget.LowImportance
+	b.OnTapped = func() {
+		if b.pop != nil {
+			b.pop.Hide()
+			b.pop = nil
+			return
+		}
+		b.showTooltip()
+	}
+	b.ExtendBaseWidget(b)
+	return b
+}
+func (b *hoverHelpButton) showTooltip() {
+	if b.win == nil || b.pop != nil {
+		return
+	}
+	lbl := widget.NewLabel(b.infoText)
+	lbl.Wrapping = fyne.TextWrapWord
+	closeBtn := widget.NewButtonWithIcon("", theme.CancelIcon(), func() {
+		b.hideTooltip()
+	})
+	closeBtn.Importance = widget.LowImportance
+	header := container.NewBorder(nil, nil, nil, closeBtn, widget.NewLabelWithStyle("Documentation & Details", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}))
+	scrollable := container.NewVScroll(lbl)
+	scrollable.SetMinSize(fyne.NewSize(380, 220))
+	box := container.NewBorder(header, nil, nil, nil, scrollable)
+	content := container.NewPadded(box)
+	b.pop = widget.NewPopUp(content, b.win.Canvas())
+	btnPos := fyne.CurrentApp().Driver().AbsolutePositionForObject(b)
+	b.pop.ShowAtPosition(fyne.NewPos(btnPos.X, btnPos.Y+b.Size().Height+4))
+}
+
+func (b *hoverHelpButton) hideTooltip() {
+	if b.pop != nil {
+		b.pop.Hide()
+		b.pop = nil
+	}
+}
+
+func (b *hoverHelpButton) MouseIn(*desktop.MouseEvent) {
+	b.showTooltip()
+}
+
+func (b *hoverHelpButton) MouseMoved(*desktop.MouseEvent) {}
+
+func (b *hoverHelpButton) MouseOut() {
+	b.hideTooltip()
+}
 func (a *appState) isSet(o *catalog.Option) bool {
 	if a.st.Raw[o.Name] != "" {
 		return true
@@ -44,12 +134,87 @@ func (a *appState) isSet(o *catalog.Option) bool {
 	_, ok := a.st.Values[o.Name]
 	return ok
 }
+func (a *appState) isOptionChangedFromDefault(o *catalog.Option) bool {
+	if a.st.Raw[o.Name] != "" {
+		return true
+	}
+	v, ok := a.st.Values[o.Name]
+	if !ok {
+		return false
+	}
+	def := catalog.DefaultFor(o, a.target)
+	if def == nil {
+		return true
+	}
+	return !valuesEqual(v, def)
+}
+
+func valuesEqual(a, b any) bool {
+	if a == nil || b == nil {
+		return a == b
+	}
+	// Numbers in JSON / config may be float64 or int
+	toF64 := func(v any) (float64, bool) {
+		switch x := v.(type) {
+		case float64:
+			return x, true
+		case int:
+			return float64(x), true
+		case int64:
+			return float64(x), true
+		default:
+			return 0, false
+		}
+	}
+	if na, oka := toF64(a); oka {
+		if nb, okb := toF64(b); okb {
+			return na == nb
+		}
+	}
+	switch va := a.(type) {
+	case string:
+		vb, ok := b.(string)
+		return ok && va == vb
+	case bool:
+		vb, ok := b.(bool)
+		return ok && va == vb
+	case []any:
+		vb, ok := b.([]any)
+		if !ok || len(va) != len(vb) {
+			return false
+		}
+		for i := range va {
+			if !valuesEqual(va[i], vb[i]) {
+				return false
+			}
+		}
+		return true
+	case map[string]any:
+		vb, ok := b.(map[string]any)
+		if !ok || len(va) != len(vb) {
+			return false
+		}
+		for k, v1 := range va {
+			v2, ok2 := vb[k]
+			if !ok2 || !valuesEqual(v1, v2) {
+				return false
+			}
+		}
+		return true
+	}
+	return fmt.Sprintf("%v", a) == fmt.Sprintf("%v", b)
+}
 
 // newOptionRow builds the full row for one option.
 func (a *appState) newOptionRow(o *catalog.Option) *row {
 	r := &row{opt: o}
 
 	nameLabel := widget.NewLabelWithStyle(o.Name, fyne.TextAlignLeading, fyne.TextStyle{Bold: true, Monospace: true})
+
+	warningBadge := widget.NewLabel("Changed from default")
+	warningBadge.Importance = widget.WarningImportance
+	warningBadge.TextStyle = fyne.TextStyle{Bold: true}
+	warningBadge.Hide()
 
 	var badges []fyne.CanvasObject
 	for _, t := range o.Tags {
@@ -69,8 +234,10 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 		b.TextStyle = fyne.TextStyle{Monospace: true}
 		badges = append(badges, b)
 	}
+	badges = append(badges, warningBadge)
+	helpBtn := newHoverHelpButton(formatOptionTooltip(o, a.target), a.win)
+	badges = append(badges, helpBtn)
 	nameAndBadges := container.NewHBox(append([]fyne.CanvasObject{nameLabel}, badges...)...)
-
 	helpText := o.Doc
 	if o.Deprecated != "" {
 		helpText += " DEPRECATED: " + o.Deprecated
@@ -93,10 +260,21 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	bar.SetMinSize(fyne.NewSize(4, 4))
 
 	refresh := func() {
+		isChanged := a.isOptionChangedFromDefault(o)
+		if isChanged {
+			warningBadge.Show()
+		} else {
+			warningBadge.Hide()
+		}
+
 		if a.isSet(o) {
 			nameLabel.Importance = widget.HighImportance
 			resetBtn.Show()
-			bar.FillColor = mustHex(colPrimary)
+			if isChanged {
+				bar.FillColor = mustHex(colWarning)
+			} else {
+				bar.FillColor = mustHex(colPrimary)
+			}
 		} else if o.Deprecated != "" {
 			nameLabel.Importance = widget.MediumImportance
 			resetBtn.Hide()
@@ -192,11 +370,66 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	refresh()
 
 	nameRow := container.NewBorder(nil, nil, nameAndBadges, buttons)
-	r.obj = container.NewBorder(nil, nil, bar, nil,
-		container.NewVBox(nameRow, helpLabel, editorBox),
-	)
+	if o.Kind == catalog.Bool {
+		helpLabel.Wrapping = fyne.TextWrapOff
+		singleLine := container.NewHBox(nameAndBadges, helpLabel, editorBox, buttons)
+		multiLine := container.NewVBox(nameRow, helpLabel, editorBox)
+		autoRow := &responsiveBoolRow{
+			singleLine: singleLine,
+			multiLine:  multiLine,
+		}
+		autoRow.ExtendBaseWidget(autoRow)
+		r.obj = container.NewBorder(nil, nil, bar, nil, autoRow)
+	} else {
+		r.obj = container.NewBorder(nil, nil, bar, nil,
+			container.NewVBox(nameRow, helpLabel, editorBox),
+		)
+	}
 	return r
 }
+type responsiveBoolRow struct {
+	widget.BaseWidget
+	singleLine *fyne.Container
+	multiLine  *fyne.Container
+}
+
+func (r *responsiveBoolRow) CreateRenderer() fyne.WidgetRenderer {
+	return &responsiveBoolRowRenderer{row: r}
+}
+
+type responsiveBoolRowRenderer struct {
+	row *responsiveBoolRow
+}
+
+func (ren *responsiveBoolRowRenderer) Layout(size fyne.Size) {
+	singleMin := ren.row.singleLine.MinSize()
+	if size.Width >= singleMin.Width {
+		ren.row.singleLine.Show()
+		ren.row.multiLine.Hide()
+		ren.row.singleLine.Resize(size)
+		ren.row.singleLine.Move(fyne.NewPos(0, 0))
+	} else {
+		ren.row.singleLine.Hide()
+		ren.row.multiLine.Show()
+		ren.row.multiLine.Resize(size)
+		ren.row.multiLine.Move(fyne.NewPos(0, 0))
+	}
+}
+
+func (ren *responsiveBoolRowRenderer) MinSize() fyne.Size {
+	return ren.row.multiLine.MinSize()
+}
+
+func (ren *responsiveBoolRowRenderer) Refresh() {
+	ren.row.singleLine.Refresh()
+	ren.row.multiLine.Refresh()
+}
+
+func (ren *responsiveBoolRowRenderer) Objects() []fyne.CanvasObject {
+	return []fyne.CanvasObject{ren.row.singleLine, ren.row.multiLine}
+}
+
+func (ren *responsiveBoolRowRenderer) Destroy() {}
 
 // literal renders a JSON-shaped default for help text.
 func literal(v any) string {
@@ -463,9 +696,10 @@ func (a *appState) buildEditor(f *catalog.Field, get func() any, set func(any)) 
 		c := widget.NewCheck("Enabled", func(on bool) { set(on) })
 		if v, ok := get().(bool); ok {
 			c.SetChecked(v)
+		} else if d, ok := f.Default.(bool); ok {
+			c.SetChecked(d)
 		}
 		return c
-
 	case catalog.Int, catalog.Float:
 		e := widget.NewEntry()
 		if f.Kind == catalog.Int {

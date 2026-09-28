@@ -122,6 +122,9 @@ var Categories = []string{
 	"Terminal & Security",
 }
 
+// QuickCategory is a pseudo-category rendered by the UI at the top, not an Option.
+const QuickCategory = "Quick Settings"
+
 // CustomLuaCategory is a pseudo-category rendered by the UI, not an Option.
 const CustomLuaCategory = "Custom Lua"
 
@@ -130,6 +133,32 @@ const PluginsCategory = "Plugins"
 
 // FeaturesCategory is a pseudo-category rendered by the UI, not an Option.
 const FeaturesCategory = "Features"
+
+// QuickOptionNames lists the names of important, frequently used, and good-to-change settings.
+var QuickOptionNames = []string{
+	"color_scheme",
+	"font",
+	"font_size",
+	"line_height",
+	"window_background_opacity",
+	"enable_tab_bar",
+	"hide_tab_bar_if_only_one_tab",
+	"use_fancy_tab_bar",
+	"tab_bar_at_bottom",
+	"scrollback_lines",
+	"enable_scroll_bar",
+	"window_decorations",
+	"initial_cols",
+	"initial_rows",
+	"default_prog",
+	"default_cwd",
+	"default_cursor_style",
+	"cursor_blink_rate",
+	"window_close_confirmation",
+	"quit_when_all_windows_are_closed",
+	"automatically_reload_config",
+	"check_for_updates",
+}
 
 // ptr returns a pointer to f (for Min/Max literals).
 func ptr(f float64) *float64 { return &f }
