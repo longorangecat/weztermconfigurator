@@ -26,6 +26,7 @@ type State struct {
 	CustomLua string                       `json:"custom_lua"`
 	Plugins   []Plugin                     `json:"plugins,omitempty"`
 	Features  map[string]map[string]string `json:"features,omitempty"` // feature id → param name → verbatim Lua value
+	Pinned    []string                     `json:"pinned,omitempty"`   // option names the user pinned to Quick Settings
 }
 
 // FeatureParams returns the parameter map for id, creating it if absent.

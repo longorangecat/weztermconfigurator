@@ -43,6 +43,7 @@ type appState struct {
 	showAll     bool
 	uiScale     float32
 	changedOnly bool // hide options that have no value set
+	hist        *history
 	page        *fyne.Container
 	pageScroll  *fastScroll
 	nav         *widget.List
@@ -104,6 +105,7 @@ func Run() {
 	}
 
 	a2 := &appState{
+		hist:    newHistory(st),
 		app:     a,
 		win:     w,
 		paths:   paths,
@@ -453,9 +455,25 @@ func (a *appState) refreshNav() {
 
 func (a *appState) markDirty() {
 	a.dirty = true
+	a.hist.Changed(a.st)
 	a.status.Importance = widget.WarningImportance
 	a.status.SetText("●  Unsaved changes: press Ctrl+S or “Save & Apply”")
 	a.refreshNav()
+}
+
+// stateReplaced refreshes the UI after a.st's contents were swapped wholesale
+// (undo, restore, profile load, import). Callers set a.dirty/status themselves.
+func (a *appState) stateReplaced() {
+	a.rebuildPage()
+	a.refreshNav()
+}
+
+// pinToggled refreshes what depends on the pinned list after a star was toggled.
+func (a *appState) pinToggled() {
+	a.markDirty()
+	if a.currentCat == catalog.QuickCategory {
+		a.rebuildPage()
+	}
 }
 
 // visible reports whether an option passes the target-platform and "Changed only" filters.
