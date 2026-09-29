@@ -12,18 +12,21 @@ import (
 // identity instead of the default flat look.
 
 const (
-	colBackground   = "#14161b"
-	colSurface      = "#1c1f27"
-	colSurfaceHigh  = "#242833"
-	colBorder       = "#2e3340"
-	colPrimary      = "#7aa2f7" // calm blue
-	colPrimaryDim   = "#5a7bc4"
-	colAccent       = "#bb9af7" // violet
-	colSuccess      = "#9ece6a"
-	colWarning      = "#e0af68"
-	colDanger       = "#f7768e"
-	colTextMain     = "#c8d0e0"
-	colTextDisabled = "#565f76"
+	colBackground  = "#12141a"
+	colSurface     = "#1a1e28" // option cards
+	colSurfaceHigh = "#272c3d"
+	colInput       = "#0d0f14" // inputs are darker than the card so they read as fields
+	colBorder      = "#3b4260"
+	colInputBorder = "#5d6890"
+	colPrimary     = "#82aaff" // calm blue
+	colPrimaryDim  = "#4a68b0"
+	colAccent      = "#c3a6ff" // violet
+	colSuccess     = "#a6e06f"
+	colWarning     = "#ffc66d"
+	colDanger      = "#ff7a93"
+	colTextMain    = "#eef1fa" // typed values, names
+	colTextMuted   = "#a3adc8" // help text, defaults (>=6:1 on card)
+	colTextHint    = "#7d87a6" // placeholders: dimmer than values, still readable
 )
 
 func mustHex(s string) color.Color {
@@ -55,20 +58,26 @@ func (t *appTheme) Color(name fyne.ThemeColorName, _ fyne.ThemeVariant) color.Co
 	switch name {
 	case theme.ColorNameBackground:
 		return mustHex(colBackground)
+	case theme.ColorNameForeground:
+		return mustHex(colTextMain)
 	case theme.ColorNameInputBackground:
-		return mustHex(colSurface)
+		return mustHex(colInput)
 	case theme.ColorNameMenuBackground:
 		return mustHex(colSurface)
 	case theme.ColorNameOverlayBackground:
 		return mustHex(colSurfaceHigh)
-	case theme.ColorNameDisabled:
-		return mustHex(colTextDisabled)
-	case theme.ColorNameDisabledButton:
+	case theme.ColorNameButton:
 		return mustHex(colSurfaceHigh)
+	case theme.ColorNameDisabled: // Fyne uses this for LowImportance labels
+		return mustHex(colTextMuted)
+	case theme.ColorNamePlaceHolder:
+		return mustHex(colTextHint)
+	case theme.ColorNameDisabledButton:
+		return mustHex(colSurface)
 	case theme.ColorNameSeparator:
 		return mustHex(colBorder)
 	case theme.ColorNameInputBorder:
-		return mustHex(colBorder)
+		return mustHex(colInputBorder)
 	case theme.ColorNameFocus:
 		return mustHex(colPrimaryDim)
 	case theme.ColorNameHover:

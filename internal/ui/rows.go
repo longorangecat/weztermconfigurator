@@ -205,36 +205,46 @@ func valuesEqual(a, b any) bool {
 	return fmt.Sprintf("%v", a) == fmt.Sprintf("%v", b)
 }
 
+// pill renders a small rounded badge: text in the importance colour on a faint tint of tintHex.
+func pill(text string, imp widget.Importance, tintHex string) fyne.CanvasObject {
+	l := widget.NewLabelWithStyle(text, fyne.TextAlignCenter, fyne.TextStyle{Bold: true})
+	l.Importance = imp
+	l.SizeName = theme.SizeNameCaptionText
+	c := mustHex(tintHex).(color.NRGBA)
+	c.A = 0x2e
+	bg := canvas.NewRectangle(c)
+	bg.CornerRadius = 10
+	return container.NewStack(bg, l)
+}
+
+// sinceDate trims a WezTerm release id (20210203-095643-70a364eb) to its date.
+func sinceDate(s string) string {
+	if i := strings.IndexByte(s, '-'); i > 0 {
+		return s[:i]
+	}
+	return s
+}
+
 // newOptionRow builds the full row for one option.
 func (a *appState) newOptionRow(o *catalog.Option) *row {
 	r := &row{opt: o}
 
 	nameLabel := widget.NewLabelWithStyle(o.Name, fyne.TextAlignLeading, fyne.TextStyle{Bold: true, Monospace: true})
 
-	warningBadge := widget.NewLabel("Changed from default")
-	warningBadge.Importance = widget.WarningImportance
-	warningBadge.TextStyle = fyne.TextStyle{Bold: true}
-	warningBadge.Hide()
+	changedBadge := pill("CHANGED", widget.WarningImportance, colWarning)
+	changedBadge.Hide()
 
 	var badges []fyne.CanvasObject
 	for _, t := range o.Tags {
-		b := widget.NewLabel(t)
-		b.Importance = widget.WarningImportance
-		b.TextStyle = fyne.TextStyle{Monospace: true}
-		badges = append(badges, b)
+		badges = append(badges, pill(t, widget.HighImportance, colPrimary))
 	}
 	if o.Deprecated != "" {
-		b := widget.NewLabel("Deprecated")
-		b.Importance = widget.DangerImportance
-		badges = append(badges, b)
+		badges = append(badges, pill("DEPRECATED", widget.DangerImportance, colDanger))
 	}
 	if o.Since != "" {
-		b := widget.NewLabel("since " + o.Since)
-		b.Importance = widget.LowImportance
-		b.TextStyle = fyne.TextStyle{Monospace: true}
-		badges = append(badges, b)
+		badges = append(badges, pill("since "+sinceDate(o.Since), widget.LowImportance, colTextMuted))
 	}
-	badges = append(badges, warningBadge)
+	badges = append(badges, changedBadge)
 	helpBtn := newHoverHelpButton(formatOptionTooltip(o, a.target), a.win)
 	badges = append(badges, helpBtn)
 	nameAndBadges := container.NewHBox(append([]fyne.CanvasObject{nameLabel}, badges...)...)
@@ -242,15 +252,23 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	if o.Deprecated != "" {
 		helpText += " DEPRECATED: " + o.Deprecated
 	}
-	def := catalog.DefaultFor(o, a.target)
-	if def == nil && o.DefaultNote != "" {
-		helpText += " Default: " + o.DefaultNote + "."
-	} else if def != nil {
-		helpText += " Default: " + literal(def) + "."
-	}
 	helpLabel := widget.NewLabel(helpText)
 	helpLabel.Wrapping = fyne.TextWrapWord
 	helpLabel.Importance = widget.LowImportance
+
+	defText := ""
+	if def := catalog.DefaultFor(o, a.target); def == nil && o.DefaultNote != "" {
+		defText = o.DefaultNote
+	} else if def != nil {
+		defText = literal(def)
+	}
+	var defLabel fyne.CanvasObject
+	if defText != "" {
+		dl := widget.NewLabelWithStyle("Default: "+defText, fyne.TextAlignLeading, fyne.TextStyle{Monospace: true})
+		dl.Importance = widget.SuccessImportance
+		dl.Wrapping = fyne.TextWrapWord
+		defLabel = dl
+	}
 
 	resetBtn := widget.NewButtonWithIcon("Reset", theme.ContentUndoIcon(), nil)
 	luaToggle := widget.NewButton("Lua", nil)
@@ -262,9 +280,9 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	refresh := func() {
 		isChanged := a.isOptionChangedFromDefault(o)
 		if isChanged {
-			warningBadge.Show()
+			changedBadge.Show()
 		} else {
-			warningBadge.Hide()
+			changedBadge.Hide()
 		}
 
 		if a.isSet(o) {
@@ -370,10 +388,16 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	refresh()
 
 	nameRow := container.NewBorder(nil, nil, nameAndBadges, buttons)
-	contentVBox := container.NewVBox(nameRow, helpLabel, editorBox)
+	parts := []fyne.CanvasObject{nameRow, helpLabel}
+	if defLabel != nil {
+		parts = append(parts, defLabel)
+	}
+	contentVBox := container.NewVBox(append(parts, editorBox)...)
 	card := container.NewPadded(contentVBox)
 	bg := canvas.NewRectangle(mustHex(colSurface))
 	bg.CornerRadius = 6
+	bg.StrokeColor = mustHex(colBorder)
+	bg.StrokeWidth = 1
 	rowWithBg := container.NewStack(bg, card)
 	r.obj = container.NewBorder(nil, nil, bar, nil, rowWithBg)
 	return r
@@ -641,12 +665,15 @@ func contains(list []string, s string) bool {
 func (a *appState) buildEditor(f *catalog.Field, get func() any, set func(any)) fyne.CanvasObject {
 	switch f.Kind {
 	case catalog.Bool:
-		c := widget.NewCheck("Enabled", func(on bool) { set(on) })
+		c := widget.NewCheck("Enabled", nil)
+		// Set Checked directly: SetChecked would fire OnChanged and write the
+		// default into state just by rendering the row.
 		if v, ok := get().(bool); ok {
-			c.SetChecked(v)
+			c.Checked = v
 		} else if d, ok := f.Default.(bool); ok {
-			c.SetChecked(d)
+			c.Checked = d
 		}
+		c.OnChanged = func(on bool) { set(on) }
 		return c
 	case catalog.Int, catalog.Float:
 		e := widget.NewEntry()
@@ -728,6 +755,32 @@ func (a *appState) buildEditor(f *catalog.Field, get func() any, set func(any)) 
 		if f.Name == "integrated_title_button_style" && a.target != "macos" {
 			opts = dropToken(opts, "MacOsNative")
 		}
+		if len(opts) <= 4 { // few choices: show them all at once, tap the selected one again to unset
+			defV, _ := f.Default.(string)
+			const tag = " (default)"
+			label := func(v string) string {
+				if v == defV {
+					return v + tag
+				}
+				return v
+			}
+			labels := make([]string, len(opts))
+			for i, v := range opts {
+				labels[i] = label(v)
+			}
+			rg := widget.NewRadioGroup(labels, func(l string) {
+				if l == "" {
+					set(nil)
+					return
+				}
+				set(strings.TrimSuffix(l, tag))
+			})
+			rg.Horizontal = true
+			if v, ok := get().(string); ok {
+				rg.Selected = label(v)
+			}
+			return rg
+		}
 		sel := widget.NewSelect(opts, func(v string) { set(v) })
 		sel.PlaceHolder = "(default: " + literal(f.Default) + ")"
 		if v, ok := get().(string); ok {
@@ -755,7 +808,7 @@ func (a *appState) buildEditor(f *catalog.Field, get func() any, set func(any)) 
 		})
 		g.Horizontal = true
 		if v, ok := get().(string); ok && v != "" && v != f.EmptyToken {
-			g.SetSelected(strings.Split(v, "|"))
+			g.Selected = strings.Split(v, "|") // direct: SetSelected would fire the callback and mark the page dirty
 		}
 		return g
 

@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"fyne.io/fyne/v2/test"
 	"strings"
 	"testing"
 
@@ -118,6 +119,32 @@ func TestOptionTooltipFormatting(t *testing.T) {
 		}
 		if !strings.Contains(enumTip, enumOpt.Enum[0]) {
 			t.Fatalf("expected enum value %s in tooltip: %s", enumOpt.Enum[0], enumTip)
+		}
+	}
+}
+
+// Rendering an editor must not write the shown default into state.
+func TestEditorsDoNotFireOnRender(t *testing.T) {
+	test.NewTempApp(t)
+	a := &appState{st: state.New("linux")}
+	for _, f := range []*catalog.Field{
+		{Name: "b", Kind: catalog.Bool, Default: true},
+		{Name: "e", Kind: catalog.Enum, Enum: []string{"A", "B"}, Default: "A"},
+		{Name: "fl", Kind: catalog.Flags, Enum: []string{"X", "Y"}},
+	} {
+		fired := false
+		get := func() any {
+			switch f.Kind {
+			case catalog.Bool:
+				return true
+			case catalog.Enum:
+				return "B"
+			}
+			return "X|Y"
+		}
+		a.buildEditor(f, get, func(any) { fired = true })
+		if fired {
+			t.Errorf("%s: editor wrote state while rendering", f.Name)
 		}
 	}
 }

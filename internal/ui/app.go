@@ -42,11 +42,12 @@ type appState struct {
 	target      string
 	showAll     bool
 	uiScale     float32
-	page       *fyne.Container
-	pageScroll *container.Scroll
-	nav        *widget.List
-	status     *widget.Label
-	pathLabel  *widget.Label
+	changedOnly bool // hide options that have no value set
+	page        *fyne.Container
+	pageScroll  *container.Scroll
+	nav         *widget.List
+	status      *widget.Label
+	pathLabel   *widget.Label
 
 	rows        []*row // currently mounted option rows
 	wroteOK     bool
@@ -88,8 +89,8 @@ func Run() {
 	}
 	a.Settings().SetTheme(newAppTheme(savedScale))
 	w := a.NewWindow("WezTerm Configurator")
-	initW := float32(a.Preferences().FloatWithFallback("win.w", 640))
-	initH := float32(a.Preferences().FloatWithFallback("win.h", 480))
+	initW := float32(a.Preferences().FloatWithFallback("win.w", 1000))
+	initH := float32(a.Preferences().FloatWithFallback("win.h", 700))
 	w.Resize(fyne.NewSize(initW, initH))
 	w.CenterOnScreen()
 	paths, err := state.Resolve()
@@ -212,25 +213,28 @@ func (a *appState) adjustScale(delta float32) {
 	a.setScale(a.uiScale + delta)
 }
 func (a *appState) buildUI() fyne.CanvasObject {
-	// ---- Top bar: brand + actions on a surface strip
-	brand := widget.NewLabelWithStyle("⌘ WezTerm Configurator", fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
+	// ---- Top bar: brand + primary action, then quick actions and view filters
+	brand := widget.NewLabelWithStyle("WezTerm Configurator", fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
 	brand.Importance = widget.HighImportance
 
-	toolbar := widget.NewToolbar(
-		widget.NewToolbarAction(theme.DocumentSaveIcon(), func() { a.save() }),
-		widget.NewToolbarAction(theme.DocumentIcon(), a.previewLua),
-		widget.NewToolbarAction(theme.FolderOpenIcon(), a.openConfigDir),
+	saveBtn := widget.NewButtonWithIcon("Save & Apply", theme.DocumentSaveIcon(), func() { a.save() })
+	saveBtn.Importance = widget.HighImportance
+
+	action := func(label string, icon fyne.Resource, fn func()) *widget.Button {
+		b := widget.NewButtonWithIcon(label, icon, fn)
+		b.Importance = widget.LowImportance
+		return b
+	}
+	actions := container.NewHBox(
+		action("Preview", theme.DocumentIcon(), a.previewLua),
+		action("Folder", theme.FolderOpenIcon(), a.openConfigDir),
 	)
 	if a.wezterm != "" {
-		toolbar.Items = append(toolbar.Items, widget.NewToolbarAction(theme.ConfirmIcon(), a.checkWithWezterm))
+		actions.Add(action("Check", theme.ConfirmIcon(), a.checkWithWezterm))
 	}
-	toolbar.Items = append(toolbar.Items,
-		widget.NewToolbarSeparator(),
-		widget.NewToolbarAction(theme.ZoomInIcon(), func() { a.adjustScale(0.1) }),
-		widget.NewToolbarAction(theme.ZoomOutIcon(), func() { a.adjustScale(-0.1) }),
-		widget.NewToolbarSeparator(),
-		widget.NewToolbarAction(theme.DeleteIcon(), a.resetAll),
-	)
+	actions.Add(action("Reset all", theme.DeleteIcon(), a.resetAll))
+	actions.Add(action("", theme.ZoomOutIcon(), func() { a.adjustScale(-0.1) }))
+	actions.Add(action("", theme.ZoomInIcon(), func() { a.adjustScale(0.1) }))
 
 	platformSelect := widget.NewSelect(platformLabels, func(label string) {
 		if label == "" {
@@ -244,11 +248,17 @@ func (a *appState) buildUI() fyne.CanvasObject {
 		a.showAll = on
 		a.rebuildPage()
 	})
-	rightControls := container.NewHBox(widget.NewLabelWithStyle("Target", fyne.TextAlignTrailing, fyne.TextStyle{}), platformSelect, showAllCheck)
+	changedCheck := widget.NewCheck("Changed only", func(on bool) {
+		a.changedOnly = on
+		a.rebuildPage()
+	})
+	filters := container.NewHBox(platformSelect, showAllCheck, changedCheck)
 
-	topBar := container.NewBorder(nil, nil,
-		container.NewHBox(brand, widget.NewLabel("")),
-		rightControls, toolbar)
+	topBar := container.NewVBox(
+		container.NewBorder(nil, nil, container.NewHBox(widget.NewIcon(theme.ComputerIcon()), brand), saveBtn),
+		container.NewBorder(nil, nil, actions, filters),
+		widget.NewSeparator(),
+	)
 
 	// ---- Nav: search + grouped categories
 	searchEntry := widget.NewEntry()
@@ -266,7 +276,8 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	a.nav = widget.NewList(
 		func() int { return len(cats) },
 		func() fyne.CanvasObject {
-			return container.NewHBox(widget.NewLabel(""), widget.NewLabel(""))
+			// Objects order is [name, count]; the count sits flush right.
+			return container.NewBorder(nil, nil, nil, widget.NewLabel(""), widget.NewLabel(""))
 		},
 		func(id widget.ListItemID, o fyne.CanvasObject) {
 			c := cats[id]
@@ -344,6 +355,7 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	split.SetOffset(0.20)
 	return container.NewBorder(topBar, statusBar, nil, nil, split)
 }
+
 type readableWidthContainer struct {
 	widget.BaseWidget
 	content  fyne.CanvasObject
@@ -386,6 +398,7 @@ func (r *readableWidthRenderer) Objects() []fyne.CanvasObject {
 }
 
 func (r *readableWidthRenderer) Destroy() {}
+
 type fastScrollContainer struct {
 	container.Scroll
 }
@@ -441,8 +454,24 @@ func (a *appState) refreshNav() {
 func (a *appState) markDirty() {
 	a.dirty = true
 	a.status.Importance = widget.WarningImportance
-	a.status.SetText("●  Unsaved changes")
+	a.status.SetText("●  Unsaved changes: press Ctrl+S or “Save & Apply”")
 	a.refreshNav()
+}
+
+// visible reports whether an option passes the target-platform and "Changed only" filters.
+func (a *appState) visible(o *catalog.Option) bool {
+	if a.changedOnly && !a.isSet(o) {
+		return false
+	}
+	return a.showAll || catalog.RelevantTo(o.Tags, a.target)
+}
+
+// noneMsg picks the empty-page message, explaining the active filter when there is one.
+func (a *appState) noneMsg(def string) string {
+	if a.changedOnly {
+		return "Nothing changed here yet. Turn off “Changed only” to see every option."
+	}
+	return def
 }
 
 func (a *appState) rebuildPage() {
@@ -486,22 +515,22 @@ func (a *appState) rebuildPage() {
 			if o == nil {
 				continue
 			}
-			if !catalog.RelevantTo(o.Tags, a.target) && !a.showAll {
+			if !a.visible(o) {
 				continue
 			}
 			rows = append(rows, a.makeRow(o))
 			shown++
 		}
 		if shown == 0 {
-			rows = append(rows, emptyHint("No quick settings available for "+targetToPlatform(a.target)+". Enable “All platforms” to see them."))
+			rows = append(rows, emptyHint(a.noneMsg("No quick settings available for "+targetToPlatform(a.target)+". Enable “All platforms” to see them.")))
 		}
 	case a.searchQuery != "":
 		rows = append(rows, heading("Search results"))
 		found := 0
 		for i := range catalog.Options {
 			o := &catalog.Options[i]
-			if strings.Contains(strings.ToLower(o.Name), a.searchQuery) ||
-				strings.Contains(strings.ToLower(o.Doc), a.searchQuery) {
+			if (!a.changedOnly || a.isSet(o)) && (strings.Contains(strings.ToLower(o.Name), a.searchQuery) ||
+				strings.Contains(strings.ToLower(o.Doc), a.searchQuery)) {
 				rows = append(rows, a.makeRow(o))
 				found++
 			}
@@ -517,14 +546,14 @@ func (a *appState) rebuildPage() {
 			if o.Category != a.currentCat {
 				continue
 			}
-			if !catalog.RelevantTo(o.Tags, a.target) && !a.showAll {
+			if !a.visible(o) {
 				continue
 			}
 			rows = append(rows, a.makeRow(o))
 			shown++
 		}
 		if shown == 0 {
-			rows = append(rows, emptyHint("No options in this category for "+targetToPlatform(a.target)+". Enable “All platforms” to see them."))
+			rows = append(rows, emptyHint(a.noneMsg("No options in this category for "+targetToPlatform(a.target)+". Enable “All platforms” to see them.")))
 		}
 	}
 
@@ -652,8 +681,8 @@ func (a *appState) writeFiles(out string) {
 		dialog.ShowError(fmt.Errorf("writing %s: %w", a.paths.Config, err), a.win)
 		return
 	}
-	a.status.Importance = widget.LowImportance
-	a.status.SetText("✓  Saved " + time.Now().Format("15:04:05"))
+	a.status.Importance = widget.SuccessImportance
+	a.status.SetText("✓  Saved & applied " + time.Now().Format("15:04:05"))
 	a.refreshNav()
 	a.dirty = false
 	a.wroteOK = true
