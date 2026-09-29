@@ -59,7 +59,7 @@ go build -ldflags="-H=windowsgui" .
 - Colour scheme picker with swatches and filtering.
 - Review the diff against the current `wezterm.lua` before every save
   (can be switched off), plus a key-binding conflict warning.
-- Undo / redo (Ctrl+Z / Ctrl+Y), Ctrl+F search (also matches choice names),
+- Undo / redo (Ctrl+Z / Ctrl+Y), Ctrl+F search (fuzzy: `wbo` finds window_background_opacity; matches option names and their choices),
   per-choice `?` help, Docs link per option, F1 shortcut list.
 - File → Import existing wezterm.lua…: runs your hand-written config in a
   sandbox and imports every option it can represent; the rest is listed.

@@ -1,6 +1,8 @@
 package ui
 
 import (
+	"slices"
+	"strings"
 	"testing"
 
 	"fyne.io/fyne/v2/container"
@@ -17,20 +19,75 @@ func optNames(opts []*catalog.Option) []string {
 	return out
 }
 
-// A search must find an option by one of its choice values, not only by name
-// and doc: "acrylic" appears nowhere in the win32_system_backdrop name or doc.
-func TestOptionMatchesQuery(t *testing.T) {
-	o := catalog.Find("win32_system_backdrop")
-	if o == nil {
-		t.Fatal("win32_system_backdrop missing from catalog")
+// Fuzzy search must find options by letters in order, rank a real name hit
+// above scattered ones, find them by choice values, and stay quiet on junk.
+func TestFuzzySearch(t *testing.T) {
+	all := make([]*catalog.Option, len(catalog.Options))
+	for i := range catalog.Options {
+		all[i] = &catalog.Options[i]
 	}
-	for _, q := range []string{"acrylic", "ACRYLIC", "win32_system", "backdrop effect"} {
-		if !optionMatchesQuery(o, q) {
-			t.Errorf("query %q did not match win32_system_backdrop", q)
+	first := func(q string) string {
+		got := rankOptions(all, q)
+		if len(got) == 0 {
+			return ""
+		}
+		return got[0].Name
+	}
+	for q, want := range map[string]string{
+		"winbgopac":   "window_background_opacity", // abbreviation across words
+		"fontsize":    "font_size",
+		"font size":   "font_size", // terms may be separated
+		"FONT_SIZE":   "font_size", // case-insensitive
+		"scrollback":  "scrollback_lines",
+		"scrolbak":    "scrollback_lines",      // missing letters
+		"mica":        "win32_system_backdrop", // a choice value, not in the name
+		"tabbaratbot": "tab_bar_at_bottom",
+	} {
+		if got := first(q); got != want {
+			t.Errorf("query %q: best match %q, want %q", q, got, want)
 		}
 	}
-	if optionMatchesQuery(o, "mouseshape") {
-		t.Error("unrelated query matched win32_system_backdrop")
+	// acronyms are ambiguous, so the wanted option only has to be near the top
+	top := rankOptions(all, "wbo")
+	if len(top) > 8 {
+		top = top[:8]
+	}
+	if !slices.Contains(optNames(top), "window_background_opacity") {
+		t.Errorf("wbo: window_background_opacity not in top 8: %v", optNames(top))
+	}
+	for _, q := range []string{"zzzzq", "qxjv", "fz", "mouseshape zzz"} {
+		if got := rankOptions(all, q); len(got) != 0 {
+			t.Errorf("junk query %q matched %v", q, optNames(got))
+		}
+	}
+	if got := rankOptions(all, ""); len(got) != 0 {
+		t.Errorf("empty query must match nothing, got %d", len(got))
+	}
+	// a single letter only matches names/choices with a word starting with it
+	for _, o := range rankOptions(all, "z") {
+		ok := false
+		for _, w := range strings.FieldsFunc(o.Name, isSep) {
+			ok = ok || strings.HasPrefix(w, "z")
+		}
+		for _, e := range o.Enum {
+			for _, w := range strings.FieldsFunc(strings.ToLower(e), isSep) {
+				ok = ok || strings.HasPrefix(w, "z")
+			}
+		}
+		if !ok {
+			t.Errorf("single-letter query matched %q without a word starting with z", o.Name)
+		}
+	}
+	// a strong hit hides weak scattered ones
+	for _, o := range rankOptions(all, "opac") {
+		if o.Name == "mux_output_parser_coalesce_delay_ms" {
+			t.Error("opac listed a scattered acronym hit next to real opacity options")
+		}
+	}
+	// exact name outranks longer scattered hits
+	got := rankOptions(all, "scrollback_lines")
+	if len(got) == 0 || got[0].Name != "scrollback_lines" {
+		t.Errorf("exact name must rank first, got %v", optNames(got))
 	}
 }
 

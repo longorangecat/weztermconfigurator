@@ -363,7 +363,7 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	// ---- Nav: search + grouped categories
 	searchEntry := widget.NewEntry()
 	a.search = searchEntry
-	searchEntry.PlaceHolder = "🔍  Search options…"
+	searchEntry.PlaceHolder = "🔍  Fuzzy search: name or choice…"
 	searchEntry.OnChanged = func(q string) {
 		a.searchQuery = strings.ToLower(strings.TrimSpace(q))
 		if a.searchQuery != "" && a.nav != nil {
@@ -528,39 +528,21 @@ func (a *appState) quickOptionNames() []string {
 	return out
 }
 
-// optionMatchesQuery reports whether an option matches a search query by name,
-// documentation or one of its top-level choice values. Matching ignores case.
-func optionMatchesQuery(o *catalog.Option, q string) bool {
-	q = strings.ToLower(q)
-	if strings.Contains(strings.ToLower(o.Name), q) || strings.Contains(strings.ToLower(o.Doc), q) {
-		return true
-	}
-	for _, e := range o.Enum {
-		if strings.Contains(strings.ToLower(e), q) {
-			return true
-		}
-	}
-	return false
-}
-
-// searchResults lists the options a search query hits, honouring both view
-// filters the same way the category pages do.
+// searchResults lists the options a fuzzy query hits, best match first,
+// honouring both view filters the same way the category pages do.
 func (a *appState) searchResults(q string) []*catalog.Option {
-	var out []*catalog.Option
+	var pool []*catalog.Option
 	for i := range catalog.Options {
 		o := &catalog.Options[i]
-		if !optionMatchesQuery(o, q) {
-			continue
-		}
 		if a.changedOnly && !a.isSet(o) {
 			continue
 		}
 		if !a.showAll && !catalog.RelevantTo(o.Tags, a.target) {
 			continue
 		}
-		out = append(out, o)
+		pool = append(pool, o)
 	}
-	return out
+	return rankOptions(pool, q)
 }
 
 // matchesSomePlatform reports whether the query hits anything once the target
@@ -568,7 +550,10 @@ func (a *appState) searchResults(q string) []*catalog.Option {
 func (a *appState) matchesSomePlatform(q string) bool {
 	for i := range catalog.Options {
 		o := &catalog.Options[i]
-		if optionMatchesQuery(o, q) && (!a.changedOnly || a.isSet(o)) {
+		if a.changedOnly && !a.isSet(o) {
+			continue
+		}
+		if _, ok := optionSearchScore(o, q); ok {
 			return true
 		}
 	}
@@ -889,13 +874,26 @@ func (a *appState) rebuildPage() {
 	case a.searchQuery != "":
 		rows = append(rows, heading("Search results"))
 		found := a.searchResults(a.searchQuery)
-		for _, o := range found {
+		shown := found
+		if len(shown) > searchCap {
+			shown = shown[:searchCap]
+		}
+		if len(found) > 0 {
+			note := fmt.Sprintf("%s for “%s”, best match first", plural(len(found), "match"), a.searchQuery)
+			if len(found) > len(shown) {
+				note += fmt.Sprintf(" (showing the top %d, type more to narrow it down)", len(shown))
+			}
+			l := widget.NewLabel(note)
+			l.Importance = widget.LowImportance
+			rows = append(rows, l)
+		}
+		for _, o := range shown {
 			rows = append(rows, a.makeRow(o))
 		}
 		if len(found) == 0 {
-			msg := "Nothing matches “" + a.searchQuery + "”. Try a shorter query."
+			msg := "Nothing matches “" + a.searchQuery + "”. Fuzzy search matches letters in order against option names and their choices (e.g. “wbo” finds window_background_opacity)."
 			if !a.showAll && a.matchesSomePlatform(a.searchQuery) {
-				msg += " Some hits belong to other platforms — enable “All platforms” to see them."
+				msg += " Some hits belong to other platforms: enable “All platforms” to see them."
 			}
 			rows = append(rows, emptyHint(msg))
 		}
