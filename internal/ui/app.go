@@ -33,7 +33,7 @@ import (
 )
 
 // appVersion is the release this build belongs to; shown in the About dialog.
-const appVersion = "1.6.0"
+const appVersion = "1.6.1"
 
 // Preference keys for the UI state that survives a restart.
 const (
