@@ -44,7 +44,7 @@ type appState struct {
 	uiScale     float32
 	changedOnly bool // hide options that have no value set
 	page        *fyne.Container
-	pageScroll  *container.Scroll
+	pageScroll  *fastScroll
 	nav         *widget.List
 	status      *widget.Label
 	pathLabel   *widget.Label
@@ -399,26 +399,26 @@ func (r *readableWidthRenderer) Objects() []fyne.CanvasObject {
 
 func (r *readableWidthRenderer) Destroy() {}
 
-type fastScrollContainer struct {
+// fastScroll is a vertical scroll with a boosted wheel. It embeds Scroll by
+// value and extends it in place: the object handed to the layout must be the
+// fastScroll itself, otherwise the widget and its renderer get two identities.
+type fastScroll struct {
 	container.Scroll
 }
 
-func newFastScroll(content fyne.CanvasObject) *container.Scroll {
-	s := container.NewVScroll(content)
-	fs := &fastScrollContainer{Scroll: *s}
-	fs.ExtendBaseWidget(fs)
-	return &fs.Scroll
+func newFastScroll(content fyne.CanvasObject) *fastScroll {
+	s := &fastScroll{}
+	s.Direction = container.ScrollVerticalOnly
+	s.Content = content
+	s.ExtendBaseWidget(s)
+	return s
 }
 
-func (s *fastScrollContainer) Scrolled(ev *fyne.ScrollEvent) {
-	boosted := &fyne.ScrollEvent{
+func (s *fastScroll) Scrolled(ev *fyne.ScrollEvent) {
+	s.Scroll.Scrolled(&fyne.ScrollEvent{
 		PointEvent: ev.PointEvent,
-		Scrolled: fyne.Delta{
-			DX: ev.Scrolled.DX * 3.5,
-			DY: ev.Scrolled.DY * 3.5,
-		},
-	}
-	s.Scroll.Scrolled(boosted)
+		Scrolled:   fyne.Delta{DX: ev.Scrolled.DX * 8, DY: ev.Scrolled.DY * 8},
+	})
 }
 
 func (a *appState) setByName(name string) bool {

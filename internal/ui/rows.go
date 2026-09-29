@@ -69,10 +69,57 @@ func formatOptionTooltip(o *catalog.Option, target string) string {
 type hoverHelpButton struct {
 	widget.Button
 	infoText string
+	title    string  // popup header; empty = generic documentation title
+	minH     float32 // popup body height; 0 = 220
 	win      fyne.Window
 	pop      *widget.PopUp
 }
 
+func (b *hoverHelpButton) height() float32 {
+	if b.minH > 0 {
+		return b.minH
+	}
+	return 220
+}
+
+// choiceCell puts w (a radio or check for one choice) next to a "?" that explains it.
+func (a *appState) choiceCell(w fyne.CanvasObject, field, value string) fyne.CanvasObject {
+	doc := catalog.ValueDoc(field, value)
+	if doc == "" {
+		return w
+	}
+	h := newHoverHelpButton(doc, a.win)
+	h.title = value
+	h.minH = 70
+	return container.NewHBox(w, h)
+}
+
+// choiceGrid lays cells out in two columns, or one when a label is too long to share a row.
+func choiceGrid(values []string, cells []fyne.CanvasObject) fyne.CanvasObject {
+	cols := 2
+	for _, v := range values {
+		if len(v) > 24 {
+			cols = 1
+		}
+	}
+	return container.NewGridWithColumns(cols, cells...)
+}
+
+// choiceListHelp is one "?" that lists every choice of a dropdown with its explanation.
+func (a *appState) choiceListHelp(field string, values []string) fyne.CanvasObject {
+	var b strings.Builder
+	for _, v := range values {
+		if doc := catalog.ValueDoc(field, v); doc != "" {
+			b.WriteString(v + "\n    " + doc + "\n\n")
+		}
+	}
+	if b.Len() == 0 {
+		return widget.NewLabel("")
+	}
+	h := newHoverHelpButton(strings.TrimSpace(b.String()), a.win)
+	h.title = "What each choice means"
+	return h
+}
 func newHoverHelpButton(infoText string, win fyne.Window) *hoverHelpButton {
 	b := &hoverHelpButton{
 		infoText: infoText,
@@ -101,9 +148,13 @@ func (b *hoverHelpButton) showTooltip() {
 		b.hideTooltip()
 	})
 	closeBtn.Importance = widget.LowImportance
-	header := container.NewBorder(nil, nil, nil, closeBtn, widget.NewLabelWithStyle("Documentation & Details", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}))
+	title := b.title
+	if title == "" {
+		title = "Documentation & Details"
+	}
+	header := container.NewBorder(nil, nil, nil, closeBtn, widget.NewLabelWithStyle(title, fyne.TextAlignLeading, fyne.TextStyle{Bold: true}))
 	scrollable := container.NewVScroll(lbl)
-	scrollable.SetMinSize(fyne.NewSize(380, 220))
+	scrollable.SetMinSize(fyne.NewSize(380, b.height()))
 	box := container.NewBorder(header, nil, nil, nil, scrollable)
 	content := container.NewPadded(box)
 	b.pop = widget.NewPopUp(content, b.win.Canvas())
@@ -764,53 +815,70 @@ func (a *appState) buildEditor(f *catalog.Field, get func() any, set func(any)) 
 				}
 				return v
 			}
-			labels := make([]string, len(opts))
+			// One single-item radio per choice so each can carry its own "?".
+			groups := make([]*widget.RadioGroup, len(opts))
+			cells := make([]fyne.CanvasObject, len(opts))
 			for i, v := range opts {
-				labels[i] = label(v)
-			}
-			rg := widget.NewRadioGroup(labels, func(l string) {
-				if l == "" {
-					set(nil)
-					return
+				i, v := i, v
+				rg := widget.NewRadioGroup([]string{label(v)}, nil)
+				if cur, ok := get().(string); ok && cur == v {
+					rg.Selected = label(v)
 				}
-				set(strings.TrimSuffix(l, tag))
-			})
-			rg.Horizontal = true
-			if v, ok := get().(string); ok {
-				rg.Selected = label(v)
+				rg.OnChanged = func(l string) {
+					if l == "" {
+						set(nil)
+						return
+					}
+					for j, g := range groups { // exclusive: clear the others without firing callbacks
+						if j != i && g.Selected != "" {
+							g.Selected = ""
+							g.Refresh()
+						}
+					}
+					set(v)
+				}
+				groups[i] = rg
+				cells[i] = a.choiceCell(rg, f.Name, v)
 			}
-			return rg
+			return choiceGrid(opts, cells)
 		}
 		sel := widget.NewSelect(opts, func(v string) { set(v) })
 		sel.PlaceHolder = "(default: " + literal(f.Default) + ")"
 		if v, ok := get().(string); ok {
 			sel.Selected = v
 		}
-		return sel
+		return container.NewBorder(nil, nil, nil, a.choiceListHelp(f.Name, opts), sel)
 
 	case catalog.Flags:
-		g := widget.NewCheckGroup(f.Enum, func(selected []string) {
-			if len(selected) == 0 {
+		checks := make([]*widget.Check, len(f.Enum))
+		cells := make([]fyne.CanvasObject, len(f.Enum))
+		var current []string
+		if v, ok := get().(string); ok && v != "" && v != f.EmptyToken {
+			current = strings.Split(v, "|")
+		}
+		changed := func() {
+			var ordered []string
+			for i, tok := range f.Enum {
+				if checks[i].Checked {
+					ordered = append(ordered, tok)
+				}
+			}
+			if len(ordered) == 0 {
 				if get() != nil {
 					set(f.EmptyToken)
 				}
 				return
 			}
-			var ordered []string
-			for _, tok := range f.Enum {
-				for _, s := range selected {
-					if s == tok {
-						ordered = append(ordered, tok)
-					}
-				}
-			}
 			set(strings.Join(ordered, "|"))
-		})
-		g.Horizontal = true
-		if v, ok := get().(string); ok && v != "" && v != f.EmptyToken {
-			g.Selected = strings.Split(v, "|") // direct: SetSelected would fire the callback and mark the page dirty
 		}
-		return g
+		for i, tok := range f.Enum {
+			c := widget.NewCheck(tok, nil)
+			c.Checked = contains(current, tok) // direct: SetChecked would fire the callback and mark the page dirty
+			c.OnChanged = func(bool) { changed() }
+			checks[i] = c
+			cells[i] = a.choiceCell(c, f.Name, tok)
+		}
+		return choiceGrid(f.Enum, cells)
 
 	case catalog.Color:
 		return a.colorEditor(f, get, set)
