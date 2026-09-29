@@ -3,9 +3,12 @@ package ui
 import (
 	"fmt"
 	"image/color"
+	"net/url"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
+	"time"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -68,11 +71,13 @@ func formatOptionTooltip(o *catalog.Option, target string) string {
 
 type hoverHelpButton struct {
 	widget.Button
-	infoText string
-	title    string  // popup header; empty = generic documentation title
-	minH     float32 // popup body height; 0 = 220
-	win      fyne.Window
-	pop      *widget.PopUp
+	infoText   string
+	title      string  // popup header; empty = generic documentation title
+	minH       float32 // popup body height; 0 = 220
+	win        fyne.Window
+	overlay    *fyne.Container // popup on the canvas; nil while closed
+	pinned     bool            // opened by a click, so the pointer may leave
+	wasFocused fyne.Focusable
 }
 
 func (b *hoverHelpButton) height() float32 {
@@ -120,6 +125,101 @@ func (a *appState) choiceListHelp(field string, values []string) fyne.CanvasObje
 	h.title = "What each choice means"
 	return h
 }
+
+// The help popup is a canvas overlay of our own rather than a widget.PopUp
+// because that one covers the window with a transparent overlay which swallows
+// every mouse event: showing it made the button under the pointer fire MouseOut,
+// hide the popup, fire MouseIn again and show it once more, forever. Here the
+// popup is opened after a short hover, and closes a moment after the pointer has
+// left both the button and the popup itself, which it can be moved onto to read
+// and scroll. A click pins it open until it is clicked again, closed or Escape.
+const (
+	helpShowDelay = 250 * time.Millisecond
+	helpHideDelay = 200 * time.Millisecond
+	helpGap       = 8 // keep the popup clear of the button
+)
+
+var (
+	activeHelp *hoverHelpButton // the one help popup shown, app-wide
+	helpShow   *time.Timer
+	helpHide   *time.Timer
+)
+
+// at replaces a pending timer; fn runs on the UI thread, never on the goroutine
+// the timer fires on.
+func at(t **time.Timer, d time.Duration, fn func()) {
+	stopTimer(t)
+	*t = time.AfterFunc(d, func() { fyne.Do(fn) })
+}
+
+func stopTimer(t **time.Timer) {
+	if *t != nil {
+		(*t).Stop()
+		*t = nil
+	}
+}
+
+// helpPlacement returns where a popup of the given size goes for a button at
+// btn: beside and below it, above it when the window is too short for that,
+// never over the button and always inside the window.
+func helpPlacement(btn fyne.Position, btnSize, pop, win fyne.Size) fyne.Position {
+	x := btn.X + btnSize.Width + helpGap
+	y := btn.Y + btnSize.Height + helpGap
+	if y+pop.Height > win.Height-helpGap {
+		if above := btn.Y - helpGap - pop.Height; above >= 0 {
+			y = above
+		}
+	}
+	if x+pop.Width > win.Width-helpGap {
+		x = win.Width - helpGap - pop.Width
+	}
+	if x < helpGap {
+		x = helpGap
+	}
+	if y+pop.Height > win.Height-helpGap {
+		y = win.Height - helpGap - pop.Height
+	}
+	if y < helpGap {
+		y = helpGap
+	}
+	return fyne.NewPos(x, y)
+}
+
+// helpPad is an invisible hit area. Fyne hands mouse events to the last object
+// in the tree that matches the pointer, so the pad drawn last wins the whole
+// popup: without it the label under the cursor would swallow the pointer and
+// the popup would close as soon as the text was reached.
+type helpPad struct {
+	canvas.Rectangle
+	b *hoverHelpButton
+}
+
+func (p *helpPad) MouseIn(*desktop.MouseEvent)    { stopTimer(&helpHide) }
+func (p *helpPad) MouseMoved(*desktop.MouseEvent) {}
+func (p *helpPad) MouseOut()                      { p.b.scheduleHide() }
+
+// helpBackdrop is the pad behind the popup, covering the rest of the window: a
+// pointer leaving it closes the help, and so does a tap, because the overlay
+// swallows every tap that is not on the popup itself.
+type helpBackdrop struct{ helpPad }
+
+func (p *helpBackdrop) Tapped(*fyne.PointEvent)          { p.b.hide() }
+func (p *helpBackdrop) TappedSecondary(*fyne.PointEvent) { p.b.hide() }
+func (p *helpBackdrop) FocusGained()                     {}
+func (p *helpBackdrop) FocusLost()                       {}
+
+func (p *helpBackdrop) TypedKey(e *fyne.KeyEvent) {
+	if e.Name == fyne.KeyEscape {
+		p.b.hide()
+		return
+	}
+	if f := p.b.win.Canvas().OnTypedKey(); f != nil { // keep the app's shortcuts alive
+		f(e)
+	}
+}
+
+func (p *helpBackdrop) TypedRune(rune) {}
+
 func newHoverHelpButton(infoText string, win fyne.Window) *hoverHelpButton {
 	b := &hoverHelpButton{
 		infoText: infoText,
@@ -128,55 +228,120 @@ func newHoverHelpButton(infoText string, win fyne.Window) *hoverHelpButton {
 	b.Text = "?"
 	b.Importance = widget.LowImportance
 	b.OnTapped = func() {
-		if b.pop != nil {
-			b.pop.Hide()
-			b.pop = nil
+		if b.overlay != nil && b.pinned { // pinned: a second click closes
+			b.hide()
 			return
 		}
-		b.showTooltip()
+		b.hide() // hover-opened: a click keeps it open instead of closing it under the cursor
+		b.pinned = true
+		b.show()
 	}
 	b.ExtendBaseWidget(b)
 	return b
 }
-func (b *hoverHelpButton) showTooltip() {
-	if b.win == nil || b.pop != nil {
+
+// show puts the popup on the canvas, closing whichever one was open.
+func (b *hoverHelpButton) show() {
+	if b.win == nil || b.overlay != nil {
 		return
 	}
-	lbl := widget.NewLabel(b.infoText)
-	lbl.Wrapping = fyne.TextWrapWord
-	closeBtn := widget.NewButtonWithIcon("", theme.CancelIcon(), func() {
-		b.hideTooltip()
-	})
-	closeBtn.Importance = widget.LowImportance
+	stopTimer(&helpShow)
+	if activeHelp != nil && activeHelp != b {
+		activeHelp.hide()
+	}
+
 	title := b.title
 	if title == "" {
 		title = "Documentation & Details"
 	}
-	header := container.NewBorder(nil, nil, nil, closeBtn, widget.NewLabelWithStyle(title, fyne.TextAlignLeading, fyne.TextStyle{Bold: true}))
-	scrollable := container.NewVScroll(lbl)
-	scrollable.SetMinSize(fyne.NewSize(380, b.height()))
-	box := container.NewBorder(header, nil, nil, nil, scrollable)
-	content := container.NewPadded(box)
-	b.pop = widget.NewPopUp(content, b.win.Canvas())
-	btnPos := fyne.CurrentApp().Driver().AbsolutePositionForObject(b)
-	b.pop.ShowAtPosition(fyne.NewPos(btnPos.X, btnPos.Y+b.Size().Height+4))
-}
+	closeBtn := widget.NewButtonWithIcon("", theme.CancelIcon(), b.hide)
+	closeBtn.Importance = widget.LowImportance
+	lbl := widget.NewLabel(b.infoText)
+	lbl.Wrapping = fyne.TextWrapWord
+	body := container.NewVScroll(lbl)
+	body.SetMinSize(fyne.NewSize(380, b.height()))
+	header := container.NewBorder(nil, nil, nil, closeBtn,
+		widget.NewLabelWithStyle(title, fyne.TextAlignLeading, fyne.TextStyle{Bold: true}))
+	content := container.NewPadded(container.NewBorder(header, nil, nil, nil, body))
 
-func (b *hoverHelpButton) hideTooltip() {
-	if b.pop != nil {
-		b.pop.Hide()
-		b.pop = nil
+	th := fyne.CurrentApp().Settings().Theme()
+	v := fyne.CurrentApp().Settings().ThemeVariant()
+	bg := canvas.NewRectangle(th.Color(theme.ColorNameOverlayBackground, v))
+	// the same shadow a widget.PopUp would have drawn
+	bg.Shadow = canvas.Shadow{Color: th.Color(theme.ColorNameShadow, v), BlurRadius: 14, Offset: fyne.NewPos(0, 4)}
+	bg.CornerRadius = th.Size(theme.SizeNamePopupRadius)
+
+	back := &helpBackdrop{helpPad{b: b}}
+	back.FillColor = color.Transparent
+	pad := &helpPad{b: b}
+	pad.FillColor = color.Transparent
+	overlay := container.NewWithoutLayout(back, bg, content, pad)
+	b.overlay, activeHelp = overlay, b
+
+	cv := b.win.Canvas()
+	cv.Overlays().Add(overlay)
+	origin := fyne.CurrentApp().Driver().AbsolutePositionForObject(overlay)
+	area := fyne.NewSize(cv.Size().Width-origin.X, cv.Size().Height-origin.Y)
+	size := content.MinSize()
+	if size.Width > area.Width {
+		size.Width = area.Width
+	}
+	if size.Height > area.Height {
+		size.Height = area.Height
+	}
+	btn := fyne.CurrentApp().Driver().AbsolutePositionForObject(b).Subtract(origin)
+	pos := helpPlacement(btn, b.Size(), size, area)
+	back.Resize(area)
+	bg.Move(pos)
+	bg.Resize(size)
+	content.Move(pos)
+	content.Resize(size)
+	pad.Move(pos)
+	pad.Resize(size)
+
+	if b.pinned { // only then may the popup take the keyboard
+		b.wasFocused = cv.Focused()
+		cv.Focus(back)
 	}
 }
 
+func (b *hoverHelpButton) hide() {
+	stopTimer(&helpShow)
+	stopTimer(&helpHide)
+	b.pinned = false
+	if b.overlay != nil {
+		b.win.Canvas().Overlays().Remove(b.overlay)
+		if b.wasFocused != nil {
+			b.win.Canvas().Focus(b.wasFocused)
+		}
+		b.wasFocused, b.overlay = nil, nil
+	}
+	if activeHelp == b {
+		activeHelp = nil
+	}
+}
+
+func (b *hoverHelpButton) scheduleHide() {
+	if b.pinned || b.overlay == nil {
+		return
+	}
+	at(&helpHide, helpHideDelay, b.hide)
+}
+
 func (b *hoverHelpButton) MouseIn(*desktop.MouseEvent) {
-	b.showTooltip()
+	if b.overlay != nil {
+		return
+	}
+	at(&helpShow, helpShowDelay, b.show)
 }
 
 func (b *hoverHelpButton) MouseMoved(*desktop.MouseEvent) {}
 
 func (b *hoverHelpButton) MouseOut() {
-	b.hideTooltip()
+	if b.overlay != nil {
+		return // the popup tracks the pointer from here on
+	}
+	stopTimer(&helpShow)
 }
 func (a *appState) isSet(o *catalog.Option) bool {
 	if a.st.Raw[o.Name] != "" {
@@ -281,6 +446,7 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	r := &row{opt: o}
 
 	nameLabel := widget.NewLabelWithStyle(o.Name, fyne.TextAlignLeading, fyne.TextStyle{Bold: true, Monospace: true})
+	nameLabel.Truncation = fyne.TextTruncateEllipsis
 
 	changedBadge := pill("CHANGED", widget.WarningImportance, colWarning)
 	changedBadge.Hide()
@@ -298,7 +464,7 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	badges = append(badges, changedBadge)
 	helpBtn := newHoverHelpButton(formatOptionTooltip(o, a.target), a.win)
 	badges = append(badges, helpBtn)
-	nameAndBadges := container.NewHBox(append([]fyne.CanvasObject{nameLabel}, badges...)...)
+	badgesBox := container.NewHBox(badges...)
 	helpText := o.Doc
 	if o.Deprecated != "" {
 		helpText += " DEPRECATED: " + o.Deprecated
@@ -321,9 +487,29 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 		defLabel = dl
 	}
 
-	resetBtn := widget.NewButtonWithIcon("Reset", theme.ContentUndoIcon(), nil)
+	docs := widget.NewHyperlink("Docs ↗", nil)
+	docs.SizeName = theme.SizeNameCaptionText
+	docs.OnTapped = func() {
+		u, err := url.Parse(catalog.DocURL(o.Name))
+		if err != nil {
+			dialog.ShowError(err, a.win)
+			return
+		}
+		a.app.OpenURL(u)
+	}
+
+	star := &starButton{Button: widget.NewButton(unpinStar, nil), name: o.Name}
+	star.pinned = a.st.IsPinned(o.Name)
+	star.sync()
+	star.OnTapped = func() {
+		star.pinned = a.st.TogglePin(o.Name)
+		star.sync()
+		a.pinToggled()
+	}
+
+	resetBtn := widget.NewButtonWithIcon("", theme.ContentUndoIcon(), nil) // icon only: keeps the header from truncating long names
 	luaToggle := widget.NewButton("Lua", nil)
-	buttons := container.NewHBox(luaToggle, resetBtn)
+	buttons := container.NewHBox(docs, star, luaToggle, resetBtn)
 
 	bar := canvas.NewRectangle(mustHex(colBorder))
 	bar.SetMinSize(fyne.NewSize(4, 4))
@@ -438,7 +624,7 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	}
 	refresh()
 
-	nameRow := container.NewBorder(nil, nil, nameAndBadges, buttons)
+	nameRow := container.New(headerLayout{}, nameLabel, badgesBox, buttons)
 	parts := []fyne.CanvasObject{nameRow, helpLabel}
 	if defLabel != nil {
 		parts = append(parts, defLabel)
@@ -452,6 +638,82 @@ func (a *appState) newOptionRow(o *catalog.Option) *row {
 	rowWithBg := container.NewStack(bg, card)
 	r.obj = container.NewBorder(nil, nil, bar, nil, rowWithBg)
 	return r
+}
+
+// starButton is the ☆/★ pin toggle. A plain button would announce the glyph
+// itself, so the accessible label spells out what pressing it does.
+type starButton struct {
+	*widget.Button
+	name   string
+	pinned bool
+}
+
+const (
+	pinStar   = "★"
+	unpinStar = "☆"
+)
+
+func (s *starButton) sync() {
+	if s.pinned {
+		s.Text = pinStar
+		s.Importance = widget.HighImportance
+	} else {
+		s.Text = unpinStar
+		s.Importance = widget.LowImportance
+	}
+	s.Refresh()
+}
+
+func (s *starButton) AccessibilityLabel() string {
+	if s.pinned {
+		return "Unpin " + s.name + " from Quick Settings"
+	}
+	return "Pin " + s.name + " to Quick Settings"
+}
+
+// headerLayout lays out the header of an option row: the name takes whatever
+// is left between the badges and the buttons, truncated with an ellipsis, so a
+// long option name cannot push the Docs link, the star or Reset off the card.
+// The objects are the name, the badges and the buttons.
+type headerLayout struct{}
+
+const (
+	headerGap     = 6
+	headerMinName = 110 // the name matters more than the platform and since tags
+)
+
+func (h headerLayout) Layout(objs []fyne.CanvasObject, size fyne.Size) {
+	if len(objs) < 3 {
+		return
+	}
+	name, badges, btns := objs[0], objs[1], objs[2]
+	bm, dm := btns.MinSize(), badges.MinSize()
+
+	place := func(o fyne.CanvasObject, x, width float32) {
+		hgt := o.MinSize().Height
+		o.Move(fyne.NewPos(x, (size.Height-hgt)/2))
+		o.Resize(fyne.NewSize(width, hgt))
+	}
+	place(btns, size.Width-bm.Width, bm.Width)
+	place(badges, size.Width-bm.Width-dm.Width-headerGap, dm.Width)
+	// a truncating label reports the width of its ellipsis as its minimum, so
+	// rather than measuring the name it gets everything that is left and cuts
+	// its own text to fit
+	nameW := size.Width - bm.Width - dm.Width - 2*headerGap
+	if nameW < headerMinName {
+		nameW = headerMinName
+	}
+	place(name, 0, nameW)
+}
+
+func (h headerLayout) MinSize(objs []fyne.CanvasObject) fyne.Size {
+	if len(objs) < 3 {
+		return fyne.NewSize(0, 0)
+	}
+	nm, dm, bm := objs[0].MinSize(), objs[1].MinSize(), objs[2].MinSize()
+	return fyne.NewSize(
+		headerMinName+dm.Width+bm.Width+2*headerGap,
+		max(nm.Height, max(dm.Height, bm.Height)))
 }
 
 // literal renders a JSON-shaped default for help text.
@@ -1086,54 +1348,195 @@ func mapToText(v any) string {
 	return strings.Join(lines, "\n")
 }
 
-// schemeEditor: SelectEntry over built-ins + user schemes + swatch strip.
+// schemeEditor: a filterable list of built-in and user schemes, every row
+// showing its colours, with the current choice in a larger strip below.
+// Rows are built lazily by widget.List, so the ~1000 built-ins stay cheap.
 func (a *appState) schemeEditor(get func() any, set func(any)) fyne.CanvasObject {
-	names := catalog.SchemeNames()
-	if m, ok := a.st.Values["color_schemes"].(map[string]any); ok {
-		for k := range m {
-			names = append(names, k)
+	schemes := a.allSchemes()
+	byName := make(map[string]catalog.Scheme, len(schemes))
+	for _, s := range schemes {
+		byName[strings.ToLower(s.Name)] = s
+	}
+
+	// The strip previews the current choice; hovering a row replaces it and
+	// leaving the row restores the choice.
+	stripName := widget.NewLabel("")
+	stripName.Truncation = fyne.TextTruncateEllipsis
+	strip := newSchemeStrip(schemeStripPx*12, 22)
+	showStrip := func(name string) {
+		colors := map[string]any(nil)
+		if s, ok := byName[strings.ToLower(name)]; ok {
+			colors = s.Colors
+		}
+		setSchemeStrip(strip, colors)
+		if name == "" {
+			stripName.SetText("WezTerm default palette")
+		} else {
+			stripName.SetText(name)
 		}
 	}
-	e := widget.NewSelectEntry(names)
-	e.PlaceHolder = "(default palette)"
-	if v, ok := get().(string); ok {
-		e.SetText(v)
+
+	current, _ := get().(string)
+	clear := widget.NewButton("Clear", func() {
+		set(nil)
+		current = ""
+		showStrip("")
+	})
+	previewRow := container.NewBorder(nil, nil, nil, strip,
+		container.NewBorder(nil, nil, nil, clear, stripName))
+
+	// shown holds indexes into schemes; customName is offered as the first row
+	// when the filter matches no built-in, so arbitrary names still work.
+	var shown []int
+	customName := ""
+	filter := widget.NewEntry()
+	filter.PlaceHolder = "Filter " + strconv.Itoa(len(schemes)) + " schemes…"
+
+	list := widget.NewList(
+		func() int { return len(shown) },
+		func() fyne.CanvasObject {
+			return newSchemeRow(showStrip, func() { showStrip(current) })
+		},
+		func(id widget.ListItemID, o fyne.CanvasObject) {
+			row := o.(*schemeRow)
+			if id >= len(shown) {
+				return
+			}
+			if i := shown[id]; i < 0 {
+				row.set(customName, nil)
+			} else {
+				s := schemes[i]
+				row.set(s.Name, s.Colors)
+			}
+		},
+	)
+	list.OnSelected = func(id widget.ListItemID) {
+		if id >= len(shown) {
+			return
+		}
+		name := customName
+		if i := shown[id]; i >= 0 {
+			name = schemes[i].Name
+		}
+		current = name
+		set(name)
+		showStrip(name)
 	}
-	swatches := container.NewHBox()
-	find := func(name string) *catalog.Scheme {
-		for i := range catalog.Schemes() {
-			if catalog.Schemes()[i].Name == name {
-				return &catalog.Schemes()[i]
+
+	refilter := func() {
+		q := strings.ToLower(strings.TrimSpace(filter.Text))
+		shown = shown[:0]
+		customName = ""
+		if q != "" {
+			if _, known := byName[q]; !known {
+				shown = append(shown, -1)
+				customName = strings.TrimSpace(filter.Text)
 			}
 		}
-		return nil
-	}
-	updateSwatches := func(name string) {
-		swatches.Objects = nil
-		if s := find(name); s != nil {
-			if ansi, ok := s.Colors["ansi"].([]any); ok {
-				for _, c := range ansi {
-					r := canvas.NewRectangle(parseColor(fmt.Sprint(c)))
-					r.SetMinSize(fyne.NewSize(14, 14))
-					swatches.Objects = append(swatches.Objects, r)
-				}
-			}
-			if b, ok := s.Colors["brights"].([]any); ok {
-				for _, c := range b {
-					r := canvas.NewRectangle(parseColor(fmt.Sprint(c)))
-					r.SetMinSize(fyne.NewSize(14, 14))
-					swatches.Objects = append(swatches.Objects, r)
-				}
+		for i, s := range schemes {
+			if q == "" || schemeMatches(s, q) {
+				shown = append(shown, i)
 			}
 		}
-		swatches.Refresh()
+		list.Refresh()
 	}
-	e.OnChanged = func(s string) {
-		set(s)
-		updateSwatches(s)
+	filter.OnChanged = func(string) { refilter() }
+	refilter()
+
+	showStrip(current)
+	scroll := container.NewVScroll(list)
+	scroll.SetMinSize(fyne.NewSize(200, 240))
+	return container.NewVBox(filter, scroll, previewRow)
+}
+
+// allSchemes returns the built-in schemes plus the user's color_schemes.
+func (a *appState) allSchemes() []catalog.Scheme {
+	out := append([]catalog.Scheme{}, catalog.Schemes()...)
+	m, _ := a.st.Values["color_schemes"].(map[string]any)
+	if len(m) == 0 {
+		return out
 	}
-	updateSwatches(e.Text)
-	return container.NewVBox(e, swatches)
+	seen := make(map[string]bool, len(out)+len(m))
+	for _, s := range out {
+		seen[strings.ToLower(s.Name)] = true
+	}
+	extra := make([]string, 0, len(m))
+	for k := range m {
+		extra = append(extra, k)
+	}
+	sort.Strings(extra)
+	for _, k := range extra {
+		if seen[strings.ToLower(k)] {
+			continue
+		}
+		pal, _ := m[k].(map[string]any)
+		out = append(out, catalog.Scheme{Name: k, Colors: pal})
+	}
+	return out
+}
+
+func schemeMatches(s catalog.Scheme, lowerQuery string) bool {
+	if strings.Contains(strings.ToLower(s.Name), lowerQuery) {
+		return true
+	}
+	for _, alias := range s.Aliases {
+		if strings.Contains(strings.ToLower(alias), lowerQuery) {
+			return true
+		}
+	}
+	return false
+}
+
+// schemeRow is one list row: the scheme name, its colour strip, and hover
+// preview. widget.List reuses one instance per visible row, so the content and
+// the hover callbacks are set together.
+type schemeRow struct {
+	widget.BaseWidget
+	name    *widget.Label
+	strip   *canvas.Image
+	hovered string
+	onHover func(string)
+	onLeave func()
+}
+
+func newSchemeRow(onHover func(string), onLeave func()) *schemeRow {
+	r := &schemeRow{onHover: onHover, onLeave: onLeave}
+	r.name = widget.NewLabel("")
+	r.name.Truncation = fyne.TextTruncateEllipsis
+	r.strip = newSchemeStrip(schemeStripPx*7, 16)
+	r.ExtendBaseWidget(r)
+	return r
+}
+
+func (r *schemeRow) CreateRenderer() fyne.WidgetRenderer {
+	return widget.NewSimpleRenderer(container.NewBorder(nil, nil, nil, r.strip, r.name))
+}
+
+// set fills the row in; nil colors means a name with no known palette.
+func (r *schemeRow) set(name string, colors map[string]any) {
+	r.name.SetText(name)
+	setSchemeStrip(r.strip, colors)
+	r.hovered = name
+}
+
+func (r *schemeRow) MouseIn(*desktop.MouseEvent) {
+	if r.onHover != nil {
+		r.onHover(r.hovered)
+	}
+}
+
+func (r *schemeRow) MouseOut() {
+	if r.onLeave != nil {
+		r.onLeave()
+	}
+}
+
+func newSchemeStrip(w, h float32) *canvas.Image {
+	img := canvas.NewImageFromImage(schemeStrip(nil))
+	img.ScaleMode = canvas.ImageScalePixels
+	img.FillMode = canvas.ImageFillStretch
+	img.SetMinSize(fyne.NewSize(w, h))
+	return img
 }
 
 // colorEditor: entry + swatch + picker button.

@@ -46,3 +46,20 @@ go build -ldflags="-H=windowsgui" .
   Lua overrides, target platform, custom Lua block).
 - `<config>.bak-<timestamp>` — one-time backup of a pre-existing
   non-generated config.
+- `<config dir>/backups/<timestamp>/` — `wezterm.lua` + state copied before
+  every save; the newest 5 are kept (File → Restore backup…).
+- `<config dir>/profiles/<name>.json` — named snapshots of your option values
+  (File → Profiles…).
+
+## Features
+
+- Quick Settings page with your own pinned options (★ on any option row).
+- Live preview pane (fake terminal with your scheme, font size, opacity,
+  cursor, padding, tab bar).
+- Colour scheme picker with swatches and filtering.
+- Review the diff against the current `wezterm.lua` before every save
+  (can be switched off), plus a key-binding conflict warning.
+- Undo / redo (Ctrl+Z / Ctrl+Y), Ctrl+F search (also matches choice names),
+  per-choice `?` help, Docs link per option, F1 shortcut list.
+- File → Import existing wezterm.lua…: runs your hand-written config in a
+  sandbox and imports every option it can represent; the rest is listed.

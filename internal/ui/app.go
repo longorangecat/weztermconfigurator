@@ -12,6 +12,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"strings"
 	"time"
 
@@ -25,9 +26,21 @@ import (
 	"fyne.io/fyne/v2/widget"
 
 	"weztermconfigurator/internal/catalog"
+	"weztermconfigurator/internal/lint"
 	"weztermconfigurator/internal/luagen"
 	"weztermconfigurator/internal/state"
 	"weztermconfigurator/internal/wezcli"
+)
+
+// appVersion is the release this build belongs to; shown in the About dialog.
+const appVersion = "1.6.0"
+
+// Preference keys for the UI state that survives a restart.
+const (
+	prefNavCat  = "nav.cat"
+	prefShowAll = "view.all"
+	prefChanged = "view.changed"
+	prefPreview = "preview.on"
 )
 
 // appState is the single application instance shared by all editors.
@@ -44,9 +57,16 @@ type appState struct {
 	uiScale     float32
 	changedOnly bool // hide options that have no value set
 	hist        *history
+	undoBtn     *widget.Button
+	redoBtn     *widget.Button
 	page        *fyne.Container
 	pageScroll  *fastScroll
 	nav         *widget.List
+	search      *widget.Entry
+	previewOn   bool
+	preview     *previewPane      // live config preview column (nil when unavailable)
+	previewCol  fyne.CanvasObject // wrapper for the column, hidden when previewOn is false
+	previewBtn  *widget.Button    // top-bar toggle
 	status      *widget.Label
 	pathLabel   *widget.Label
 
@@ -90,8 +110,8 @@ func Run() {
 	}
 	a.Settings().SetTheme(newAppTheme(savedScale))
 	w := a.NewWindow("WezTerm Configurator")
-	initW := float32(a.Preferences().FloatWithFallback("win.w", 1000))
-	initH := float32(a.Preferences().FloatWithFallback("win.h", 700))
+	initW := float32(a.Preferences().FloatWithFallback("win.w", 1240))
+	initH := float32(a.Preferences().FloatWithFallback("win.h", 780))
 	w.Resize(fyne.NewSize(initW, initH))
 	w.CenterOnScreen()
 	paths, err := state.Resolve()
@@ -104,14 +124,18 @@ func Run() {
 		st = state.New(state.RuntimeTarget())
 	}
 
+	prefs := a.Preferences()
 	a2 := &appState{
-		hist:    newHistory(st),
-		app:     a,
-		win:     w,
-		paths:   paths,
-		st:      st,
-		target:  st.TargetOS,
-		uiScale: savedScale,
+		hist:        newHistory(st),
+		app:         a,
+		win:         w,
+		paths:       paths,
+		st:          st,
+		target:      st.TargetOS,
+		uiScale:     savedScale,
+		showAll:     prefs.BoolWithFallback(prefShowAll, false),
+		changedOnly: prefs.BoolWithFallback(prefChanged, false),
+		previewOn:   prefs.BoolWithFallback(prefPreview, true),
 	}
 
 	if bin, ok := wezcli.Find(); ok {
@@ -126,8 +150,14 @@ func Run() {
 
 	w.SetContent(a2.buildUI())
 	a2.currentCat = catalog.QuickCategory
+	if cat := prefs.StringWithFallback(prefNavCat, catalog.QuickCategory); validCategory(cat) {
+		a2.currentCat = cat
+	}
 	a2.rebuildPage()
 	a2.refreshNav()
+	a2.selectNav()
+	a2.updatePreview()
+	a2.setTitle()
 
 	saveShortcut := &desktop.CustomShortcut{KeyName: fyne.KeyS, Modifier: fyne.KeyModifierControl}
 	saveShortcutSuper := &desktop.CustomShortcut{KeyName: fyne.KeyS, Modifier: fyne.KeyModifierSuper}
@@ -151,20 +181,71 @@ func Run() {
 	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.Key0, Modifier: fyne.KeyModifierControl}, func(fyne.Shortcut) { zoomReset() })
 	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.Key0, Modifier: fyne.KeyModifierSuper}, func(fyne.Shortcut) { zoomReset() })
 
+	findShortcut := &desktop.CustomShortcut{KeyName: fyne.KeyF, Modifier: fyne.KeyModifierControl}
+	findShortcutSuper := &desktop.CustomShortcut{KeyName: fyne.KeyF, Modifier: fyne.KeyModifierSuper}
+	w.Canvas().AddShortcut(findShortcut, func(fyne.Shortcut) { a2.focusSearch() })
+	w.Canvas().AddShortcut(findShortcutSuper, func(fyne.Shortcut) { a2.focusSearch() })
+	w.Canvas().AddShortcut(&desktop.CustomShortcut{KeyName: fyne.KeyEscape}, func(fyne.Shortcut) { a2.escapeSearch() })
+
+	helpShortcut := &desktop.CustomShortcut{KeyName: fyne.KeyF1}
+	helpSlash := &desktop.CustomShortcut{KeyName: fyne.KeySlash, Modifier: fyne.KeyModifierControl}
+	helpSlashSuper := &desktop.CustomShortcut{KeyName: fyne.KeySlash, Modifier: fyne.KeyModifierSuper}
+	for _, s := range []*desktop.CustomShortcut{helpShortcut, helpSlash, helpSlashSuper} {
+		sc := s
+		w.Canvas().AddShortcut(sc, func(fyne.Shortcut) { a2.showShortcuts() })
+	}
+
+	for _, s := range []*desktop.CustomShortcut{
+		{KeyName: fyne.KeyZ, Modifier: fyne.KeyModifierControl},
+		{KeyName: fyne.KeyZ, Modifier: fyne.KeyModifierSuper},
+	} {
+		w.Canvas().AddShortcut(s, func(fyne.Shortcut) { a2.undo() })
+	}
+	for _, s := range []*desktop.CustomShortcut{
+		{KeyName: fyne.KeyY, Modifier: fyne.KeyModifierControl},
+		{KeyName: fyne.KeyY, Modifier: fyne.KeyModifierSuper},
+		{KeyName: fyne.KeyZ, Modifier: fyne.KeyModifierControl | fyne.KeyModifierShift},
+		{KeyName: fyne.KeyZ, Modifier: fyne.KeyModifierSuper | fyne.KeyModifierShift},
+	} {
+		w.Canvas().AddShortcut(s, func(fyne.Shortcut) { a2.redo() })
+	}
+
+	quitItem := fyne.NewMenuItem("Quit", func() {
+		a2.persistWindowSize()
+		w.Close()
+	})
+	quitItem.Shortcut = &desktop.CustomShortcut{KeyName: fyne.KeyQ, Modifier: fyne.KeyModifierControl}
+	saveItem := fyne.NewMenuItem("Save & Apply", func() { a2.save() })
+	saveItem.Shortcut = saveShortcut
+	openItem := fyne.NewMenuItem("Open…", a2.openFile)
+	openItem.Shortcut = openShortcut
 	fileMenu := fyne.NewMenu("File",
-		fyne.NewMenuItem("Save", func() { a2.save() }),
-		fyne.NewMenuItem("Open…", a2.openFile),
+		saveItem,
+		openItem,
 		fyne.NewMenuItem("Export Lua…", a2.exportLua),
 		fyne.NewMenuItemSeparator(),
-		fyne.NewMenuItem("Quit", func() {
-			a2.persistWindowSize()
-			w.Close()
-		}),
+		fyne.NewMenuItem("Import existing wezterm.lua…", a2.importLua),
+		fyne.NewMenuItem("Profiles…", a2.showProfilesDialog),
+		fyne.NewMenuItem("Restore backup…", a2.showRestoreDialog),
+		fyne.NewMenuItemSeparator(),
+		quitItem,
 	)
-	fileMenu.Items[0].Shortcut = saveShortcut
-	fileMenu.Items[1].Shortcut = openShortcut
-	fileMenu.Items[4].Shortcut = &desktop.CustomShortcut{KeyName: fyne.KeyQ, Modifier: fyne.KeyModifierControl}
-	mainMenu := fyne.NewMainMenu(fileMenu)
+	undoItem := fyne.NewMenuItem("Undo", a2.undo)
+	undoItem.Shortcut = &desktop.CustomShortcut{KeyName: fyne.KeyZ, Modifier: fyne.KeyModifierControl}
+	redoItem := fyne.NewMenuItem("Redo", a2.redo)
+	redoItem.Shortcut = &desktop.CustomShortcut{KeyName: fyne.KeyY, Modifier: fyne.KeyModifierControl}
+	editMenu := fyne.NewMenu("Edit",
+		undoItem,
+		redoItem,
+		fyne.NewMenuItemSeparator(),
+		fyne.NewMenuItem("Review changes…", a2.showReview),
+	)
+	helpMenu := fyne.NewMenu("Help",
+		fyne.NewMenuItem("Keyboard shortcuts", a2.showShortcuts),
+		fyne.NewMenuItem("About", a2.showAbout),
+	)
+	helpMenu.Items[0].Shortcut = helpShortcut
+	mainMenu := fyne.NewMainMenu(fileMenu, editMenu, helpMenu)
 	w.SetMainMenu(mainMenu)
 	w.SetCloseIntercept(func() {
 		if !a2.dirty {
@@ -177,10 +258,10 @@ func Run() {
 		d.SetButtons([]fyne.CanvasObject{
 			widget.NewButton("Save", func() {
 				d.Hide()
-				if a2.save() {
+				a2.saveThen(func() {
 					a2.persistWindowSize()
 					w.Close()
-				}
+				})
 			}),
 			widget.NewButton("Discard", func() {
 				d.Hide()
@@ -228,7 +309,7 @@ func (a *appState) buildUI() fyne.CanvasObject {
 		return b
 	}
 	actions := container.NewHBox(
-		action("Preview", theme.DocumentIcon(), a.previewLua),
+		action("Show Lua", theme.DocumentIcon(), a.previewLua),
 		action("Folder", theme.FolderOpenIcon(), a.openConfigDir),
 	)
 	if a.wezterm != "" {
@@ -237,6 +318,15 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	actions.Add(action("Reset all", theme.DeleteIcon(), a.resetAll))
 	actions.Add(action("", theme.ZoomOutIcon(), func() { a.adjustScale(-0.1) }))
 	actions.Add(action("", theme.ZoomInIcon(), func() { a.adjustScale(0.1) }))
+	previewBtn := widget.NewButtonWithIcon("Preview", theme.VisibilityOffIcon(), func() { a.setPreview(!a.previewOn) })
+	previewBtn.Importance = widget.LowImportance
+	actions.Add(previewBtn)
+	a.previewBtn = previewBtn
+	a.undoBtn = action("", theme.ContentUndoIcon(), a.undo)
+	a.redoBtn = action("", theme.ContentRedoIcon(), a.redo)
+	actions.Add(a.undoBtn)
+	actions.Add(a.redoBtn)
+	a.syncUndo()
 
 	platformSelect := widget.NewSelect(platformLabels, func(label string) {
 		if label == "" {
@@ -246,14 +336,22 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	})
 	platformSelect.PlaceHolder = "Target"
 	platformSelect.Selected = targetToPlatform(a.target)
-	showAllCheck := widget.NewCheck("All platforms", func(on bool) {
+	// Checked is set before the handler so restoring the preference does not
+	// rebuild the page that is about to be built.
+	showAllCheck := widget.NewCheck("All platforms", nil)
+	showAllCheck.Checked = a.showAll
+	showAllCheck.OnChanged = func(on bool) {
 		a.showAll = on
+		a.app.Preferences().SetBool(prefShowAll, on)
 		a.rebuildPage()
-	})
-	changedCheck := widget.NewCheck("Changed only", func(on bool) {
+	}
+	changedCheck := widget.NewCheck("Changed only", nil)
+	changedCheck.Checked = a.changedOnly
+	changedCheck.OnChanged = func(on bool) {
 		a.changedOnly = on
+		a.app.Preferences().SetBool(prefChanged, on)
 		a.rebuildPage()
-	})
+	}
 	filters := container.NewHBox(platformSelect, showAllCheck, changedCheck)
 
 	topBar := container.NewVBox(
@@ -264,6 +362,7 @@ func (a *appState) buildUI() fyne.CanvasObject {
 
 	// ---- Nav: search + grouped categories
 	searchEntry := widget.NewEntry()
+	a.search = searchEntry
 	searchEntry.PlaceHolder = "🔍  Search options…"
 	searchEntry.OnChanged = func(q string) {
 		a.searchQuery = strings.ToLower(strings.TrimSpace(q))
@@ -273,8 +372,7 @@ func (a *appState) buildUI() fyne.CanvasObject {
 		a.rebuildPage()
 	}
 
-	cats := append([]string{catalog.QuickCategory}, catalog.Categories...)
-	cats = append(cats, catalog.PluginsCategory, catalog.FeaturesCategory, catalog.CustomLuaCategory)
+	cats := navCats()
 	a.nav = widget.NewList(
 		func() int { return len(cats) },
 		func() fyne.CanvasObject {
@@ -286,7 +384,7 @@ func (a *appState) buildUI() fyne.CanvasObject {
 			n := 0
 			switch {
 			case c == catalog.QuickCategory:
-				for _, name := range catalog.QuickOptionNames {
+				for _, name := range a.quickOptionNames() {
 					if a.setByName(name) || a.st.Raw[name] != "" {
 						n++
 					}
@@ -328,14 +426,7 @@ func (a *appState) buildUI() fyne.CanvasObject {
 			}
 		},
 	)
-	a.nav.OnSelected = func(id widget.ListItemID) {
-		a.currentCat = cats[id]
-		if a.searchQuery != "" {
-			a.searchQuery = ""
-			searchEntry.SetText("")
-		}
-		a.rebuildPage()
-	}
+	a.nav.OnSelected = func(id widget.ListItemID) { a.selectCategory(cats[id]) }
 	navMin := canvas.NewRectangle(color.Transparent)
 	navMin.SetMinSize(fyne.NewSize(220, 0))
 	nav := container.NewStack(navMin, container.NewBorder(searchEntry, nil, nil, nil, a.nav))
@@ -346,6 +437,8 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	maxContent := &readableWidthContainer{content: pageContent, maxWidth: 840}
 	maxContent.ExtendBaseWidget(maxContent)
 	a.pageScroll = newFastScroll(maxContent)
+	// ---- Live preview column (optional, toggled from the top bar)
+	a.preview = newPreviewPane(a)
 	// ---- Status bar
 	a.pathLabel = widget.NewLabel("⚙  " + a.paths.Config)
 	a.pathLabel.TextStyle = fyne.TextStyle{Monospace: true}
@@ -353,9 +446,254 @@ func (a *appState) buildUI() fyne.CanvasObject {
 	a.status = widget.NewLabel("")
 	statusBar := container.NewBorder(nil, nil, a.pathLabel, a.status)
 
-	split := container.NewHSplit(nav, a.pageScroll)
+	split := container.NewHSplit(nav, a.contentSplit())
 	split.SetOffset(0.20)
 	return container.NewBorder(topBar, statusBar, nil, nil, split)
+}
+
+// navCats lists the nav entries in order: Quick Settings, the real categories,
+// then the Plugins/Features/Custom Lua pages.
+func navCats() []string {
+	cats := append([]string{catalog.QuickCategory}, catalog.Categories...)
+	return append(cats, catalog.PluginsCategory, catalog.FeaturesCategory, catalog.CustomLuaCategory)
+}
+
+// validCategory reports whether c is a nav entry; anything else (a category
+// dropped from the catalog, a hand-edited preference) falls back to Quick Settings.
+func validCategory(c string) bool {
+	return slices.Contains(navCats(), c)
+}
+
+// selectCategory switches the page, drops any active search and remembers the
+// choice for the next launch. Selecting the category already shown is a no-op
+// so restoring the nav selection at startup does not rebuild twice.
+func (a *appState) selectCategory(c string) {
+	changed := c != a.currentCat
+	a.currentCat = c
+	if a.app != nil {
+		a.app.Preferences().SetString(prefNavCat, c)
+	}
+	if a.searchQuery != "" {
+		if a.search != nil {
+			a.search.SetText("") // OnChanged clears the query and rebuilds
+		}
+		return
+	}
+	if changed {
+		a.rebuildPage()
+	}
+}
+
+// selectNav highlights the current category in the nav list.
+func (a *appState) selectNav() {
+	if a.nav == nil {
+		return
+	}
+	for i, c := range navCats() {
+		if c == a.currentCat {
+			a.nav.Select(widget.ListItemID(i))
+			return
+		}
+	}
+}
+
+// focusSearch puts the caret in the nav search box.
+func (a *appState) focusSearch() {
+	if a.search != nil {
+		a.win.Canvas().Focus(a.search)
+	}
+}
+
+// escapeSearch clears the search box when it holds the focus. Esc is left to
+// whatever else has focus (dialogs, entries) so it keeps closing them.
+func (a *appState) escapeSearch() {
+	if a.search == nil || a.searchQuery == "" || a.win.Canvas().Focused() != a.search {
+		return
+	}
+	a.search.SetText("")
+}
+
+// quickOptionNames lists what the Quick Settings page shows: the user's pins in
+// pinning order, then the defaults, without duplicates. Unknown pins are skipped.
+func (a *appState) quickOptionNames() []string {
+	seen := make(map[string]bool, len(a.st.Pinned)+len(catalog.QuickOptionNames))
+	out := make([]string, 0, len(catalog.QuickOptionNames)+len(a.st.Pinned))
+	for _, name := range slices.Concat(a.st.Pinned, catalog.QuickOptionNames) {
+		if seen[name] || catalog.Find(name) == nil {
+			continue
+		}
+		seen[name] = true
+		out = append(out, name)
+	}
+	return out
+}
+
+// optionMatchesQuery reports whether an option matches a search query by name,
+// documentation or one of its top-level choice values. Matching ignores case.
+func optionMatchesQuery(o *catalog.Option, q string) bool {
+	q = strings.ToLower(q)
+	if strings.Contains(strings.ToLower(o.Name), q) || strings.Contains(strings.ToLower(o.Doc), q) {
+		return true
+	}
+	for _, e := range o.Enum {
+		if strings.Contains(strings.ToLower(e), q) {
+			return true
+		}
+	}
+	return false
+}
+
+// searchResults lists the options a search query hits, honouring both view
+// filters the same way the category pages do.
+func (a *appState) searchResults(q string) []*catalog.Option {
+	var out []*catalog.Option
+	for i := range catalog.Options {
+		o := &catalog.Options[i]
+		if !optionMatchesQuery(o, q) {
+			continue
+		}
+		if a.changedOnly && !a.isSet(o) {
+			continue
+		}
+		if !a.showAll && !catalog.RelevantTo(o.Tags, a.target) {
+			continue
+		}
+		out = append(out, o)
+	}
+	return out
+}
+
+// matchesSomePlatform reports whether the query hits anything once the target
+// platform filter is dropped, so the empty search page can offer the right hint.
+func (a *appState) matchesSomePlatform(q string) bool {
+	for i := range catalog.Options {
+		o := &catalog.Options[i]
+		if optionMatchesQuery(o, q) && (!a.changedOnly || a.isSet(o)) {
+			return true
+		}
+	}
+	return false
+}
+
+// contentSplit lays out the page next to the optional preview column. The
+// column is hidden rather than rebuilt so toggling it keeps the mounted rows.
+func (a *appState) contentSplit() fyne.CanvasObject {
+	if a.preview == nil {
+		return a.pageScroll
+	}
+	previewMin := canvas.NewRectangle(color.Transparent)
+	previewMin.SetMinSize(fyne.NewSize(300, 0))
+	a.previewCol = container.NewStack(previewMin, a.preview)
+	right := container.NewHSplit(a.pageScroll, a.previewCol)
+	right.SetOffset(0.7)
+	a.applyPreviewVisibility()
+	return right
+}
+
+// setPreview shows or hides the live preview column and remembers the choice.
+func (a *appState) setPreview(on bool) {
+	a.previewOn = on
+	if a.app != nil {
+		a.app.Preferences().SetBool(prefPreview, on)
+	}
+	if a.previewBtn != nil {
+		icon := theme.VisibilityIcon()
+		if on {
+			icon = theme.VisibilityOffIcon()
+		}
+		a.previewBtn.Icon = icon
+		if on {
+			a.previewBtn.Importance = widget.HighImportance
+		} else {
+			a.previewBtn.Importance = widget.LowImportance
+		}
+		a.previewBtn.Refresh()
+	}
+	a.applyPreviewVisibility()
+	a.updatePreview()
+}
+
+func (a *appState) applyPreviewVisibility() {
+	if a.previewCol == nil {
+		return
+	}
+	if a.previewOn {
+		a.previewCol.Show()
+	} else {
+		a.previewCol.Hide()
+	}
+}
+
+func (a *appState) updatePreview() {
+	if a.preview != nil {
+		a.preview.Update()
+	}
+}
+
+// setTitle marks unsaved changes in the window title.
+func (a *appState) setTitle() {
+	if a.win == nil {
+		return
+	}
+	if a.dirty {
+		a.win.SetTitle("● WezTerm Configurator")
+	} else {
+		a.win.SetTitle("WezTerm Configurator")
+	}
+}
+
+// changedCount counts options that differ from their default, for the status bar.
+func (a *appState) changedCount() int {
+	n := 0
+	for i := range catalog.Options {
+		if a.isOptionChangedFromDefault(&catalog.Options[i]) {
+			n++
+		}
+	}
+	return n
+}
+
+// shortcuts lists the key bindings shown in the help dialog.
+var shortcuts = [][2]string{
+	{"Ctrl+S", "Save & apply"},
+	{"Ctrl+O", "Open a state file or wezterm.lua"},
+	{"Ctrl+F", "Focus the search box"},
+	{"Ctrl+Z", "Undo"},
+	{"Ctrl+Y / Ctrl+Shift+Z", "Redo"},
+	{"Ctrl+= / Ctrl+- / Ctrl+0", "Zoom in / out / reset"},
+	{"F1 or Ctrl+/", "This dialog"},
+	{"Ctrl+Q", "Quit"},
+	{"Esc", "Clear the search box"},
+}
+
+// showShortcuts opens the keyboard reference.
+func (a *appState) showShortcuts() {
+	rows := make([]fyne.CanvasObject, 0, len(shortcuts)*2)
+	for _, s := range shortcuts {
+		key := widget.NewLabelWithStyle(s[0], fyne.TextAlignLeading, fyne.TextStyle{Monospace: true})
+		desc := widget.NewLabel(s[1])
+		desc.Importance = widget.LowImportance
+		rows = append(rows, key, desc)
+	}
+	note := widget.NewLabel("On macOS, Ctrl is the Super/⌘ key.")
+	note.Importance = widget.LowImportance
+	note.Wrapping = fyne.TextWrapWord
+	rows = append(rows, container.NewHBox(), container.NewHBox(), spacer(8), note)
+	grid := container.NewGridWithColumns(2, rows...)
+	d := dialog.NewCustom("Keyboard shortcuts", "Close", container.NewVScroll(container.NewPadded(grid)), a.win)
+	d.Resize(fyne.NewSize(520, 460))
+	d.Show()
+}
+
+// showAbout reports the version and the files this app owns.
+func (a *appState) showAbout() {
+	l := widget.NewLabel(fmt.Sprintf(
+		"WezTerm Configurator %s\n\nA visual editor for wezterm.lua.\n\nConfiguration: %s\nState file:    %s",
+		appVersion, a.paths.Config, a.paths.State))
+	l.Wrapping = fyne.TextWrapBreak
+	d := dialog.NewCustom("About WezTerm Configurator", "Close", container.NewPadded(l), a.win)
+	d.Resize(fyne.NewSize(520, 260))
+	d.Show()
 }
 
 type readableWidthContainer struct {
@@ -445,6 +783,8 @@ func (a *appState) setTarget(t string) {
 	}
 	a.refreshNav()
 	a.rebuildPage()
+	a.updatePreview()
+	a.setTitle()
 }
 
 func (a *appState) refreshNav() {
@@ -456,9 +796,22 @@ func (a *appState) refreshNav() {
 func (a *appState) markDirty() {
 	a.dirty = true
 	a.hist.Changed(a.st)
-	a.status.Importance = widget.WarningImportance
-	a.status.SetText("●  Unsaved changes: press Ctrl+S or “Save & Apply”")
+	if a.status != nil { // headless callers (profiles, import) have no status bar
+		a.status.Importance = widget.WarningImportance
+		a.status.SetText(fmt.Sprintf("●  Unsaved changes: %s changed — press Ctrl+S or “Save & Apply”", plural(a.changedCount(), "option")))
+	}
 	a.refreshNav()
+	a.updatePreview()
+	a.syncUndo()
+	a.setTitle()
+}
+
+// plural renders "3 options" / "1 option".
+func plural(n int, word string) string {
+	if n == 1 {
+		return "1 " + word
+	}
+	return fmt.Sprintf("%d %ss", n, word)
 }
 
 // stateReplaced refreshes the UI after a.st's contents were swapped wholesale
@@ -466,6 +819,26 @@ func (a *appState) markDirty() {
 func (a *appState) stateReplaced() {
 	a.rebuildPage()
 	a.refreshNav()
+	a.updatePreview()
+	a.setTitle()
+	a.syncUndo()
+}
+
+// syncUndo enables the undo/redo buttons only when there is something to do.
+func (a *appState) syncUndo() {
+	if a.undoBtn == nil || a.hist == nil {
+		return
+	}
+	if a.hist.CanUndo() {
+		a.undoBtn.Enable()
+	} else {
+		a.undoBtn.Disable()
+	}
+	if a.hist.CanRedo() {
+		a.redoBtn.Enable()
+	} else {
+		a.redoBtn.Disable()
+	}
 }
 
 // pinToggled refreshes what depends on the pinned list after a star was toggled.
@@ -493,6 +866,9 @@ func (a *appState) noneMsg(def string) string {
 }
 
 func (a *appState) rebuildPage() {
+	if a.page == nil { // headless callers never build a page container
+		return
+	}
 	rows := []fyne.CanvasObject{}
 	a.rows = nil
 
@@ -508,6 +884,21 @@ func (a *appState) rebuildPage() {
 	}
 
 	switch {
+	// Search wins over the selected page: the box is always visible in the nav
+	// and picks a category clears it, so the two are mutually exclusive.
+	case a.searchQuery != "":
+		rows = append(rows, heading("Search results"))
+		found := a.searchResults(a.searchQuery)
+		for _, o := range found {
+			rows = append(rows, a.makeRow(o))
+		}
+		if len(found) == 0 {
+			msg := "Nothing matches “" + a.searchQuery + "”. Try a shorter query."
+			if !a.showAll && a.matchesSomePlatform(a.searchQuery) {
+				msg += " Some hits belong to other platforms — enable “All platforms” to see them."
+			}
+			rows = append(rows, emptyHint(msg))
+		}
 	case a.currentCat == catalog.PluginsCategory:
 		pageHeader("Plugins", "Plugins are git repos loaded with wezterm.plugin.require (WezTerm 20230320 or newer). URLs must be https:// or file://. Updates: run wezterm.plugin.update_all() in the debug overlay, then reload the config. Clones live in ~/.local/share/wezterm/plugins.")
 		rows = append(rows, a.pluginsEditor()...)
@@ -526,14 +917,11 @@ func (a *appState) rebuildPage() {
 		}
 		rows = append(rows, luaEntry)
 	case a.currentCat == catalog.QuickCategory:
-		pageHeader("Quick Settings", "Frequently used and recommended settings. These options remain available in their respective category pages as well.")
+		pageHeader("Quick Settings", "Frequently used and recommended settings, plus everything you pinned. ★ pin any option from its row to keep it here.")
 		shown := 0
-		for _, name := range catalog.QuickOptionNames {
+		for _, name := range a.quickOptionNames() {
 			o := catalog.Find(name)
-			if o == nil {
-				continue
-			}
-			if !a.visible(o) {
+			if o == nil || !a.visible(o) {
 				continue
 			}
 			rows = append(rows, a.makeRow(o))
@@ -541,20 +929,6 @@ func (a *appState) rebuildPage() {
 		}
 		if shown == 0 {
 			rows = append(rows, emptyHint(a.noneMsg("No quick settings available for "+targetToPlatform(a.target)+". Enable “All platforms” to see them.")))
-		}
-	case a.searchQuery != "":
-		rows = append(rows, heading("Search results"))
-		found := 0
-		for i := range catalog.Options {
-			o := &catalog.Options[i]
-			if (!a.changedOnly || a.isSet(o)) && (strings.Contains(strings.ToLower(o.Name), a.searchQuery) ||
-				strings.Contains(strings.ToLower(o.Doc), a.searchQuery)) {
-				rows = append(rows, a.makeRow(o))
-				found++
-			}
-		}
-		if found == 0 {
-			rows = append(rows, emptyHint("Nothing matches “"+a.searchQuery+"”. Try a shorter query."))
 		}
 	default:
 		rows = append(rows, heading(a.currentCat))
@@ -623,74 +997,103 @@ func (a *appState) validateAll() error {
 	return errors.Join(errs...)
 }
 
-// save validates, backs up an unowned config once, runs WezTerm pre-save check, writes state + Lua.
-// Returns true when saved.
-func (a *appState) save() bool {
+// save runs the save pipeline; see saveThen.
+func (a *appState) save() { a.saveThen(nil) }
+
+// saveThen validates, emits, then walks the user through the checks that can
+// stop a save: WezTerm's own config check, key-binding conflicts, the diff
+// review, and the one-time "replace a foreign wezterm.lua" prompt. Each of
+// those may ask asynchronously, so done (may be nil) runs only after the
+// files were written.
+func (a *appState) saveThen(done func()) {
 	if err := a.validateAll(); err != nil {
 		dialog.ShowError(err, a.win)
-		return false
+		return
 	}
-	a.wroteOK = false
-
 	out, err := luagen.Emit(a.st)
 	if err != nil {
 		dialog.ShowError(err, a.win)
-		return false
+		return
+	}
+	confirm := func(title, msg string, next func()) {
+		dialog.ShowConfirm(title, msg, func(ok bool) {
+			if ok {
+				next()
+			}
+		}, a.win)
 	}
 
-	proceedWithBackupAndWrite := func() {
+	write := func() {
+		a.writeFiles(out)
+		if a.wroteOK && done != nil {
+			done()
+		}
+	}
+	ownership := func() {
 		exists, owned, err := state.Owned(a.paths.Config)
 		if err != nil {
 			dialog.ShowError(err, a.win)
 			return
 		}
 		if exists && !owned && !a.savedFirst {
-			dialog.ShowConfirm("Replace existing wezterm.lua?",
+			confirm("Replace existing wezterm.lua?",
 				fmt.Sprintf("%s was not generated by this app. It will be backed up to %s.bak-<timestamp> and replaced. Continue?", a.paths.Config, a.paths.Config),
-				func(ok bool) {
-					if !ok {
-						return
-					}
+				func() {
 					if _, err := state.BackupUnowned(a.paths.Config); err != nil {
 						dialog.ShowError(err, a.win)
 						return
 					}
 					a.savedFirst = true
-					a.writeFiles(out)
-				}, a.win)
+					write()
+				})
 			return
 		}
-		a.writeFiles(out)
+		write()
+	}
+	review := func() { a.reviewChanges(out, ownership) }
+	conflicts := func() {
+		if c := lint.KeyConflicts(a.st); len(c) > 0 {
+			confirm("Key binding conflicts", strings.Join(c, "\n")+"\n\nSave anyway?", review)
+			return
+		}
+		review()
 	}
 
-	// F1: Pre-save check with WezTerm if binary is available
 	if a.wezterm != "" {
-		tmpFile, err := os.CreateTemp("", "wezterm-check-*.lua")
-		if err == nil {
+		if tmpFile, err := os.CreateTemp("", "wezterm-check-*.lua"); err == nil {
 			tmpPath := tmpFile.Name()
 			_, _ = tmpFile.WriteString(out)
 			_ = tmpFile.Close()
 			defer os.Remove(tmpPath)
 
-			ok, checkOut, _ := wezcli.Check(a.wezterm, tmpPath)
-			if !ok {
-				msg := fmt.Sprintf("WezTerm reported configuration errors:\n\n%s\nSave anyway?", strings.TrimSpace(checkOut))
-				dialog.ShowConfirm("Configuration Check Failed", msg, func(proceed bool) {
-					if proceed {
-						proceedWithBackupAndWrite()
-					}
-				}, a.win)
-				return false
+			if ok, checkOut, _ := wezcli.Check(a.wezterm, tmpPath); !ok {
+				confirm("Configuration Check Failed",
+					fmt.Sprintf("WezTerm reported configuration errors:\n\n%s\nSave anyway?", strings.TrimSpace(checkOut)),
+					conflicts)
+				return
 			}
 		}
 	}
+	conflicts()
+}
 
-	proceedWithBackupAndWrite()
-	return a.wroteOK
+// showReview shows what saving would change without saving.
+func (a *appState) showReview() {
+	out, err := luagen.Emit(a.st)
+	if err != nil {
+		dialog.ShowError(err, a.win)
+		return
+	}
+	a.reviewChanges(out, nil)
 }
 
 func (a *appState) writeFiles(out string) {
 	a.wroteOK = false
+	// Keep the previous version (last state.KeepBackups) before overwriting it.
+	if _, err := state.Backup(a.paths); err != nil {
+		dialog.ShowError(fmt.Errorf("backing up the current config failed, nothing was saved: %w", err), a.win)
+		return
+	}
 	if err := a.st.Save(a.paths.State); err != nil {
 		dialog.ShowError(fmt.Errorf("saving state: %w", err), a.win)
 		return
@@ -704,6 +1107,7 @@ func (a *appState) writeFiles(out string) {
 	a.refreshNav()
 	a.dirty = false
 	a.wroteOK = true
+	a.setTitle()
 }
 func (a *appState) previewLua() {
 	out, err := luagen.Emit(a.st)
@@ -746,8 +1150,7 @@ func (a *appState) checkWithWezterm() {
 			if !ok {
 				return
 			}
-			a.save()
-			a.runCheck()
+			a.saveThen(a.runCheck)
 		}, a.win)
 		return
 	}
@@ -836,8 +1239,7 @@ func (a *appState) openFile() {
 			a.target = a.st.TargetOS
 		}
 		a.dirty = false
-		a.rebuildPage()
-		a.refreshNav()
+		a.stateReplaced()
 	}, a.win)
 	d.Show()
 }
